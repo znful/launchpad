@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  get "search/index"
+  get "search/show"
+  get "search/new"
+  resources :offers
   resource :session
   resources :passwords, param: :token
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
@@ -12,5 +16,5 @@ Rails.application.routes.draw do
   # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
 
   # Defines the root path route ("/")
-  # root "posts#index"
+  root "search#index"
 end

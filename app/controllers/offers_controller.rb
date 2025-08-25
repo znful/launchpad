@@ -4,7 +4,7 @@ class OffersController < ApplicationController
 
   # GET /offers or /offers.json
   def index
-    @pagy, @offers = pagy(Offer.all, limit: @limit, order: @sort)
+    @pagy, @offers = pagy(Offer.near(@location, @range, units: @unit).order(@sort), limit: @limit)
   end
 
   # GET /offers/1 or /offers/1.json
@@ -72,5 +72,18 @@ class OffersController < ApplicationController
     def set_filters
       @limit = params[:limit] || 10
       @sort = params[:sort] || "created_at desc"
+      @location = params[:location]
+      @range = params[:range] || 100
+      @unit = params[:unit] || "km"
+
+      if @location.blank?
+        if request.location.city.present? && not request.location.city.blank?
+          @location = request.location.city + ", " + request.location.country
+        else
+          @location = "Paris, France"
+        end
+      end
+
+      puts "Location: #{@location}"
     end
 end

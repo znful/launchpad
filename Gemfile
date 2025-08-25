@@ -63,3 +63,6 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
+
+gem "pagy", "~> 9.4"
+gem "geocoder", "~> 1.8"

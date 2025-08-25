@@ -1,9 +1,10 @@
 class OffersController < ApplicationController
   before_action :set_offer, only: %i[ show edit update destroy ]
+  before_action :set_filters, only: %i[ index ]
 
   # GET /offers or /offers.json
   def index
-    @offers = Offer.all
+    @pagy, @offers = pagy(Offer.all, limit: @limit, order: @sort)
   end
 
   # GET /offers/1 or /offers/1.json
@@ -66,5 +67,10 @@ class OffersController < ApplicationController
     # Only allow a list of trusted parameters through.
     def offer_params
       params.expect(offer: [ :title, :description, :city, :country ])
+    end
+
+    def set_filters
+      @limit = params[:limit] || 10
+      @sort = params[:sort] || "created_at desc"
     end
 end

@@ -1,7 +1,4 @@
 Rails.application.routes.draw do
-  get "search/index"
-  get "search/show"
-  get "search/new"
   resources :offers
   resource :session
   resources :passwords, param: :token

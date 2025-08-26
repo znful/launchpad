@@ -1,6 +1,7 @@
 class OffersController < ApplicationController
   before_action :set_offer, only: %i[ show edit update destroy ]
   before_action :set_filters, only: %i[ index ]
+  allow_unauthenticated_access only: %i[ index show ]
 
   # GET /offers or /offers.json
   def index

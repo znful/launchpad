@@ -3,6 +3,7 @@ require "test_helper"
 class OffersControllerTest < ActionDispatch::IntegrationTest
   setup do
     @offer = offers(:one)
+    sign_in users(:one)
   end
 
   test "should get index" do
@@ -44,5 +45,9 @@ class OffersControllerTest < ActionDispatch::IntegrationTest
     end
 
     assert_redirected_to offers_url
+  end
+
+  teardown do
+    sign_out
   end
 end

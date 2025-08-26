@@ -1,0 +1,76 @@
+<div class="flex items-center justify-center p-4 h-screen">
+  <div class="bg-white rounded-2xl shadow-xl p-8 md:p-12 w-full max-w-4xl text-center my-auto">
+    <!-- App Branding Section -->
+    <div class="flex flex-col items-center justify-center mb-8">
+      <!-- Rocket SVG Logo -->
+      <div class="mb-4">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-16 h-16 text-blue-600">
+          <path d="M11.25 1.5c-.868-.344-1.782-.475-2.707-.475-.38 0-.756.036-1.13.108V.992c0-.501.524-.827.94-.582 2.453 1.4 4.568 2.915 6.417 4.542.92.839 1.737 1.83 2.408 2.935a6.002 6.002 0 0 0 3.966-5.835 1.5 1.5 0 0 1-.295-.316 1.5 1.5 0 0 1 .19-.942 1.5 1.5 0 0 1 .494-.418c.257-.145.541-.24.832-.284V2.25c-.291.044-.575.139-.832.284a1.5 1.5 0 0 1-.494.418c-.147.085-.285.197-.406.326a.782.782 0 0 0-.206.323 6.003 6.003 0 0 0-4.526 5.372c-.143.61-.258 1.23-.343 1.868L12 18.293V10.25a.75.75 0 0 0-1.5 0v8.043l-1.006-.211a30.046 30.046 0 0 1-4.22-.848V1.5h8.22zM12 2.25a.75.75 0 0 0-1.5 0v.548a.75.75 0 0 0 1.5 0V2.25zm-.25 15.19l-.53-.111a18.3 18.3 0 0 0-2.287-.48l-.053-.01.53-.111a18.3 18.3 0 0 0 2.288.48l.052.01zM7.5 16.5V1.5h-.006a30.07 30.07 0 0 1-2.927.466 1.5 1.5 0 0 0-.582-.416V.992c0-.501.524-.827.94-.582 2.453 1.4 4.568 2.915 6.417 4.542.92.839 1.737 1.83 2.408 2.935a6.002 6.002 0 0 0 3.966-5.835 1.5 1.5 0 0 1-.295-.316 1.5 1.5 0 0 1 .19-.942 1.5 1.5 0 0 1 .494-.418c.257-.145.541-.24.832-.284V2.25c-.291.044-.575.139-.832.284a1.5 1.5 0 0 1-.494.418c-.147.085-.285.197-.406.326a.782.782 0 0 0-.206.323 6.003 6.003 0 0 0-4.526 5.372c-.143.61-.258 1.23-.343 1.868L12 18.293V10.25a.75.75 0 0 0-1.5 0v8.043l-1.006-.211a30.046 30.046 0 0 1-4.22-.848V1.5z" />
+        </svg>
+      </div>
+      <h1 class="text-4xl md:text-5xl font-extrabold text-gray-900 mb-2 tracking-tight">
+        Launchpad
+      </h1>
+    </div>
+    <!-- Search Bar CTA Section -->
+    <main class="space-y-6">
+      <h2 class="text-2xl md:text-3xl font-bold text-gray-800 mb-4">
+        Launch Your Career
+      </h2>
+      <p class="text-lg md:text-xl text-gray-600 mb-8">
+      Your future starts here. Discover junior, internship, and apprenticeship roles.
+      </p>
+      <%# The form action will be replaced with a Rails route helper like `jobs_path` %>
+      <form action="#" method="get" class="flex flex-col sm:flex-row gap-4">
+        <input
+        type="search"
+        name="q" <%# A Rails convention to use 'q' for query %>
+        placeholder="Search for a role or company..."
+        class="flex-grow w-full py-3 px-6 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300 ease-in-out text-gray-700"
+        aria-label="Search for jobs"
+        >
+        <button
+          type="submit"
+          class="w-full sm:w-auto bg-blue-600 text-white font-semibold py-3 px-8 rounded-xl hover:bg-blue-700 transition duration-300 ease-in-out transform hover:scale-105 shadow-lg"
+          >
+          Search
+        </button>
+      </form>
+      <!-- Popular Searches Section -->
+      <div class="mt-8 text-gray-500 text-sm md:text-base">
+        <p>Popular searches:</p>
+        <div class="flex flex-wrap justify-center mt-2 gap-2">
+          <%# In a real Rails app, you might loop through a collection of popular searches %>
+          <%# @popular_searches.each do |search| %>
+            <%#   <span class="bg-gray-200 text-gray-700 px-3 py-1 rounded-full text-xs hover:bg-gray-300 transition-colors cursor-pointer"><%= link_to search.name, jobs_path(q: search.name) %>
+              <%# end %>
+              <span class="bg-gray-200 text-gray-700 px-3 py-1 rounded-full text-xs hover:bg-gray-300 transition-colors cursor-pointer">Web Developer Intern</span>
+              <span class="bg-gray-200 text-gray-700 px-3 py-1 rounded-full text-xs hover:bg-gray-300 transition-colors cursor-pointer">Marketing Apprentice</span>
+              <span class="bg-gray-200 text-gray-700 px-3 py-1 rounded-full text-xs hover:bg-gray-300 transition-colors cursor-pointer">Data Analyst Junior</span>
+              <span class="bg-gray-200 text-gray-700 px-3 py-1 rounded-full text-xs hover:bg-gray-300 transition-colors cursor-pointer">UX Designer Internship</span>
+        </div>
+      </div>
+
+      <div>
+        <%= search_form_for @q, url: offers_path do |f| %>
+
+          <%= f.label :title_cont %>
+          <%= f.search_field :title_cont %>
+
+          <%= f.submit %>
+
+        <% end %>
+      </div>
+
+      <div>
+        <% if @offers %>
+          <ul>
+            <% @offers.each do |offer| %>
+              <li><%= offer.title %></li>
+            <% end %>
+          </ul>
+        <% end %>
+      </div>
+    </main>
+  </div>
+</div>

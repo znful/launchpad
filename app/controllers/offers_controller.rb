@@ -1,10 +1,12 @@
 class OffersController < ApplicationController
   before_action :set_offer, only: %i[ show edit update destroy ]
+  before_action :set_filters, only: %i[ index ]
   allow_unauthenticated_access only: %i[ index show ]
 
   # GET /offers or /offers.json
   def index
-    @offers = Offer.all
+    @q = Offer.ransack(params[:q])
+    @pagy, @offers = pagy(@q.result.near(@location, @range, units: @unit).order(@sort), limit: @limit)
   end
 
   # GET /offers/1 or /offers/1.json
@@ -67,5 +69,21 @@ class OffersController < ApplicationController
     # Only allow a list of trusted parameters through.
     def offer_params
       params.expect(offer: [ :company_name, :title, :description, :city, :country, :apply_link, :contract_type, :job_type, :latitude, :longitude, :user_id ])
+    end
+
+    def set_filters
+      @limit = params[:limit] || 10
+      @sort = params[:sort] || "created_at desc"
+      @location = params[:location]
+      @range = params[:range] || 100
+      @unit = params[:unit] || "km"
+
+      if @location.blank?
+        if request.location.city.present? && !request.location.city.blank?
+          @location = request.location.city + ", " + request.location.country
+        else
+          @location = "Paris, France"
+        end
+      end
     end
 end

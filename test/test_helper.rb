@@ -11,7 +11,7 @@ module ActiveSupport
     fixtures :all
 
     # Add more helper methods to be used by all tests here...
-    def sign_in(user)
+    def sign_in_as(user)
       Current.session = user.sessions.create!
 
       ActionDispatch::TestRequest.create.cookie_jar.tap do |cookie_jar|

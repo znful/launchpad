@@ -23,7 +23,7 @@
 
   <div class="my-5">
     <%= form.label :description %>
-    <%= form.textarea :description, rows: 4, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": offer.errors[:description].none?, "border-red-400 focus:outline-red-600": offer.errors[:description].any?}] %>
+    <%= form.rich_text_area :description, rows: 4, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": offer.errors[:description].none?, "border-red-400 focus:outline-red-600": offer.errors[:description].any?}] %>
   </div>
 
   <div class="my-5">
@@ -43,12 +43,12 @@
 
   <div class="my-5">
     <%= form.label :contract_type %>
-    <%= form.number_field :contract_type, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": offer.errors[:contract_type].none?, "border-red-400 focus:outline-red-600": offer.errors[:contract_type].any?}] %>
+    <%= form.select :contract_type, Offer.contract_types.keys, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": offer.errors[:contract_type].none?, "border-red-400 focus:outline-red-600": offer.errors[:contract_type].any?}] %>
   </div>
 
   <div class="my-5">
     <%= form.label :job_type %>
-    <%= form.number_field :job_type, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": offer.errors[:job_type].none?, "border-red-400 focus:outline-red-600": offer.errors[:job_type].any?}] %>
+    <%= form.select :job_type, Offer.job_types.keys, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": offer.errors[:job_type].none?, "border-red-400 focus:outline-red-600": offer.errors[:job_type].any?}] %>
   </div>
 
   <div class="my-5">

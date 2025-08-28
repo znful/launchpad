@@ -1,6 +1,6 @@
 class OffersController < ApplicationController
   before_action :set_offer, only: %i[ show edit update destroy ]
-  before_action :set_filters, only: %i[ index ]
+  before_action :set_filters, only: %i[ index manage ]
   allow_unauthenticated_access only: %i[ index show ]
   include Pagy::Backend
 
@@ -63,6 +63,11 @@ class OffersController < ApplicationController
     end
   end
 
+  def manage
+    @q = Offer.ransack(params[:q]).result.where(user: Current.user).order(@sort)
+    @pagy, @offers = pagy(@q, limit: @limit)
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_offer
@@ -72,7 +77,7 @@ class OffersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def offer_params
-      params.expect(offer: [ :company_name, :title, :description, :city, :country, :apply_link, :contract_type, :job_type, :latitude, :longitude, :user_id ])
+      params.expect(offer: [ :company_name, :title, :description, :city, :country, :apply_link, :contract_type, :job_type, :user_id ])
     end
 
     def set_filters

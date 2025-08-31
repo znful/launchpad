@@ -26,19 +26,33 @@
           aria: { label: "Search for jobs" }
         %>
 
-        <% Offer.contract_types.each do |key, value| %>
-          <label>
-            <%= f.check_box :contract_type_in, { multiple: true }, value, nil %>
-            <%= key.titleize %>
-          </label>
-        <% end %>
+        <div class="flex flex-wrap gap-2">
+          <% Offer.contract_types.each do |key, value| %>
+            <label class="cursor-pointer">
+              <%= f.check_box :contract_type_in,
+              { multiple: true, class: "peer hidden" },
+              value,
+              nil %>
+              <span class="px-4 py-2 rounded-lg border border-gray-300 text-gray-700 peer-checked:bg-blue-600 peer-checked:text-white peer-checked:border-blue-600 transition duration-200">
+                <%= key.titleize %>
+              </span>
+            </label>
+          <% end %>
+        </div>
 
-        <% Offer.job_types.each do |key, value| %>
-          <label>
-            <%= f.check_box :job_type_in, { multiple: true }, value, nil %>
-            <%= key.titleize %>
-          </label>
-        <% end %>
+        <div class="flex flex-wrap gap-2">
+          <% Offer.job_types.each do |key, value| %>
+            <label class="cursor-pointer">
+              <%= f.check_box :job_type_in,
+              { multiple: true, class: "peer hidden" },
+              value,
+              nil %>
+              <span class="px-4 py-2 rounded-lg border border-gray-300 text-gray-700 peer-checked:bg-blue-600 peer-checked:text-white peer-checked:border-blue-600 transition duration-200">
+                <%= key.titleize %>
+              </span>
+            </label>
+          <% end %>
+        </div>
 
         <%= f.submit "Search",
           class: "w-full sm:w-auto bg-blue-600 text-white font-semibold py-3 px-8 rounded-xl hover:bg-blue-700 transition duration-300 ease-in-out transform hover:scale-105 shadow-lg"

@@ -6,6 +6,6 @@ class DashboardController < ApplicationController
 
   private
   def set_offers
-    @offers = Current.user.offers
+    @pagy, @offers = pagy(Current.user.offers)
   end
 end

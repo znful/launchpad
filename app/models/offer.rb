@@ -17,6 +17,10 @@ class Offer < ApplicationRecord
   end
 
   def self.ransackable_attributes(auth_object = nil)
-    %w[ company_name description job_type title address ]
+    %w[ company_name description job_type title city country contract_type ]
+  end
+
+  def self.ransackable_associations(auth_object = nil)
+    %w[]
   end
 end

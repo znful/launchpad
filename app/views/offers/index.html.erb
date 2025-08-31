@@ -14,11 +14,45 @@
     <div>
       <%= search_form_for @q, url: offers_path, html: { class: "flex flex-col sm:flex-row gap-4" } do |f| %>
 
-        <%= f.search_field :title_cont,
+        <%= f.search_field :title_or_company_name_cont,
           placeholder: "Search for a role or company...",
           class: "flex-grow w-full py-3 px-6 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300 ease-in-out text-gray-700",
           aria: { label: "Search for jobs" }
         %>
+
+        <%= f.search_field :city_or_country_cont,
+          placeholder: "Search for a country or city...",
+          class: "flex-grow w-full py-3 px-6 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300 ease-in-out text-gray-700",
+          aria: { label: "Search for jobs" }
+        %>
+
+        <div class="flex flex-wrap gap-2">
+          <% Offer.contract_types.each do |key, value| %>
+            <label class="cursor-pointer">
+              <%= f.check_box :contract_type_in,
+              { multiple: true, class: "peer hidden" },
+              value,
+              nil %>
+              <span class="px-4 py-2 rounded-lg border border-gray-300 text-gray-700 peer-checked:bg-blue-600 peer-checked:text-white peer-checked:border-blue-600 transition duration-200">
+                <%= key.titleize %>
+              </span>
+            </label>
+          <% end %>
+        </div>
+
+        <div class="flex flex-wrap gap-2">
+          <% Offer.job_types.each do |key, value| %>
+            <label class="cursor-pointer">
+              <%= f.check_box :job_type_in,
+              { multiple: true, class: "peer hidden" },
+              value,
+              nil %>
+              <span class="px-4 py-2 rounded-lg border border-gray-300 text-gray-700 peer-checked:bg-blue-600 peer-checked:text-white peer-checked:border-blue-600 transition duration-200">
+                <%= key.titleize %>
+              </span>
+            </label>
+          <% end %>
+        </div>
 
         <%= f.submit "Search",
           class: "w-full sm:w-auto bg-blue-600 text-white font-semibold py-3 px-8 rounded-xl hover:bg-blue-700 transition duration-300 ease-in-out transform hover:scale-105 shadow-lg"

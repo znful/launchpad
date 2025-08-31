@@ -73,7 +73,7 @@ class OffersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def offer_params
-      params.expect(offer: [ :company_name, :title, :description, :city, :country, :apply_link, :contract_type, :job_type, :user_id ])
+      params.expect(offer: [ :company_name, :title, :description, :contract_type, :job_type ])
     end
 
     def set_filters

@@ -1,61 +1,83 @@
-<div class="flex items-center justify-center p-4 h-screen">
-  <div class="bg-white rounded-2xl shadow-xl p-8 md:p-12 w-full max-w-4xl text-center my-auto">
-    <!-- App Branding Section -->
-    <div class="flex flex-col items-center justify-center mb-8">
-      <!-- Rocket SVG Logo -->
-      <div class="mb-4">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-16 h-16 text-blue-600">
-          <path d="M11.25 1.5c-.868-.344-1.782-.475-2.707-.475-.38 0-.756.036-1.13.108V.992c0-.501.524-.827.94-.582 2.453 1.4 4.568 2.915 6.417 4.542.92.839 1.737 1.83 2.408 2.935a6.002 6.002 0 0 0 3.966-5.835 1.5 1.5 0 0 1-.295-.316 1.5 1.5 0 0 1 .19-.942 1.5 1.5 0 0 1 .494-.418c.257-.145.541-.24.832-.284V2.25c-.291.044-.575.139-.832.284a1.5 1.5 0 0 1-.494.418c-.147.085-.285.197-.406.326a.782.782 0 0 0-.206.323 6.003 6.003 0 0 0-4.526 5.372c-.143.61-.258 1.23-.343 1.868L12 18.293V10.25a.75.75 0 0 0-1.5 0v8.043l-1.006-.211a30.046 30.046 0 0 1-4.22-.848V1.5h8.22zM12 2.25a.75.75 0 0 0-1.5 0v.548a.75.75 0 0 0 1.5 0V2.25zm-.25 15.19l-.53-.111a18.3 18.3 0 0 0-2.287-.48l-.053-.01.53-.111a18.3 18.3 0 0 0 2.288.48l.052.01zM7.5 16.5V1.5h-.006a30.07 30.07 0 0 1-2.927.466 1.5 1.5 0 0 0-.582-.416V.992c0-.501.524-.827.94-.582 2.453 1.4 4.568 2.915 6.417 4.542.92.839 1.737 1.83 2.408 2.935a6.002 6.002 0 0 0 3.966-5.835 1.5 1.5 0 0 1-.295-.316 1.5 1.5 0 0 1 .19-.942 1.5 1.5 0 0 1 .494-.418c.257-.145.541-.24.832-.284V2.25c-.291.044-.575.139-.832.284a1.5 1.5 0 0 1-.494.418c-.147.085-.285.197-.406.326a.782.782 0 0 0-.206.323 6.003 6.003 0 0 0-4.526 5.372c-.143.61-.258 1.23-.343 1.868L12 18.293V10.25a.75.75 0 0 0-1.5 0v8.043l-1.006-.211a30.046 30.046 0 0 1-4.22-.848V1.5z" />
-        </svg>
-      </div>
-      <h1 class="text-4xl md:text-5xl font-extrabold text-gray-900 mb-2 tracking-tight">
-        Launchpad
+<section class="bg-white text-slate-950 leading-relaxed antialiased"
+  <!-- Hero Section -->
+  <header class="relative overflow-hidden pt-16 pb-32 md:pt-24 lg:pt-40">
+    <div class="container mx-auto px-4 relative z-10 text-center">
+      <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold max-w-4xl mx-auto mb-6 bg-gradient-to-r from-purple-400 via-pink-500 to-yellow-400 text-transparent bg-clip-text">
+        Your first step into the working world.
       </h1>
-    </div>
-    <!-- Search Bar CTA Section -->
-    <main class="space-y-6">
-      <h2 class="text-2xl md:text-3xl font-bold text-gray-800 mb-4">
-        Launch Your Career
-      </h2>
-      <p class="text-lg md:text-xl text-gray-600 mb-8">
-      Your future starts here. Discover junior, internship, and apprenticeship roles.
+      <p class="text-lg sm:text-xl md:text-2xl text-slate-600 max-w-3xl mx-auto mb-10">
+      Launchpad is where you find junior roles, apprenticeships, and internships without getting lost in jobs that require 10 years of experience.
       </p>
-<%= search_form_for @q, url: offers_path, html: { class: "flex flex-col sm:flex-row gap-4" } do |f| %>
+      <div >
+        <%= search_form_for @q, url: offers_path, html: { class: "flex flex-col sm:flex-row" } do |f| %>
+          <%= f.search_field :title_cont,
+            placeholder: "Search for a role or company...",
+            class: "flex-grow w-full py-3 px-6 rounded-l-full bg-white border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300 ease-in-out text-gray-700",
+            aria: { label: "Search for jobs" }
+          %>
 
-        <%= f.search_field :title_or_company_name_cont,
-          placeholder: "Search for a role or company...",
-          class: "flex-grow w-full py-3 px-6 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300 ease-in-out text-gray-700",
-          aria: { label: "Search for jobs" }
-        %>
+          <input type="text" 
+          placeholder="Location" 
+          name="location"
+          class="flex-grow w-full py-3 px-6 bg-white border border-gray-300 
+          focus:outline-none focus:ring-2 focus:ring-blue-500 
+          focus:border-transparent transition duration-300 ease-in-out text-gray-700" 
+          aria-label="Location"
+          >
 
-        <%= f.submit "Search",
-          class: "w-full sm:w-auto bg-blue-600 text-white font-semibold py-3 px-8 rounded-xl hover:bg-blue-700 transition duration-300 ease-in-out transform hover:scale-105 shadow-lg"
-        %>
-      <% end %>
-      <!-- Popular Searches Section -->
-      <div class="mt-8 text-gray-500 text-sm md:text-base">
-        <p>Popular searches:</p>
-        <div class="flex flex-wrap justify-center mt-2 gap-2">
-          <%# In a real Rails app, you might loop through a collection of popular searches %>
-          <%# @popular_searches.each do |search| %>
-            <%#   <span class="bg-gray-200 text-gray-700 px-3 py-1 rounded-full text-xs hover:bg-gray-300 transition-colors cursor-pointer"><%= link_to search.name, jobs_path(q: search.name) %>
-              <%# end %>
-              <span class="bg-gray-200 text-gray-700 px-3 py-1 rounded-full text-xs hover:bg-gray-300 transition-colors cursor-pointer">Web Developer Intern</span>
-              <span class="bg-gray-200 text-gray-700 px-3 py-1 rounded-full text-xs hover:bg-gray-300 transition-colors cursor-pointer">Marketing Apprentice</span>
-              <span class="bg-gray-200 text-gray-700 px-3 py-1 rounded-full text-xs hover:bg-gray-300 transition-colors cursor-pointer">Data Analyst Junior</span>
-              <span class="bg-gray-200 text-gray-700 px-3 py-1 rounded-full text-xs hover:bg-gray-300 transition-colors cursor-pointer">UX Designer Internship</span>
-        </div>
-      </div>
-
-      <div>
-        <% if @offers %>
-          <ul>
-            <% @offers.each do |offer| %>
-              <li><%= offer.title %></li>
-            <% end %>
-          </ul>
+          <%= f.submit "Search",
+            class: "inline-block bg-purple-600 text-white font-semibold py-4 px-8 rounded-r-full shadow-lg hover:bg-purple-500 transition-colors duration-300 cursor-pointer"
+          %>
         <% end %>
       </div>
-    </main>
-  </div>
-</div>
+    </div>
+    <div class="absolute inset-0 z-0">
+      <!-- A simple, Hey.com-style visual element -->
+      <div class="absolute inset-0 bg-gradient-to-tr from-purple-100 to-white opacity-50"></div>
+      <div class="absolute -top-16 -left-16 w-80 h-80 bg-pink-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
+      <div class="absolute top-0 right-0 w-80 h-80 bg-yellow-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
+      <div class="absolute bottom-16 left-1/4 w-80 h-80 bg-purple-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-4000"></div>
+    </div>
+  </header>
+  <!-- Features Section -->
+  <section class="py-20 md:py-32">
+    <div class="container mx-auto px-4 max-w-6xl">
+      <h2 class="text-3xl md:text-4xl font-bold text-center mb-16 sm:mb-20">Cut the noise. Find your fit.</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-12 text-center">
+        <div class="bg-slate-100 rounded-3xl p-8 flex flex-col items-center">
+          <div class="mb-6">
+            <svg class="w-16 h-16 text-pink-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.824 5.925 9.176 5.925 8 6.253v13m4-13c1.176 0 2.324.325 3.5.747v13m-4-13h-.5a2 2 0 00-2 2v6a2 2 0 002 2h.5m-4 0h-.5a2 2 0 01-2-2v-6a2 2 0 012-2h.5m8 8h.5a2 2 0 002-2v-6a2 2 0 00-2-2h-.5m-4 0h-.5a2 2 0 01-2 2v6a2 2 0 012 2h.5" />
+            </svg>
+          </div>
+          <h3 class="text-2xl font-semibold text-slate-950 mb-4">No Experience Needed</h3>
+          <p class="text-slate-600">
+          Every single role on Launchpad is for newcomers. No "junior" role with a 5-year experience requirement here.
+          </p>
+        </div>
+        <div class="bg-slate-100 rounded-3xl p-8 flex flex-col items-center">
+          <div class="mb-6">
+            <svg class="w-16 h-16 text-yellow-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m-5 4H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+            </svg>
+          </div>
+          <h3 class="text-2xl font-semibold text-slate-950 mb-4">Curated & Verified</h3>
+          <p class="text-slate-600">
+          We hand-pick every posting. If it's on Launchpad, it's a real, vetted opportunity for you to grow.
+          </p>
+        </div>
+        <div class="bg-slate-100 rounded-3xl p-8 flex flex-col items-center">
+          <div class="mb-6">
+            <svg class="w-16 h-16 text-purple-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l-4 4m0 0l-4-4m4 4v12m-6-12H6a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2v-10a2 2 0 00-2-2h-1.5" />
+            </svg>
+          </div>
+          <h3 class="text-2xl font-semibold text-slate-950 mb-4">Launch Your Career</h3>
+          <p class="text-slate-600">
+          Our simple application process lets you apply directly to your dream job and start building your future.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+</section>

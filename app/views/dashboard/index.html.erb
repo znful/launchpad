@@ -73,7 +73,7 @@ body {
     </nav>
   </div>
   <div class="p-4 border-t border-hey-gray mt-6 text-sm text-center text-gray-500">
-    <p>&copy; 2025 Launchpad</p>
+    <p>Launchpad</p>
   </div>
 </aside>
 
@@ -89,18 +89,20 @@ body {
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             <!-- Job Offer Card - Active -->
+            <% for offer in @offers %>
             <div class="card">
                 <div class="flex justify-between items-start mb-4">
-                    <h2 class="text-xl font-bold text-gray-800">Junior Front-end Developer</h2>
+                    <h2 class="text-xl font-bold text-gray-800"><%= offer.title %></h2>
                     <span class="bg-hey-green-light text-hey-green font-semibold text-xs px-3 py-1 rounded-full">Active</span>
                 </div>
-                <p class="text-sm text-gray-600 mb-2">Company: Web Innovations Inc.</p>
-                <p class="text-sm text-gray-600 mb-4">Type: Internship</p>
+                <p class="text-sm text-gray-600 mb-2">Company: <%= offer.company_name %></p>
+                <p class="text-sm text-gray-600 mb-4">Type: <%= offer.job_type.capitalize %></p>
                 <div class="flex justify-end space-x-2 mt-4">
-                    <button class="btn-secondary text-sm">Edit</button>
-                    <button class="btn-secondary text-sm">Delete</button>
+                    <%= button_to 'Edit', edit_offer_path(offer), method: :get, class: 'btn-secondary text-sm' %>
+                    <%= button_to 'Delete', offer_path(offer), method: :delete, form: { data: { turbo_confirm: 'Are you sure?' } }, class: 'btn-secondary text-sm' %>
                 </div>
             </div>
+        <% end %>
 
             <!-- Job Offer Card - Draft -->
             <div class="card">

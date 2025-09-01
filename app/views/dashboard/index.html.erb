@@ -71,8 +71,8 @@ body {
                     <p class="text-sm text-gray-600 mb-2">Company: <%= offer.company_name %></p>
                     <p class="text-sm text-gray-600 mb-4">Type: <%= offer.job_type.capitalize %></p>
                     <div class="flex justify-end space-x-2 mt-4">
-                        <%= button_to 'Edit', edit_offer_path(offer), method: :get, class: 'btn-secondary text-sm' %>
-                        <%= button_to 'Delete', offer_path(offer), method: :delete, form: { data: { turbo_confirm: 'Are you sure?' } }, class: 'btn-secondary text-sm' %>
+                        <%= button_to 'Edit', edit_offer_path(offer), method: :get, class: 'btn-secondary text-sm cursor-pointer' %>
+                        <%= button_to 'Delete', offer_path(offer), method: :delete, form: { data: { turbo_confirm: 'Are you sure?' } }, class: 'btn-secondary text-sm cursor-pointer' %>
                     </div>
                 </div>
             <% end %>

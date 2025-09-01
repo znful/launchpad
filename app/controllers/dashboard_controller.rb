@@ -2,7 +2,12 @@ class DashboardController < ApplicationController
   before_action :set_filters, only: [ :index ]
 
   def index
-    @pagy, @offers = pagy(Current.user.offers, limit: @limit)
+    @q = Current.user.offers.ransack(params[:q])
+    if @location.blank?
+      @pagy, @offers = pagy(@q.result.order(@sort), limit: @limit)
+    else
+      @pagy, @offers = pagy(@q.result.near(@location, @range, units: @unit).order(@sort), limit: @limit)
+    end
   end
 
   private
@@ -12,13 +17,5 @@ class DashboardController < ApplicationController
     @location = params[:location]
     @range = params[:range] || 100
     @unit = params[:unit] || "km"
-
-    if @location.blank?
-      if request.location.city.present? && !request.location.city.blank?
-        @location = request.location.city + ", " + request.location.country
-      else
-        @location = "Paris, France"
-      end
-    end
   end
 end

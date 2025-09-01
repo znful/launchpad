@@ -1,93 +1,114 @@
 <% content_for :title, "Offers" %>
 
-<div class="w-full">
-  <% if notice.present? %>
-    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-md inline-block" id="notice"><%= notice %></p>
-  <% end %>
+<body class="bg-slate-t0 text-slate-950 leading-relaxed antialiased">
+  <div class="container mx-auto max-w-7xl px-4 md:px-8 py-6">
+    <% if notice.present? %>
+      <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-md inline-block" id="notice"><%= notice %></p>
+    <% end %>
 
-  <div class="max-w-4xl mx-auto space-y-6">
-    <div class="flex justify-between items-center">
-      <h1 class="font-bold text-4xl">Offers</h1>
-      <%= link_to "New offer", new_offer_path, class: "rounded-md px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white block font-medium" %>
+    <header class="py-6 px-4 md:px-8 bg-white shadow-sm sticky top-0 z-50 mb-6">
+      <div class="container mx-auto max-w-7xl flex justify-between items-center">
+        <%= link_to "Launchpad", root_path, class: "text-3xl font-bold bg-gradient-to-r from-purple-500 via-pink-500 to-yellow-500 text-transparent bg-clip-text" %>
+        <nav>
+          <a href="#" class="text-slate-600 hover:text-slate-950 transition-colors duration-300">About</a>
+          <a href="#" class="ml-4 text-slate-600 hover:text-slate-950 transition-colors duration-300">Contact</a>
+        </nav>
+        <%= link_to "New offer", new_offer_path, class: "rounded-full px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white block font-medium" %>
+      </div>
+    </header>
+
+    <%= search_form_for @q, url: offers_path, html: { class: "flex flex-col sm:flex-row gap-4" } do |f| %>
+
+      <%= f.search_field :title_or_company_name_cont,
+        placeholder: "Search for a role or company...",
+        class: "flex-1 px-5 py-3 rounded-full border border-gray-200 focus:outline-none focus:ring-2 focus:ring-purple-500",
+        aria: { label: "Search for jobs" }
+      %>
+
+      <%= f.search_field :city_or_country_cont,
+        placeholder: "Search for a country or city...",
+        class: "flex-1 px-5 py-3 rounded-full border border-gray-200 focus:outline-none focus:ring-2 focus:ring-purple-500",
+        aria: { label: "Search for jobs" }
+      %>
+
+      <%= render partial: "dropdown", locals: { 
+        title: "Contract Types",
+        form: f,
+        field_name: :contract_type_in,
+        options: Offer.contract_types,
+        button_classes: "w-full sm:w-auto bg-purple-700 text-white font-semibold py-3 px-8 rounded-full hover:bg-purple-600 transition duration-300 ease-in-out transform hover:scale-105 shadow-lg whitespace-nowrap",
+        color_helper: method(:contract_filter_colour)
+      } %>
+
+      <%= render partial: "dropdown", locals: { 
+        title: "Job Types",
+        form: f,
+        field_name: :job_type_in, # Corrected to :job_type_in
+        options: Offer.job_types,
+        button_classes: "w-full sm:w-auto bg-fuchsia-600 text-white font-semibold py-3 px-8 rounded-full hover:bg-pink-500 transition duration-300 ease-in-out transform hover:scale-105 shadow-lg whitespace-nowrap",
+        color_helper: method(:job_filter_colour)
+      } %>
+
+      <%= f.submit "Search",
+        class: "w-full sm:w-auto bg-orange-400 text-white font-semibold py-3 px-8 rounded-full hover:bg-yellow-500 transition duration-300 ease-in-out transform hover:scale-105 shadow-lg"
+      %>
+    <% end %>
+
+    <div class="flex justify-center mt-6 mb-6">
+      <% if @offers.any? %>
+        <%== pagy_info(@pagy) %>
+      <% end %>
     </div>
 
-    <div>
-      <%= search_form_for @q, url: offers_path, html: { class: "flex flex-col sm:flex-row gap-4" } do |f| %>
-
-        <%= f.search_field :title_or_company_name_cont,
-          placeholder: "Search for a role or company...",
-          class: "flex-grow w-full py-3 px-6 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300 ease-in-out text-gray-700",
-          aria: { label: "Search for jobs" }
-        %>
-
-        <%= f.search_field :city_or_country_cont,
-          placeholder: "Search for a country or city...",
-          class: "flex-grow w-full py-3 px-6 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300 ease-in-out text-gray-700",
-          aria: { label: "Search for jobs" }
-        %>
-
-        <div class="flex flex-wrap gap-2">
-          <% Offer.contract_types.each do |key, value| %>
-            <label class="cursor-pointer">
-              <%= f.check_box :contract_type_in,
-              { multiple: true, class: "peer hidden" },
-              value,
-              nil %>
-              <span class="px-4 py-2 rounded-lg border border-gray-300 text-gray-700 peer-checked:bg-blue-600 peer-checked:text-white peer-checked:border-blue-600 transition duration-200">
-                <%= key.titleize %>
-              </span>
-            </label>
-          <% end %>
-        </div>
-
-        <div class="flex flex-wrap gap-2">
-          <% Offer.job_types.each do |key, value| %>
-            <label class="cursor-pointer">
-              <%= f.check_box :job_type_in,
-              { multiple: true, class: "peer hidden" },
-              value,
-              nil %>
-              <span class="px-4 py-2 rounded-lg border border-gray-300 text-gray-700 peer-checked:bg-blue-600 peer-checked:text-white peer-checked:border-blue-600 transition duration-200">
-                <%= key.titleize %>
-              </span>
-            </label>
-          <% end %>
-        </div>
-
-        <%= f.submit "Search",
-          class: "w-full sm:w-auto bg-blue-600 text-white font-semibold py-3 px-8 rounded-xl hover:bg-blue-700 transition duration-300 ease-in-out transform hover:scale-105 shadow-lg"
-        %>
+    <div class="space-y-4">
+      <% if @offers.any? %>
+        <%= render @offers %>
+      <% else %>
+        <p class="text-center my-10">No offers found.</p>
       <% end %>
     </div>
 
     <div class="flex justify-center mt-6 mb-6">
       <% if @offers.any? %>
         <%== pagy_info(@pagy) %>
-        <%== pagy_nav(@pagy) %>
       <% end %>
     </div>
+    <% if @pagy.pages > 1 %>
+      <nav class="flex justify-center my-6">
+        <ul class="inline-flex -space-x-px">
+          <% if @pagy.prev %>
+            <li>
+              <%= link_to 'Prev', pagy_path_for(@pagy.prev), class: "px-3 py-2 ml-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-l-lg hover:bg-gray-100 hover:text-gray-700" %>
+            </li>
+          <% else %>
+            <li>
+              <span class="px-3 py-2 ml-0 leading-tight text-gray-400 bg-gray-200 border border-gray-300 rounded-l-lg cursor-not-allowed">Prev</span>
+            </li>
+          <% end %>
 
-    <div id="offers" class="min-w-full divide-y divide-gray-200 space-y-5">
-      <% if @offers.any? %>
-        <% @offers.each do |offer| %>
-          <div class="flex flex-col sm:flex-row justify-between items-center pb-5 sm:pb-0">
-            <%= render offer %>
-            <div class="w-full sm:w-auto flex flex-col sm:flex-row space-x-2 space-y-2">
-              <%= link_to "Show", offer, class: "w-full sm:w-auto text-center rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
-              <%= link_to "Edit", edit_offer_path(offer), class: "w-full sm:w-auto text-center rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
-              <%= button_to "Destroy", offer, method: :delete, class: "w-full sm:w-auto rounded-md px-3.5 py-2.5 text-white bg-red-600 hover:bg-red-500 font-medium cursor-pointer", data: { turbo_confirm: "Are you sure?" } %>
-            </div>
-          </div>
-        <% end %>
-      <% else %>
-        <p class="text-center my-10">No offers found.</p>
-      <% end %>
-    </div>
-    <div class="flex justify-center mt-6 mb-8">
-      <% if @offers.any? %>
-        <%== pagy_info(@pagy) %>
-        <%== pagy_nav(@pagy) %>
-      <% end %>
-    </div>
+          <% @pagy.series.each do |item| %>
+            <% if item.is_a?(Integer) %>
+              <li>
+                <%= link_to item, pagy_path_for(item), class: "px-3 py-2 leading-tight border border-gray-300 hover:bg-gray-100 hover:text-gray-700 #{'bg-blue-500 text-white' if item == @pagy.page}" %>
+              </li>
+            <% else %>
+              <li>
+                <span class="px-3 py-2 leading-tight text-gray-500 border border-gray-300 bg-white cursor-default"><%= item %></span>
+              </li>
+            <% end %>
+          <% end %>
+
+          <% if @pagy.next %>
+            <li>
+              <%= link_to 'Next', pagy_path_for(@pagy.next), class: "px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-100 hover:text-gray-700" %>
+            </li>
+          <% else %>
+            <li>
+              <span class="px-3 py-2 leading-tight text-gray-400 bg-gray-200 border border-gray-300 rounded-r-lg cursor-not-allowed">Next</span>
+            </li>
+          <% end %>
+        </ul>
+      </nav>
+    <% end %>
   </div>
-</div>
+</body>

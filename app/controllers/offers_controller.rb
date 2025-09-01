@@ -6,7 +6,7 @@ class OffersController < ApplicationController
   # GET /offers or /offers.json
   def index
     @q = Offer.ransack(params[:q])
-    @pagy, @offers = pagy(@q.result, limit: 10, overflow: :last_page)
+    @pagy, @offers = pagy(@q.result, limit: @limit, overflow: :last_page)
     # @pagy, @offers = pagy(@q.result.near(@location, @range, units: @unit).order(@sort), limit: @limit)
   end
 

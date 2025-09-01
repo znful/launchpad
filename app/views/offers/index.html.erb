@@ -6,7 +6,7 @@
       <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-md inline-block" id="notice"><%= notice %></p>
     <% end %>
 
-    <header class="py-6 px-4 md:px-8 bg-white shadow-sm sticky top-0 z-50 mb-6">
+    <header class="py-6 px-4 md:px-8 bg-white shadow-sm sticky top-0 z-50 mb-6 rounded-2xl">
       <div class="container mx-auto max-w-7xl flex justify-between items-center">
         <%= link_to "Launchpad", root_path, class: "text-3xl font-bold bg-gradient-to-r from-purple-500 via-pink-500 to-yellow-500 text-transparent bg-clip-text" %>
         <nav>
@@ -18,7 +18,6 @@
     </header>
 
     <%= search_form_for @q, url: offers_path, html: { class: "flex flex-col sm:flex-row gap-4" } do |f| %>
-
       <%= f.search_field :title_or_company_name_cont,
         placeholder: "Search for a role or company...",
         class: "flex-1 px-5 py-3 rounded-full border border-gray-200 focus:outline-none focus:ring-2 focus:ring-purple-500",
@@ -37,22 +36,27 @@
         field_name: :contract_type_in,
         options: Offer.contract_types,
         button_classes: "w-full sm:w-auto bg-purple-700 text-white font-semibold py-3 px-8 rounded-full hover:bg-purple-600 transition duration-300 ease-in-out transform hover:scale-105 shadow-lg whitespace-nowrap",
-        color_helper: method(:contract_filter_colour)
+        colour_helper: method(:contract_filter_colour)
       } %>
 
       <%= render partial: "dropdown", locals: { 
         title: "Job Types",
         form: f,
-        field_name: :job_type_in, # Corrected to :job_type_in
+        field_name: :job_type_in,
         options: Offer.job_types,
         button_classes: "w-full sm:w-auto bg-fuchsia-600 text-white font-semibold py-3 px-8 rounded-full hover:bg-pink-500 transition duration-300 ease-in-out transform hover:scale-105 shadow-lg whitespace-nowrap",
-        color_helper: method(:job_filter_colour)
+        colour_helper: method(:job_filter_colour)
       } %>
 
       <%= f.submit "Search",
         class: "w-full sm:w-auto bg-orange-400 text-white font-semibold py-3 px-8 rounded-full hover:bg-yellow-500 transition duration-300 ease-in-out transform hover:scale-105 shadow-lg"
       %>
     <% end %>
+
+    <div class="mt-4 flex flex-wrap gap-2">
+        <%= render partial: "filters", locals: { type: :contract_type_in, colour_helper: method(:contract_filter_colour) } %>
+        <%= render partial: "filters", locals: { type: :job_type_in, colour_helper: method(:job_filter_colour) } %>
+    </div>
 
     <div class="flex justify-center mt-6 mb-6">
       <% if @offers.any? %>

@@ -10,14 +10,17 @@
       <% options.each do |key, value| %>
         <label class="cursor-pointer flex items-center px-4 py-2 hover:bg-gray-100">
           <%= form.check_box field_name,
-            { multiple: true, class: "peer hidden" },
+            { multiple: true, class: "peer hidden", data: { action: "change->filter-display#submitForm" } },
             value,
             nil %>
-          <span class="px-3 py-1.5 rounded-full text-sm border border-gray-200 text-gray-600 transition <%= color_helper.call(key) %> whitespace-nowrap">
+          <span class="px-3 py-1.5 rounded-full text-sm border border-gray-200 text-gray-600 transition <%= colour_helper.call(key) %> whitespace-nowrap">
             <%= key.titleize %>
           </span>
         </label>
       <% end %>
     </div>
   </div>
+
 </div>
+
+

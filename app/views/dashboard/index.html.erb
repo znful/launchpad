@@ -13,16 +13,16 @@ body {
         .text-hey-green { color: #62b95b; }
         .border-hey-gray { border-color: #d8d6d4; }
         .btn-primary {
-            background-color: #4c4a47;
-            color: #fff;
-            padding: 0.75rem 1.5rem;
+            background-color: #fc8f6c;
+            color: #4c4a47;
+            border: 1px solid #d8d6d4;
+            padding: 0.5rem 1rem;
             border-radius: 9999px;
-            font-weight: 600;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            font-weight: 500;
             transition: all 0.2s ease;
         }
         .btn-primary:hover {
-            background-color: #383734;
+            background-color: #fca856;
         }
         .btn-secondary {
             background-color: #fff;
@@ -68,8 +68,8 @@ body {
                         <h2 class="text-xl font-bold text-gray-800"><%= offer.title %></h2>
                         <span class="bg-hey-green-light text-hey-green font-semibold text-xs px-3 py-1 rounded-full">Active</span>
                     </div>
-                    <p class="text-sm text-gray-600 mb-2">Company: <%= offer.company_name %></p>
-                    <p class="text-sm text-gray-600 mb-4">Type: <%= offer.job_type.capitalize %></p>
+                    <p class="text-sm text-gray-600 mb-2"><%= offer.company_name %> | <%= offer.job_type %> | <%= offer.contract_type.capitalize %></p>
+                    <p class="text-sm text-gray-600 mb-4"> <%= offer.city %>, <%= offer.country %></p>
                     <div class="flex justify-end space-x-2 mt-4">
                         <%= button_to 'Edit', edit_offer_path(offer), method: :get, class: 'btn-secondary text-sm cursor-pointer' %>
                         <%= button_to 'Delete', offer_path(offer), method: :delete, form: { data: { turbo_confirm: 'Are you sure?' } }, class: 'btn-secondary text-sm cursor-pointer' %>

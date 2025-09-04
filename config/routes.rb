@@ -7,7 +7,9 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :users
+  # User registration and account management
+  get "signup" => "users#new", as: :signup
+  get "signin" => "sessions#new", as: :signin
 
   resource :session
   resources :passwords, param: :token

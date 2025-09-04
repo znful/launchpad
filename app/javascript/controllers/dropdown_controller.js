@@ -1,17 +1,15 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-	static targets = ["menu"]
+	static targets = ["menu", "selectedFilters"]
 
 	toggle() {
-		event.stopPropagation();
-		this.menuTarget.classList.toggle("hidden")
+		this.menuTarget.classList.toggle("hidden");
 	}
 
 	hide(event) {
-		if (this.element.contains(event.target)) {
-			return // Do nothing if the click is inside the dropdown
+		if (!this.element.contains(event.target)) {
+			this.menuTarget.classList.add("hidden");
 		}
-		this.menuTarget.classList.add("hidden")
 	}
 }

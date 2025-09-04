@@ -4,4 +4,7 @@ class User < ApplicationRecord
   has_many :offers, dependent: :destroy
 
   normalizes :email_address, with: ->(e) { e.strip.downcase }
+
+  validates :email_address, presence: true, uniqueness: true, "valid_email_2/email": true
+  validates :password, length: { minimum: 12 }, if: -> { new_record? || !password.nil? }
 end

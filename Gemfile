@@ -69,3 +69,5 @@ gem "geocoder", "~> 1.8"
 gem "ransack", "~> 4.3"
 
 gem "faker", "~> 3.5"
+
+gem "valid_email2", "~> 7.0"

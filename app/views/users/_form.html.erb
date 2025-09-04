@@ -12,24 +12,19 @@
       </div>
     <% end %>
 
-    <div class="field">
-      <%= form.label :username %>
-      <%= form.text_field :username %>
+    <div class="gap-4 mb-4">
+      <%= form.label :email_address %>
+      <%= form.email_field :email_address, class: "block shadow-sm rounded-lg border px-3 py-2 mt-2 w-full" %>
     </div>
 
-    <div class="field">
-      <%= form.label :email %>
-      <%= form.email_field :email %>
-    </div>
-
-    <div class="field">
+    <div class="gap-4 mb-4">
       <%= form.label :password %>
-      <%= form.password_field :password %>
+      <%= form.password_field :password, class: "block shadow-sm rounded-lg border px-3 py-2 w-full" %>
     </div>
 
-    <div class="field">
+    <div class="gap-4 mb-4">
       <%= form.label :password_confirmation %>
-      <%= form.password_field :password_confirmation %>
+      <%= form.password_field :password_confirmation, class: "block shadow-sm rounded-lg border px-3 py-2 w-full" %>
     </div>
 
     <div class="actions">

@@ -5,7 +5,7 @@ class UsersController < ApplicationController
   end
 
   def new
-    redirect_to dashboard_path and return unless Current.user
+    redirect_to dashboard_path and return if Current.user
     @user = User.new
   end
 

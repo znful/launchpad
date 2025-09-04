@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   end
 
   # User registration and account management
+  resources :users
   get "register" => "users#new", as: :signup
   get "login" => "sessions#new", as: :signin
 

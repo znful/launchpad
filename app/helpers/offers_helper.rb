@@ -1,12 +1,12 @@
 module OffersHelper
   def contract_type_colour(offer)
     {
-      "full_time"  => "bg-green-100 text-green-600 dark:bg-green-300 dark:text-green-700 dark:border-green-300",
-      "part_time"  => "bg-blue-100 text-blue-600 dark:bg-blue-300 dark:text-blue-700 dark:border-blue-300",
-      "contract"   => "bg-purple-100 text-purple-600 dark:bg-purple-300 dark:text-purple-700 dark:border-purple-300",
-      "internship" => "bg-yellow-100 text-yellow-600 dark:bg-yellow-300 dark:text-yellow-700 dark:border-yellow-300",
-      "temporary"  => "bg-orange-100 text-orange-600 dark:bg-orange-300 dark:text-orange-700 dark:border-orange-300",
-      "freelance"  => "bg-red-100 text-red-600 dark:bg-red-300 dark:text-red-700 dark:border-red-300"
+      "full_time"  => "bg-green-100 text-[#00521E] dark:bg-green-300 dark:text-green-700 dark:border-green-300",
+      "part_time"  => "bg-blue-100 text-[#033AB0] dark:bg-blue-300 dark:text-blue-700 dark:border-blue-300",
+      "contract"   => "bg-purple-100 text-[#6804AF] dark:bg-purple-300 dark:text-purple-700 dark:border-purple-300",
+      "internship" => "bg-yellow-100 text-[#754C00] dark:bg-yellow-300 dark:text-yellow-700 dark:border-yellow-300",
+      "temporary"  => "bg-orange-100 text-[#8A2900] dark:bg-orange-300 dark:text-orange-700 dark:border-orange-300",
+      "freelance"  => "bg-red-100 text-[#8A0007] dark:bg-red-300 dark:text-red-700 dark:border-red-300"
     }[offer] || "bg-gray-100 text-gray-600 dark:bg-gray-300 dark:text-gray-700 dark:border-gray-300"
   end
 
@@ -23,9 +23,9 @@ module OffersHelper
 
   def job_type_colour(offer)
     {
-      "onsite" => "bg-rose-100 text-rose-600 dark:bg-rose-300 dark:text-rose-700 dark:border-rose-300",
-      "remote" => "bg-fuchsia-100 text-fuchsia-600 dark:bg-fuchsia-300 dark:text-fuchsia-700 dark:border-fuchsia-300",
-      "hybrid" => "bg-teal-100 text-teal-600 dark:bg-teal-300 dark:text-teal-700 dark:border-teal-300"
+      "onsite" => "bg-rose-100 text-[#850023] dark:bg-rose-300 dark:text-rose-700 dark:border-rose-300",
+      "remote" => "bg-fuchsia-100 text-[#81008F] dark:bg-fuchsia-300 dark:text-fuchsia-700 dark:border-fuchsia-300",
+      "hybrid" => "bg-teal-100 text-[#004D44] dark:bg-teal-300 dark:text-teal-700 dark:border-teal-300"
     }[offer] || "bg-gray-100 text-gray-600 dark:bg-gray-300 dark:text-gray-700 dark:border-gray-300"
   end
 

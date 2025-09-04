@@ -26,6 +26,7 @@ class OffersController < ApplicationController
   # POST /offers or /offers.json
   def create
     @offer = Offer.new(offer_params)
+    @offer.user_id = Current.user.id
 
     respond_to do |format|
       if @offer.save
@@ -74,7 +75,7 @@ class OffersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def offer_params
-      params.expect(offer: [ :company_name, :title, :description, :contract_type, :job_type ])
+      params.expect(offer: [ :company_name, :title, :description, :contract_type, :job_type, :city, :country, :apply_link ])
     end
 
     def set_filters

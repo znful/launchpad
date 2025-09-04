@@ -1,9 +1,17 @@
 <% content_for :title, "New offer" %>
 
-<div class="md:w-2/3 w-full">
-  <h1 class="font-bold text-4xl">New offer</h1>
+<div class="max-w-3xl mx-auto w-full px-4 sm:px-6 lg:px-8">
+  <div class="mb-8 text-center">
+    <h1 class="font-bold text-4xl text-gray-800">New Offer</h1>
+    <p class="mt-2 text-gray-600">Fill out the details below to create a new job offer.</p>
+  </div>
 
-  <%= render "form", offer: @offer %>
+  <div class="bg-white rounded-xl shadow-md p-6 md:p-8">
+    <%= render "form", offer: @offer %>
+  </div>
 
-  <%= link_to "Back to offers", offers_path, class: "w-full sm:w-auto text-center mt-2 sm:mt-0 sm:ml-2 rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
+  <div class="mt-6 flex flex-col sm:flex-row justify-center gap-3">
+    <%= link_to "Back to offers", offers_path,
+          class: "w-full sm:w-auto text-center rounded-md px-4 py-2.5 bg-gray-100 hover:bg-gray-200 font-medium text-gray-700 transition" %>
+  </div>
 </div>

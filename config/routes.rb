@@ -8,8 +8,8 @@ Rails.application.routes.draw do
   end
 
   # User registration and account management
-  get "signup" => "users#new", as: :signup
-  get "signin" => "sessions#new", as: :signin
+  get "register" => "users#new", as: :signup
+  get "login" => "sessions#new", as: :signin
 
   resource :session
   resources :passwords, param: :token

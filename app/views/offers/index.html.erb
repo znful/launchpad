@@ -1,26 +1,10 @@
 <% content_for :title, "Offers" %>
 
-<body class="bg-slate-t0 text-slate-950 leading-relaxed antialiased dark:bg-slate-900 dark:text-slate-200">
+<body class="bg-slate-t0 text-slate-950 antialiased dark:bg-slate-900 dark:text-slate-200">
   <div class="container mx-auto max-w-7xl px-4 md:px-8 py-6">
     <% if notice.present? %>
       <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-md inline-block" id="notice"><%= notice %></p>
     <% end %>
-
-    <header class="py-6 px-4 md:px-8 bg-white shadow-sm sticky top-4 z-50 mb-6 rounded-2xl dark:bg-slate-800">
-      <div class="container mx-auto max-w-7xl flex justify-between items-center">
-        <%= link_to "Launchpad", root_path, class: "text-3xl font-bold bg-gradient-to-r from-purple-500 via-pink-500 to-yellow-500 text-transparent bg-clip-text" %>
-        <nav>
-          <a href="#" class="text-slate-600 hover:text-slate-950 transition-colors duration-300">About</a>
-          <a href="#" class="ml-4 text-slate-600 hover:text-slate-950 transition-colors duration-300">Contact</a>
-        </nav>
-        <%= link_to "New offer", new_offer_path, class: "rounded-full px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white block font-medium" %>
-        <div data-controller="dark-mode">
-          <%= link_to "#", class: "rounded-full px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white block font-medium", data: { action: "dark-mode#toggle" } do %>
-            <span data-dark-mode-target="icon"></span>
-          <% end %>
-        </div>
-      </div>
-    </header>
 
     <%= search_form_for @q, url: offers_path, html: { class: "flex flex-col sm:flex-row gap-4" } do |f| %>
       <%= f.search_field :title_or_company_name_cont,
@@ -63,9 +47,10 @@
         <%= render partial: "filters", locals: { type: :job_type_in, colour_helper: method(:job_filter_colour) } %>
     </div>
 
-    <div class="flex justify-center mt-6 mb-6">
+    <div class="flex flex-col justify-center items-center mt-6 mb-6">
       <% if @offers.any? %>
         <%== pagy_info(@pagy) %>
+        <%== pagy_nav(@pagy) %>
       <% end %>
     </div>
 
@@ -77,47 +62,11 @@
       <% end %>
     </div>
 
-    <div class="flex justify-center mt-6 mb-6">
+    <div class="flex flex-col justify-center items-center mt-6 mb-6">
       <% if @offers.any? %>
         <%== pagy_info(@pagy) %>
+        <%== pagy_nav(@pagy) %>
       <% end %>
     </div>
-    <% if @pagy.pages > 1 %>
-      <nav class="flex justify-center my-6">
-        <ul class="inline-flex -space-x-px">
-          <% if @pagy.prev %>
-            <li>
-              <%= link_to 'Prev', pagy_path_for(@pagy.prev), class: "px-3 py-2 ml-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-l-lg hover:bg-gray-100 hover:text-gray-700" %>
-            </li>
-          <% else %>
-            <li>
-              <span class="px-3 py-2 ml-0 leading-tight text-gray-400 bg-gray-200 border border-gray-300 rounded-l-lg cursor-not-allowed">Prev</span>
-            </li>
-          <% end %>
-
-          <% @pagy.series.each do |item| %>
-            <% if item.is_a?(Integer) %>
-              <li>
-                <%= link_to item, pagy_path_for(item), class: "px-3 py-2 leading-tight border border-gray-300 hover:bg-gray-100 hover:text-gray-700 #{'bg-blue-500 text-white' if item == @pagy.page}" %>
-              </li>
-            <% else %>
-              <li>
-                <span class="px-3 py-2 leading-tight text-gray-500 border border-gray-300 bg-white cursor-default"><%= item %></span>
-              </li>
-            <% end %>
-          <% end %>
-
-          <% if @pagy.next %>
-            <li>
-              <%= link_to 'Next', pagy_path_for(@pagy.next), class: "px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-100 hover:text-gray-700" %>
-            </li>
-          <% else %>
-            <li>
-              <span class="px-3 py-2 leading-tight text-gray-400 bg-gray-200 border border-gray-300 rounded-r-lg cursor-not-allowed">Next</span>
-            </li>
-          <% end %>
-        </ul>
-      </nav>
-    <% end %>
   </div>
 </body>

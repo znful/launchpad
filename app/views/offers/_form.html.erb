@@ -1,9 +1,10 @@
-<%= form_with(model: offer, class: "contents") do |form| %>
+<%= form_with(model: offer, local: true) do |form| %>
   <% if offer.errors.any? %>
-    <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-md mt-3">
-      <h2><%= pluralize(offer.errors.count, "error") %> prohibited this offer from being saved:</h2>
-
-      <ul class="list-disc ml-6">
+    <div class="mb-6 rounded-lg border border-red-300 bg-red-50 p-4 text-red-700">
+      <h2 class="font-semibold mb-2">
+        <%= pluralize(offer.errors.count, "error") %> prohibited this offer from being saved:
+      </h2>
+      <ul class="list-disc ml-6 text-sm space-y-1">
         <% offer.errors.each do |error| %>
           <li><%= error.full_message %></li>
         <% end %>
@@ -11,62 +12,41 @@
     </div>
   <% end %>
 
-  <div class="my-5">
-    <%= form.label :company_name %>
-    <%= form.text_field :company_name, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": offer.errors[:company_name].none?, "border-red-400 focus:outline-red-600": offer.errors[:company_name].any?}] %>
-  </div>
+  <div class="mx-auto max-w-2xl bg-white p-6 rounded-xl shadow-md">
+    <div class="space-y-6">
+      <% [:company_name, :title, :description, :city, :country, :apply_link].each do |field| %>
+        <div>
+          <%= form.label field, class: "block text-sm font-semibold text-gray-700" %>
+          <%= form.text_field field, class: [
+            "mt-2 block w-full rounded-md border px-3 py-2 shadow-sm focus:ring-2 focus:ring-blue-500 sm:text-sm",
+            offer.errors[field].any? ? "border-red-400 focus:ring-red-500" : "border-gray-300 focus:border-blue-500"
+          ] %>
+          <% if offer.errors[field].any? %>
+            <p class="mt-1 text-sm text-red-600"><%= offer.errors[field].first %></p>
+          <% end %>
+        </div>
+      <% end %>
 
-  <div class="my-5">
-    <%= form.label :title %>
-    <%= form.text_field :title, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": offer.errors[:title].none?, "border-red-400 focus:outline-red-600": offer.errors[:title].any?}] %>
-  </div>
+      <div>
+        <%= form.label :contract_type, class: "block text-sm font-semibold text-gray-700" %>
+        <%= form.select :contract_type, Offer.contract_types.keys, {}, class: [
+          "mt-2 block w-full rounded-md border px-3 py-2 shadow-sm focus:ring-2 focus:ring-blue-500 sm:text-sm",
+          offer.errors[:contract_type].any? ? "border-red-400 focus:ring-red-500" : "border-gray-300 focus:border-blue-500"
+        ] %>
+      </div>
 
-  <div class="my-5">
-    <%= form.label :description %>
-    <%= form.rich_text_area :description, rows: 4, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": offer.errors[:description].none?, "border-red-400 focus:outline-red-600": offer.errors[:description].any?}] %>
-  </div>
+      <div>
+        <%= form.label :job_type, class: "block text-sm font-semibold text-gray-700" %>
+        <%= form.select :job_type, Offer.job_types.keys, {}, class: [
+          "mt-2 block w-full rounded-md border px-3 py-2 shadow-sm focus:ring-2 focus:ring-blue-500 sm:text-sm",
+          offer.errors[:job_type].any? ? "border-red-400 focus:ring-red-500" : "border-gray-300 focus:border-blue-500"
+        ] %>
+      </div>
 
-  <div class="my-5">
-    <%= form.label :city %>
-    <%= form.text_field :city, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": offer.errors[:city].none?, "border-red-400 focus:outline-red-600": offer.errors[:city].any?}] %>
-  </div>
-
-  <div class="my-5">
-    <%= form.label :country %>
-    <%= form.text_field :country, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": offer.errors[:country].none?, "border-red-400 focus:outline-red-600": offer.errors[:country].any?}] %>
-  </div>
-
-  <div class="my-5">
-    <%= form.label :apply_link %>
-    <%= form.text_field :apply_link, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": offer.errors[:apply_link].none?, "border-red-400 focus:outline-red-600": offer.errors[:apply_link].any?}] %>
-  </div>
-
-  <div class="my-5">
-    <%= form.label :contract_type %>
-    <%= form.select :contract_type, Offer.contract_types.keys, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": offer.errors[:contract_type].none?, "border-red-400 focus:outline-red-600": offer.errors[:contract_type].any?}] %>
-  </div>
-
-  <div class="my-5">
-    <%= form.label :job_type %>
-    <%= form.select :job_type, Offer.job_types.keys, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": offer.errors[:job_type].none?, "border-red-400 focus:outline-red-600": offer.errors[:job_type].any?}] %>
-  </div>
-
-  <div class="my-5">
-    <%= form.label :latitude %>
-    <%= form.text_field :latitude, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": offer.errors[:latitude].none?, "border-red-400 focus:outline-red-600": offer.errors[:latitude].any?}] %>
-  </div>
-
-  <div class="my-5">
-    <%= form.label :longitude %>
-    <%= form.text_field :longitude, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": offer.errors[:longitude].none?, "border-red-400 focus:outline-red-600": offer.errors[:longitude].any?}] %>
-  </div>
-
-  <div class="my-5">
-    <%= form.label :user_id %>
-    <%= form.text_field :user_id, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": offer.errors[:user_id].none?, "border-red-400 focus:outline-red-600": offer.errors[:user_id].any?}] %>
-  </div>
-
-  <div class="inline">
-    <%= form.submit class: "w-full sm:w-auto rounded-md px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white inline-block font-medium cursor-pointer" %>
+      <div>
+        <%= form.submit "Save Offer", class: "w-full sm:w-auto rounded-md bg-blue-600 px-4 py-2.5 text-white font-medium shadow hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-1 transition" %>
+      </div>
+    </div>
   </div>
 <% end %>
+

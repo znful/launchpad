@@ -22,25 +22,12 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
+  <body class="bg-stone-100 dark:bg-slate-900 text-slate-900 dark:text-slate-200 transition-colors duration-300">
     <main class="min-h-screen">
-      <nav class="py-6 px-4 mx-auto md:px-8 bg-white shadow-sm sticky max-w-7xl top-4 z-50 mb-6 rounded-2xl dark:bg-slate-800">
-        <div class="mx-auto max-w-7xl flex items-center grid-cols-2 justify-between">
-          <div class="">
-            <%= link_to "Launchpad", root_path, class: "text-3xl font-bold bg-gradient-to-r from-purple-500 via-pink-500 to-yellow-500 text-transparent bg-clip-text" %>
-          </div>
-          <div class="grid grid-cols-3 gap-4 justify-end">
-            <%= link_to "Offers", offers_path, class: "rounded-full px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white block font-medium text-center" %>
-            <%= link_to "Dashboard", dashboard_path, class: "rounded-full px-4.5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white block font-medium text-center" %>
-            <div data-controller="dark-mode">
-              <%= link_to "#", class: "rounded-full px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white block font-medium w-12", data: { action: "dark-mode#toggle" } do %>
-                <span data-dark-mode-target="icon"></span>
-              <% end %>
-            </div>
-          </div>
-        </div>
-      </nav>
-      <%= yield %>
+      <div class="flex justify-center">
+        <%= render "shared/navbar" %>
+      </div>
+        <%= yield %>
       <%= render "shared/confirm_modal" %>
       <!-- Footer -->
       <footer class="py-12 md:py-16 text-center text-slate-600">

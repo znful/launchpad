@@ -54,7 +54,7 @@ body {
         <%= render 'sidebar' %>
     </div>
 
-    <!-- Main Content -->
+    <!-- Header -->
     <main class="flex-auto p-6 lg:p-12">
         <div class="flex justify-between items-center mb-10">
             <h1 class="text-3xl md:text-4xl font-bold tracking-tight text-gray-800">Dashboard</h1>
@@ -63,6 +63,7 @@ body {
 
         <hr class="border-t border-hey-gray mb-8">
 
+        <!-- Statistics Cards -->
         <div class="flex md:flex-row flex-col lg:gap-8 lg:mb-12 mb-8 gap-4 justify-center">
             <!-- Total Offers Card -->
             <div class="card flex w-fit min-w-96 transition transition-all duration-200">
@@ -133,8 +134,21 @@ body {
             </div>
         </div>
 
+
+        <!-- Filter and Search Bar -->
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-8 gap-4">
+            <div class="flex space-x-2">
+                <input type="text" placeholder="Search offers..." class="border border-hey-gray rounded-full bg-white px-4 py-2 w-full md:w-64 focus:outline-none focus:ring-2 focus:ring-hey-pink focus:border-transparent" />
+                <button class="btn-secondary text-sm">All</button>
+                <button class="btn-secondary text-sm">Active</button>
+                <button class="btn-secondary text-sm">Pending</button>
+                <button class="btn-secondary text-sm">Expired</button>
+            </div>
+        </div>
+
+
+        <!-- Job Offer Cards -->
         <div class="grid grid-cols-1 xl:grid-cols-2 xl:grid-cols-3 gap-8">
-            <!-- Job Offer Card - Active -->
             <% for offer in @offers %>
                 <div class="card">
                     <div class="flex justify-between items-start mb-4">

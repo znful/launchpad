@@ -136,19 +136,19 @@ body {
 
 
         <!-- Filter and Search Bar -->
-        <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-8 gap-4">
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-4 gap-4">
             <div class="flex space-x-2">
-                <input type="text" placeholder="Search offers..." class="border border-hey-gray rounded-full bg-white px-4 py-2 w-full md:w-64 focus:outline-none focus:ring-2 focus:ring-hey-pink focus:border-transparent" />
-                <button class="btn-secondary text-sm">All</button>
-                <button class="btn-secondary text-sm">Active</button>
-                <button class="btn-secondary text-sm">Pending</button>
-                <button class="btn-secondary text-sm">Expired</button>
+                <input type="text" placeholder="Search offers..." class="border border-hey-gray rounded-full bg-white px-4 py-2 w-full md:w-64 focus:outline-none focus:ring-2 focus:border-transparent transition transition-all duration-200" />
+                <button class="btn-secondary text-sm cursor-pointer">All</button>
+                <button class="btn-secondary text-sm cursor-pointer">Active</button>
+                <button class="btn-secondary text-sm cursor-pointer">Pending</button>
+                <button class="btn-secondary text-sm cursor-pointer">Expired</button>
             </div>
         </div>
 
 
         <!-- Job Offer Cards -->
-        <div class="grid grid-cols-1 xl:grid-cols-2 xl:grid-cols-3 gap-8">
+        <div class="grid grid-cols-1 xl:grid-cols-2 xl:grid-cols-3 gap-8 mb-4">
             <% for offer in @offers %>
                 <div class="card">
                     <div class="flex justify-between items-start mb-4">
@@ -165,8 +165,8 @@ body {
             <% end %>
         </div>
         <% if @offers.any? %>
-            <%== pagy_info(@pagy) %>
-            <%== pagy_nav(@pagy) %>
+                <%== pagy_info(@pagy) %>
+                <%== pagy_nav(@pagy) %>
         <% end %>
     </main>
 </div>

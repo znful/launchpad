@@ -2,6 +2,8 @@ class DashboardController < ApplicationController
   before_action :set_filters, only: [ :index ]
 
   def index
+    # FIX: For some reason Current is not available in the view ?
+    # Need to figure out why because it breaks the navbar
     @q = Current.user.offers.ransack(params[:q])
     if @location.blank?
       @pagy, @offers = pagy(@q.result.order(@sort), limit: @limit)

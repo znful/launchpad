@@ -10,3 +10,13 @@ body {
 .card {
   @apply bg-white dark:bg-slate-800 border-1 border-neutral-100 dark:border-slate-600 p-6 shadow-md dark:shadow-slate-800 hover:-translate-y-1 hover:shadow-xl rounded-xl transition-all duration-200;
 }
+
+.is-collapsing {
+	height: 0;
+	overflow: hidden;
+	transition: height 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+[aria-expanded="true"] svg {
+	@apply rotate-180;
+}

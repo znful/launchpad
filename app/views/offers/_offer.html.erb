@@ -1,24 +1,40 @@
-<div class="bg-white rounded-2xl shadow p-6 flex justify-between items-center dark:bg-slate-800" data-offers-target="offer" data-offer-id="<%= offer.id %>">
-  <div>
-    <h2 class="text-lg font-semibold"><%= offer.title %></h2>
-    <p class="text-gray-500">
-      <%= offer.company_name %>
-      <% if offer.city.present? || offer.country.present? %>
-        · <%= [offer.city, offer.country].compact.join(", ") %>
-      <% end %>
-    </p>
+<div class="flex flex-col gap-1.5" data-controller="accordion" data-accordion-is-bound-value="true" data-accordion-is-always-open-value="false">
+  <ul class="m-0 p-0 list-none flex flex-col">
+    <li class="m-0 p-0 list-none border-1 border-gray-300 rounded-md bg-white dark:bg-slate-800" data-accordion-target="item">
+      <div class="flex">
+        <h3 class="flex-grow text-sm font-medium text-blue-500">
+          <button type="button" aria-expanded="false" aria-controls="offer-<%= offer.id %>-content" id="accordion-button-<%= offer.id %>" data-action="accordion#toggle" class="flex justify-between items-center gap-5 p-4 w-full border-0 bg-transparent text-left cursor-pointer">
+            <div>
+              <h2 class="text-lg font-semibold"><%= offer.title %></h2>
+              <p class="text-gray-500">
+                <%= offer.company_name %>
+                <% if offer.city.present? || offer.country.present? %>
+                  · <%= [offer.city, offer.country].compact.join(", ") %>
+                <% end %>
+              </p>
 
-    <div class="mt-2 flex flex-wrap gap-2">
-      <span class="px-3 py-1 text-xs border-1 rounded-full font-medium <%= contract_type_colour(offer.contract_type.to_s) %>">
-        <%= offer.contract_type.titleize %>
-      </span>
-      <span class="px-3 py-1 text-xs border-1 rounded-full font-medium <%= job_type_colour(offer.job_type.to_s) %>">
-        <%= offer.job_type.titleize %>
-      </span>
-    </div>
-  </div>
-
-  <%= link_to "View Details",
-              offer,
-              class: "px-5 py-2 rounded-full bg-purple-600 hover:bg-purple-500 text-white font-medium transition" %>
+              <div class="mt-2 flex flex-wrap gap-2">
+                <span class="px-3 py-1 text-xs border-1 rounded-full font-medium <%= contract_type_colour(offer.contract_type.to_s) %>">
+                  <%= offer.contract_type.titleize %>
+                </span>
+                <span class="px-3 py-1 text-xs border-1 rounded-full font-medium <%= job_type_colour(offer.job_type.to_s) %>">
+                  <%= offer.job_type.titleize %>
+                </span>
+              </div>
+            </div>
+            <span class="text-gray-500 transition-transform duration-200 ease-in-out" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                <path d="M4.45 7.94a1 1 0 0 1 1.41 0l6.1 6.1 6.18-6.1a1 1 0 0 1 1.32-.08l.1.08a1 1 0 0 1-.01 1.42L12.79 16a1.2 1.2 0 0 1-1.69 0L4.45 9.35a1 1 0 0 1 0-1.41Z"/>
+              </svg>
+            </span>
+          </button>
+        </h3>
+      </div>
+      <div class="overflow-hidden transition-[height] duration-200" id="offer-<%= offer.id %>-content" aria-labelledby="accordion-button-<%= offer.id %>" hidden>
+        <div class="p-4 pt-1">
+          <%= offer.description %>
+        </div>
+      </div>
+    </li>
+  </ul>
 </div>

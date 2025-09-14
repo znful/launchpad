@@ -8,7 +8,7 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
-User.create! email_address: "dev@launchpad.com", password: "dev"
+User.create! email_address: "dev@launchpad.com", password: "dev" unless User.exists?(email_address: "dev@launchpad.com")
 
 20.times do
   Offer.create!(
@@ -20,8 +20,8 @@ User.create! email_address: "dev@launchpad.com", password: "dev"
     apply_link: Faker::Internet.url,
     contract_type: Offer.contract_types.keys.sample,
     job_type: Offer.job_types.keys.sample,
-    latitude: Faker::Address.latitude,
-    longitude: Faker::Address.longitude,
+    status: Offer.statuses.keys.sample,
+    verification_status: Offer.verification_statuses.keys.sample,
     user: User.first
   )
 end

@@ -4,8 +4,8 @@ class Offer < ApplicationRecord
   enum :contract_type, { full_time: 0, part_time: 1, contract: 2, internship: 3, temporary: 4, freelance: 5 }
   enum :job_type, { onsite: 0, remote: 1, hybrid: 2 }
 
-  enum :status, { draft: 0, active: 1, expired: 2 }, _default: :draft
-  enum :verification_status, { unverified: 0, pending: 1, verified: 2, rejected: 3 }, _default: :unverified
+  enum :status, { draft: 0, active: 1, paused: 2, expired: 3 }, default: :draft
+  enum :verification_status, { unverified: 0, pending: 1, verified: 2, rejected: 3 }, default: :unverified
 
   validates :company_name, :title, :description, :country, :apply_link, :contract_type, :job_type, presence: true
   after_validation :geocode, if: ->(obj) { obj.country_changed? || obj.city_changed? }

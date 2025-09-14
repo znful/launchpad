@@ -112,7 +112,10 @@
                 <div class="card flex-none flex-col min-w-full">
                     <div class="flex justify-between items-start mb-4">
                         <h2 class="text-xl font-bold"><%= offer.title %></h2>
-                        <span class="bg-hey-green-light text-hey-green font-semibold text-xs px-3 py-1 rounded-full">Active</span>
+                        <div class="flex flex-row items-end space-x-2">
+                            <span class="bg-hey-green-light text-hey-green font-semibold text-xs px-3 py-1 rounded-full"><%= offer.verification_status %></span>
+                            <span class="bg-hey-green-light text-hey-green font-semibold text-xs px-3 py-1 rounded-full"><%= offer.status %></span>
+                        </div>
                     </div>
                     <p class="text-sm mb-2"><%= offer.company_name %> | <%= offer.job_type.capitalize %> | <%= offer.contract_type.capitalize %></p>
                     <p class="text-sm mb-4"> <%= offer.city %>, <%= offer.country %></p>
@@ -124,8 +127,8 @@
             <% end %>
         </div>
         <% if @offers.any? %>
-                <%== pagy_info(@pagy) %>
-                <%== pagy_nav(@pagy) %>
+            <%== pagy_info(@pagy) %>
+            <%== pagy_nav(@pagy) %>
         <% end %>
     </main>
 </div>

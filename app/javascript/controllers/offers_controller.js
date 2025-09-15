@@ -18,7 +18,16 @@ export default class extends Controller {
       if (this.isInViewport(offer) && !this.viewedOffers.has(offer)) {
         const offerId = offer.dataset.offerId;
         this.viewedOffers.add(offer);
-        console.log(`Offer ${offerId} is in viewport.`);
+        fetch(`/api/increment_view_count`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "X-CSRF-Token": document
+              .querySelector('meta[name="csrf-token"]')
+              .getAttribute("content"),
+          },
+          body: JSON.stringify({ offer_id: offerId }),
+        });
       }
     });
   }

@@ -1,7 +1,13 @@
 Rails.application.routes.draw do
   get "dashboard" => "dashboard#index", as: :dashboard
 
-  resources :offers
+
+  scope "/api" do
+    post "increment_view_count" => "offers#increment_view_count", as: :increment_view_count
+  end
+
+  resources :offers do
+  end
 
   resource :session
   resources :passwords, param: :token

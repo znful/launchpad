@@ -62,7 +62,7 @@
                     </div>
                     <div class="flex flex-col">
                         <h2 class="text-2xl font-semibold">Total Views</h2>
-                        <p class="text-3xl font-bold text-hey-pink">0</p>
+                        <p class="text-3xl font-bold text-hey-pink"><%= @total_view_count %></p>
                     </div>
                 </div>
             </div>
@@ -75,7 +75,7 @@
                     </div>
                     <div class="flex flex-col">
                         <h2 class="text-2xl font-semibold">Total Interactions</h2>
-                        <p class="text-3xl font-bold text-orange-500">0</p>
+                        <p class="text-3xl font-bold text-orange-500"><%= @total_interaction_count %></p>
                     </div>
                 </div>
             </div>
@@ -88,7 +88,7 @@
                     </div>
                     <div class="flex flex-col">
                         <h2 class="text-2xl font-semibold">Total Applications</h2>
-                        <p class="text-3xl font-bold text-amber-500">0</p>
+                        <p class="text-3xl font-bold text-amber-500"><%= @total_application_count %></p>
                     </div>
                 </div>
             </div>
@@ -119,6 +119,7 @@
                     </div>
                     <p class="text-sm mb-2"><%= offer.company_name %> | <%= offer.job_type.capitalize %> | <%= offer.contract_type.capitalize %></p>
                     <p class="text-sm mb-4"> <%= offer.city %>, <%= offer.country %></p>
+                    <p class="text-sm mb-4"> View count: <%= offer.view_count %> </p>
                     <div class="flex justify-end space-x-2 mt-4">
                         <%= button_to 'Edit', edit_offer_path(offer), method: :get, class: 'border border-gray-300 dark:border-slate-600 rounded-full py-2 px-4 bg-white dark:bg-slate-700 dark:hover:bg-gray-600 hover:inset-shadow-sm dark:inset-shadow-gray-500 text-sm cursor-pointer transition-all duration-200' %>
                         <%= button_to 'Delete', offer_path(offer), method: :delete, form: { data: { turbo_confirm: 'Are you sure?' } }, class: 'border border-gray-300 dark:border-slate-600 rounded-full py-2 px-4 bg-white dark:bg-slate-700 dark:hover:bg-gray-600 hover:inset-shadow-sm dark:inset-shadow-gray-500 text-sm cursor-pointer transition-all duration-200' %>

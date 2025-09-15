@@ -4,6 +4,9 @@ class DashboardController < ApplicationController
   def index
     # FIX: For some reason Current is not available in the view ?
     # Need to figure out why because it breaks the navbar
+    @total_view_count = Current.user.offers.sum(:view_count)
+    @total_interaction_count = Current.user.offers.sum(:interaction_count)
+    @total_application_count = Current.user.offers.sum(:apply_count)
     @q = Current.user.offers.ransack(params[:q])
     if @location.blank?
       @pagy, @offers = pagy(@q.result.order(@sort), limit: @limit)

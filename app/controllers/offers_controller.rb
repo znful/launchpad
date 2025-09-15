@@ -1,6 +1,6 @@
 class OffersController < ApplicationController
   before_action :set_offer, only: %i[ show edit update destroy ]
-  before_action :set_filters, only: %i[ index manage ]
+  before_action :set_filters, only: %i[ index ]
   allow_unauthenticated_access only: %i[ index show ]
 
   # GET /offers or /offers.json
@@ -60,11 +60,6 @@ class OffersController < ApplicationController
       format.html { redirect_to offers_path, notice: "Offer was successfully destroyed.", status: :see_other }
       format.json { head :no_content }
     end
-  end
-
-  def manage
-    @q = Offer.ransack(params[:q]).result.where(user: Current.user).order(@sort)
-    @pagy, @offers = pagy(@q, limit: @limit)
   end
 
   private

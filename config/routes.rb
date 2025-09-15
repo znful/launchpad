@@ -1,11 +1,7 @@
 Rails.application.routes.draw do
   get "dashboard" => "dashboard#index", as: :dashboard
 
-  resources :offers do
-    collection do
-      get :manage
-    end
-  end
+  resources :offers
 
   resource :session
   resources :passwords, param: :token

@@ -71,6 +71,24 @@ class OffersController < ApplicationController
     end
   end
 
+  def increment_apply_count
+    @offer = Offer.find(params[:offer_id])
+    @offer.increment!(:apply_count)
+
+    respond_to do |format|
+      format.json { head :no_content }
+    end
+  end
+
+  def increment_interaction_count
+    @offer = Offer.find(params[:offer_id])
+    @offer.increment!(:interaction_count)
+
+    respond_to do |format|
+      format.json { head :no_content }
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_offer

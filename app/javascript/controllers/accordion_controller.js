@@ -10,7 +10,6 @@ export default class extends Controller {
 
   connect() {}
 
-  // Renamed 'getContent' to 'findContent' for clarity
   findContent({ button }) {
     const contentId = button.getAttribute("aria-controls");
     const content = document.getElementById(contentId);

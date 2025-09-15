@@ -1,6 +1,6 @@
 <div class="flex flex-col gap-1.5" data-controller="accordion" data-accordion-is-bound-value="true" data-accordion-is-always-open-value="false">
   <ul class="m-0 p-0 list-none flex flex-col">
-    <li class="m-0 p-0 list-none border-1 border-gray-300 rounded-md bg-white dark:bg-slate-800" data-accordion-target="item">
+    <li class="m-0 p-0 list-none card" data-accordion-target="item">
       <div class="flex">
         <h3 class="flex-grow text-sm font-medium text-blue-500">
           <button type="button" aria-expanded="false" aria-controls="offer-<%= offer.id %>-content" id="accordion-button-<%= offer.id %>" data-action="accordion#toggle" class="flex justify-between items-center gap-5 p-4 w-full border-0 bg-transparent text-left cursor-pointer">
@@ -31,8 +31,13 @@
         </h3>
       </div>
       <div class="overflow-hidden transition-[height] duration-200" id="offer-<%= offer.id %>-content" aria-labelledby="accordion-button-<%= offer.id %>" hidden>
-        <div class="p-4 pt-1">
+        <div class="p-4 pt-1 text-center">
           <%= offer.description %>
+        </div>
+        <div class="flex justify-center p-4 pt-0">
+          <a href="<%= offer.apply_link %>" target="_blank" rel="noopener noreferrer" class="inline-block mb-4 ml-4 px-6 py-2 text-sm font-medium text-white bg-blue-600 rounded-full hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+            Apply Now
+          </a>
         </div>
       </div>
     </li>

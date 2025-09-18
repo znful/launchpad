@@ -1,0 +1,62 @@
+<%= form_with(model: offer) do |form| %>
+  <% if offer.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(offer.errors.count, "error") %> prohibited this offer from being saved:</h2>
+
+      <ul>
+        <% offer.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :company_name, style: "display: block" %>
+    <%= form.text_field :company_name %>
+  </div>
+
+  <div>
+    <%= form.label :title, style: "display: block" %>
+    <%= form.text_field :title %>
+  </div>
+
+  <div>
+    <%= form.label :description, style: "display: block" %>
+    <%= form.textarea :description %>
+  </div>
+
+  <div>
+    <%= form.label :address, style: "display: block" %>
+    <%= form.text_field :address %>
+  </div>
+
+  <div>
+    <%= form.label :application_link, style: "display: block" %>
+    <%= form.text_field :application_link %>
+  </div>
+
+  <div>
+    <%= form.label :contract_type, style: "display: block" %>
+    <%= form.number_field :contract_type %>
+  </div>
+
+  <div>
+    <%= form.label :job_type, style: "display: block" %>
+    <%= form.number_field :job_type %>
+  </div>
+
+  <div>
+    <%= form.label :verification_status, style: "display: block" %>
+    <%= form.number_field :verification_status %>
+  </div>
+
+  <div>
+    <%= form.label :status, style: "display: block" %>
+    <%= form.number_field :status %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

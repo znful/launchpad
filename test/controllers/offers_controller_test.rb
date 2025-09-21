@@ -19,7 +19,20 @@ class OffersControllerTest < ActionDispatch::IntegrationTest
   test "should create offer" do
     sign_in users(:one)
     assert_difference("Offer.count") do
-      post offers_url, params: { offer: { address: @offer.address, application_link: @offer.application_link, company_name: @offer.company_name, contract_type: @offer.contract_type, description: @offer.description, job_type: @offer.job_type, status: @offer.status, title: @offer.title, verification_status: @offer.verification_status } }
+      post offers_url, params: {
+        offer: {
+          address: @offer.address,
+          application_link: @offer.application_link,
+          company_name: @offer.company_name,
+          contract_type: @offer.contract_type,
+          description: @offer.description,
+          job_type: @offer.job_type,
+          status: @offer.status,
+          title: @offer.title,
+          verification_status: @offer.verification_status,
+          user_id: users(:one).id
+        }
+      }
     end
 
     assert_redirected_to offer_url(Offer.order(created_at: :desc).limit(1).first)

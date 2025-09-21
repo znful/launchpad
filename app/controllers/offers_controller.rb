@@ -29,8 +29,8 @@ class OffersController < ApplicationController
         format.html { redirect_to @offer, notice: "Offer was successfully created." }
         format.json { render :show, status: :created, location: @offer }
       else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @offer.errors, status: :unprocessable_entity }
+        format.html { render :new, status: :unprocessable_content }
+        format.json { render json: @offer.errors, status: :unprocessable_content }
       end
     end
   end
@@ -66,6 +66,6 @@ class OffersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def offer_params
-      params.expect(offer: [ :company_name, :title, :description, :address, :application_link, :contract_type, :job_type, :verification_status, :status ])
+      params.expect(offer: [ :company_name, :title, :description, :address, :application_link, :contract_type, :job_type, :verification_status, :status, :user_id ])
     end
 end

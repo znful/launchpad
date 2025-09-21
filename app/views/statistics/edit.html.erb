@@ -1,0 +1,12 @@
+<% content_for :title, "Editing statistic" %>
+
+<h1>Editing statistic</h1>
+
+<%= render "form", statistic: @statistic %>
+
+<br>
+
+<div>
+  <%= link_to "Show this statistic", @statistic %> |
+  <%= link_to "Back to statistics", statistics_path %>
+</div>

@@ -10,6 +10,7 @@ one:
   job_type: 1
   verification_status: 1
   status: 1
+  user: one
 
 two:
   company_name: MyString
@@ -21,3 +22,4 @@ two:
   job_type: 1
   verification_status: 1
   status: 1
+  user: two

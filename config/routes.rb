@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get "dashboard/index"
+  resources :statistics
   resources :offers
   resource :session
   resources :passwords, param: :token

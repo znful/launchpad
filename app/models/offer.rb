@@ -14,6 +14,10 @@ class Offer < ApplicationRecord
   geocoded_by :address
   has_rich_text :description
 
+  scope :views, -> { joins(:statistics).where(statistics: { stat_type: "view" }) }
+  scope :applications, -> { joins(:statistics).where(statistics: { stat_type: "application" }) }
+  scope :interactions, -> { joins(:statistics).where(statistics: { stat_type: "interaction" }) }
+
   private
 
   def self.ransackable_attributes(auth_object = nil)

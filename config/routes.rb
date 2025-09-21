@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
-  get "dashboard/index"
-  resources :statistics
+  get "dashboard" => "dashboard#index", as: :dashboard
+  resources :statistics, only: [ :create ]
   resources :offers
   resource :session
   resources :passwords, param: :token

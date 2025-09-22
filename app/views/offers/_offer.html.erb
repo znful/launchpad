@@ -1,47 +1,13 @@
-<div id="<%= dom_id offer %>">
-  <p>
-    <strong>Company name:</strong>
-    <%= offer.company_name %>
-  </p>
-
-  <p>
-    <strong>Title:</strong>
-    <%= offer.title %>
-  </p>
-
-  <p>
-    <strong>Description:</strong>
+<div id="<%= dom_id offer %>" class="card mb-3">
+  <div class="card-header">
+    <h2 class="card-title"><%= offer.title %></h2>
+  </div>
+  <div class="card-body">
+    <%= offer.company_name %> - <%= offer.address %> - <%= offer.job_type.humanize %> - <%= offer.contract_type.humanize %>
+    <br>
     <%= offer.description %>
-  </p>
-
-  <p>
-    <strong>Address:</strong>
-    <%= offer.address %>
-  </p>
-
-  <p>
-    <strong>Application link:</strong>
-    <%= offer.application_link %>
-  </p>
-
-  <p>
-    <strong>Contract type:</strong>
-    <%= offer.contract_type %>
-  </p>
-
-  <p>
-    <strong>Job type:</strong>
-    <%= offer.job_type %>
-  </p>
-
-  <p>
-    <strong>Verification status:</strong>
-    <%= offer.verification_status %>
-  </p>
-
-  <p>
-    <strong>Status:</strong>
-    <%= offer.status %>
-  </p>
-
+  </div>
+  <div class="card-footer">
+    <a href="<%= offer.application_link %>" class="btn btn-primary" target="_blank">Apply Now</a>
+  </div>
 </div>

@@ -8,3 +8,23 @@
  *
  * Consider organizing styles into separate files for maintainability.
  */
+
+/* Hide both icons by default */
+.checkbox-icons .unchecked-icon,
+.checkbox-icons .checked-icon {
+  display: none;
+}
+
+/* Show the unchecked icon by default */
+.checkbox-icons .unchecked-icon {
+  display: block;
+}
+
+/* When the checkbox is checked, show the 'checked' icon and hide the 'unchecked' one */
+.form-check-input:checked + .checkbox-icons .checked-icon {
+  display: block;
+}
+
+.form-check-input:checked + .checkbox-icons .unchecked-icon {
+  display: none;
+}

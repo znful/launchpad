@@ -96,6 +96,13 @@
     </ul>
 
     <div class="navbar-nav flex-row order-md-last ms-auto">
+      <li>
+        <div data-controller="dark-mode">
+          <button data-action="click->dark-mode#toggle" class="btn">
+            <span data-dark-mode-target="icon"></span>
+          </button>
+        </div>
+      </li>
       <div class="nav-item dropdown">
         <a
           href="#"

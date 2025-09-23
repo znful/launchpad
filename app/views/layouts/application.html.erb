@@ -27,6 +27,7 @@
     <%# Includes all stylesheet files in app/assets/stylesheets %>
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
+
     <script
       src="https://cdn.jsdelivr.net/npm/@tabler/core@latest/dist/js/tabler.min.js"
     ></script>
@@ -42,5 +43,5 @@
     >
   </head>
 
-  <body><%= yield %></body>
+  <body data-bs-theme="light"><%= yield %></body>
 </html>

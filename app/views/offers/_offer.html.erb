@@ -1,47 +1,16 @@
-<div id="<%= dom_id offer %>">
-  <p>
-    <strong>Company name:</strong>
-    <%= offer.company_name %>
-  </p>
-
-  <p>
-    <strong>Title:</strong>
-    <%= offer.title %>
-  </p>
-
-  <p>
-    <strong>Description:</strong>
-    <%= offer.description %>
-  </p>
-
-  <p>
-    <strong>Address:</strong>
-    <%= offer.address %>
-  </p>
-
-  <p>
-    <strong>Application link:</strong>
-    <%= offer.application_link %>
-  </p>
-
-  <p>
-    <strong>Contract type:</strong>
-    <%= offer.contract_type %>
-  </p>
-
-  <p>
-    <strong>Job type:</strong>
-    <%= offer.job_type %>
-  </p>
-
-  <p>
-    <strong>Verification status:</strong>
-    <%= offer.verification_status %>
-  </p>
-
-  <p>
-    <strong>Status:</strong>
-    <%= offer.status %>
-  </p>
-
+<div id="<%= dom_id offer %>" class="accordion mb-3">
+  <div class="accordion-item">
+    <div class="accordion-header" id="heading-<%= offer.id %>">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-<%= offer.id %>" aria-expanded="false" aria-controls="collapse-<%= offer.id %>">
+        <h2><%= offer.title %> - <%= offer.company_name %></h2> <%= contract_type_badge(offer.contract_type) %> <%= job_type_badge(offer.job_type) %>
+      </button>
+    </div>
+    <div id="collapse-<%= offer.id %>" class="accordion-collapse collapse" aria-labelledby="heading-<%= offer.id %>">
+      <div class="accordion-body">
+        <p><strong>Location:</strong> <%= offer.address %></p>
+        <p><strong>Description:</strong> <%= offer.description %></p>
+        <a href="<%= offer.application_link %>" class="btn btn-primary" target="_blank">Apply Now</a>
+      </div>
+    </div>
+  </div>
 </div>

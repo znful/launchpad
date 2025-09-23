@@ -66,3 +66,4 @@ gem "geocoder", "~> 1.8"
 gem "ransack", "~> 4.3"
 
 gem "pagy", "~> 9.4"
+gem "faker"

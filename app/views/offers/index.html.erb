@@ -2,15 +2,93 @@
 
 <% content_for :title, "Offers" %>
 
-<h1>Offers</h1>
+<div class="container mx-auto max-w-7xl px-4 sm:px-6 md:px-8 py-6">
+  <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#new-offer-modal">
+    New Offer
+  </button>
 
-<div id="offers">
-  <% @offers.each do |offer| %>
-    <%= render offer %>
-    <p>
-      <%= link_to "Show this offer", offer %>
-    </p>
+  <%= render 'offers/form', offer: @offer %>
+
+  <%= search_form_for @q, url: offers_path, method: :get, class: "form-fieldset" do |f| %>
+
+    <div class="mb-3 mt-3">
+      <%= f.label :title_cont, "Title contains:", class: "from-label" %>
+      <%= f.text_field :title_cont, class: "form-control" %>
+    </div>
+
+    <div class="mb-3">
+      <%= f.label :company_name_cont, "Company name contains:", class: "form-label" %>
+      <%= f.text_field :company_name_cont, class: "form-control" %>
+    </div>
+
+    <div class="dropdown mb-3">
+      <a href="#" class="btn dropdown-toggle" data-bs-toggle="dropdown">Contract Type</a>
+      <div class="dropdown-menu">
+        <%= f.collection_check_boxes :contract_type_in, Offer.contract_types, :last, :first do |b| %>
+          <%= b.label class: "form-check-label d-flex justify-content-center m-2" do %>
+            <%= b.check_box class: "form-check-input hidden" %>
+            <div class="checkbox-icons">
+              <i class="ti unchecked-icon dropdown-item"><%= contract_type_badge(b.text.humanize.titleize) %></i>
+              <i class="ti checked-icon dropdown-item"><%= contract_type_badge(b.text) %></i>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="dropdown mb-3">
+      <a href="#" class="btn dropdown-toggle" data-bs-toggle="dropdown">Job Type</a>
+      <div class="dropdown-menu">
+        <%= f.collection_check_boxes :job_type_in, Offer.job_types, :last, :first do |b| %>
+          <%= b.label class: "form-check-label d-flex justify-content-center m-2" do %>
+            <%= b.check_box class: "form-check-input hidden" %>
+            <div class="checkbox-icons">
+              <i class="ti unchecked-icon dropdown-item"><%= job_type_badge(b.text.humanize.titleize) %></i>
+              <i class="ti checked-icon dropdown-item"><%= job_type_badge(b.text) %></i>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-check form-switch">
+        <%= f.check_box :verification_status_eq, { checked: params[:q] && params[:q][:verification_status_eq] == '2', class: "form-check-input" }, 2, nil %>
+        <%= f.label :verification_status_eq, 'Verified Offers Only' %>
+      </label>
+    </div>
+
+    <div>
+      <%= f.submit "Search", class: "btn btn-primary" %>
+      <%= link_to "Clear", offers_path, class: "btn" %>
+    </div>
   <% end %>
-</div>
 
-<%= link_to "New offer", new_offer_path %>
+  <div id="offers">
+    <% if @offers.any? %>
+      <% @offers.each do |offer| %>
+        <%= render offer %>
+      <% end %>
+    <% else %>
+      <div class="empty">
+        <div class="empty-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24"
+            viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <circle cx="12" cy="12" r="9" />
+            <line x1="9" y1="10" x2="9.01" y2="10" />
+            <line x1="15" y1="10" x2="15.01" y2="10" />
+            <path d="M9.5 15.25a3.5 3.5 0 0 1 5 0" />
+          </svg>
+        </div>
+        <p class="empty-title">No results found</p>
+        <p class="empty-subtitle text-secondary">
+        Try adjusting your search or filter to find what you're looking for.
+        </p>
+      </div>
+    <% end %>
+
+  </div>
+
+</div>

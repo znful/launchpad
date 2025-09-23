@@ -4,7 +4,9 @@ class OffersController < ApplicationController
 
   # GET /offers or /offers.json
   def index
-    @offers = Offer.all
+    @q = Offer.ransack(params[:q])
+    @offers = @q.result(distinct: true).order(created_at: :desc)
+    @offer = Offer.new
   end
 
   # GET /offers/1 or /offers/1.json
@@ -23,10 +25,11 @@ class OffersController < ApplicationController
   # POST /offers or /offers.json
   def create
     @offer = Offer.new(offer_params)
+    @offer.user_id = Current.user.id
 
     respond_to do |format|
       if @offer.save
-        format.html { redirect_to @offer, notice: "Offer was successfully created." }
+        format.html { redirect_to offers_path, notice: "Offer was successfully created." }
         format.json { render :show, status: :created, location: @offer }
       else
         format.html { render :new, status: :unprocessable_content }

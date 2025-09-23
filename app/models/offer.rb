@@ -21,7 +21,7 @@ class Offer < ApplicationRecord
   private
 
   def self.ransackable_attributes(auth_object = nil)
-    %w[ company_name title description ]
+    %w[ company_name title description job_type contract_type status verification_status ]
   end
 
   def self.ransackable_associations(auth_object = nil)

@@ -8,6 +8,13 @@ class OffersController < ApplicationController
     @offers = @q.result(distinct: true).order(created_at: :desc)
     @offer = Offer.new
 
+    if params.dig(:q, :location).present? && params.dig(:q, :distance).present?
+      location = params[:q][:location]
+      distance = params[:q][:distance].to_f
+
+      @offers = @offers.near(location, distance, units: :km)
+    end
+
     respond_to do |format|
       format.html
       format.turbo_stream

@@ -7,6 +7,11 @@ class OffersController < ApplicationController
     @q = Offer.ransack(params[:q])
     @offers = @q.result(distinct: true).order(created_at: :desc)
     @offer = Offer.new
+
+    respond_to do |format|
+      format.html
+      format.turbo_stream
+    end
   end
 
   # GET /offers/1 or /offers/1.json

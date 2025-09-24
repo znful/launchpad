@@ -28,3 +28,24 @@
 .form-check-input:checked + .checkbox-icons .unchecked-icon {
   display: none;
 }
+
+.filter-checkbox {
+  display: none;
+}
+.filter-pill {
+  cursor: pointer;
+  user-select: none;
+}
+
+.filter-pill .badge {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-width: 80px;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+
+.filter-pill .action-symbol {
+  font-weight: bold
+}

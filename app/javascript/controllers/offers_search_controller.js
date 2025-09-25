@@ -6,6 +6,7 @@ export default class extends Controller {
   connect() {
     this.update()
   }
+
   update() {
     this.outputTarget.innerHTML = ""
 
@@ -42,7 +43,7 @@ export default class extends Controller {
 
   }
 
-  submitForm(event) {
+  submitForm() {
     const form = this.element.closest("form")
     if (form) form.requestSubmit()
   }

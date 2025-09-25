@@ -12,77 +12,11 @@
     New Offer
   </button>
 
-  <%= render 'offers/form', offer: @offer %>
+  <%= render "shared/form", offer: @offer %>
 
-  <%= search_form_for @q, url: offers_path, method: :get, class: "form-fieldset", data: { turbo_frame: "offers_list", controller: "offers-search" } do |f| %>
-
-    <div class="mb-3 mt-3">
-      <%= f.label :title_or_company_name_cont, "Title or Company name:", class: "form-label" %>
-      <%= f.text_field :title_or_company_name_cont, class: "form-control" %>
-    </div>
-
-    <div class="mb-3 gap-3 d-flex justify-content-center">
-      <div class="flex-fill">
-        <label class="form-label mb-3">Location:</label>
-        <%= text_field_tag "q[location]", params.dig(:q, :location), class: "form-control" %>
-      </div>
-      <div>
-        <label class="form-label mb-3">With in(Km):</label>
-        <%= number_field_tag "q[distance]", params.dig(:q, :distance) || 10, min: 1, step: 1, class: "form-control", data: { action: "change->offers-search#sumbitForm" } %>
-      </div>
-    </div>
-
-    <!-- Contract Type -->
-    <div class="dropdown mb-3 d-flex flex-row" data-controller="offers-search">
-      <a href="#" class="btn dropdown-toggle" data-bs-toggle="dropdown">Contract Type</a>
-      <div class="dropdown-menu">
-        <%= f.collection_check_boxes :contract_type_in, Offer.contract_types, :last, :first do |b| %>
-          <%= b.label class: "form-check-label d-flex justify-content-center m-2" do %>
-            <%= b.check_box class: "form-check-input hidden",
-              data: { action: "offers-search#update", offers_search_target: "checkbox" } %>
-              <div class="checkbox-icons" data-offers-search-target="badgeContainer">
-                <i class="ti unchecked-icon dropdown-item"><%= badge_for(b.text, :contract_type_colour, false) %></i>
-                <i class="ti checked-icon dropdown-item"><%= badge_for(b.text, :contract_type_colour, true) %></i>
-              </div>
-            <% end %>
-          <% end %>
-      </div>
-      <div data-offers-search-target="output" class="p-2"></div>
-    </div>
-
-    <!-- Job Type -->
-    <div class="dropdown mb-3 d-flex flex-row" data-controller="offers-search">
-      <a href="#" class="btn dropdown-toggle" data-bs-toggle="dropdown">Job Type</a>
-      <div class="dropdown-menu">
-        <%= f.collection_check_boxes :job_type_in, Offer.job_types, :last, :first do |b| %>
-          <%= b.label class: "form-check-label d-flex justify-content-center m-2" do %>
-            <%= b.check_box class: "form-check-input hidden",
-              data: { action: "offers-search#update", offers_search_target: "checkbox" } %>
-              <div class="checkbox-icons" data-offers-search-target="badgeContainer">
-                <i class="ti unchecked-icon dropdown-item"><%= badge_for(b.text, :job_type_colour, false) %></i>
-                <i class="ti checked-icon dropdown-item"><%= badge_for(b.text, :job_type_colour, true) %></i>
-              </div>
-            <% end %>
-          <% end %>
-      </div>
-      <div data-offers-search-target="output" class="p-2"></div>
-    </div>
-
-    <div class="mb-3">
-      <label class="form-check form-switch">
-        <%= f.check_box :verification_status_eq,
-          { checked: params[:q] && params[:q][:verification_status_eq] == '2', class: "form-check-input", data: { action: "change->offers-search#submitForm" }  },
-          2, nil %>
-          <%= f.label :verification_status_eq, 'Verified Offers Only' %>
-      </label>
-    </div>
-
-    <div>
-      <%= f.submit "Search", class: "btn btn-primary" %>
-      <%= link_to "Clear", offers_path, class: "btn" %>
-    </div>
-
-  <% end %>
+  <div class="sticky-top py-2">
+    <%= render "search_bar" %>
+  </div>
 
   <div id="offers">
     <%= turbo_frame_tag "offers_list" do %>

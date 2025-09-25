@@ -8,8 +8,8 @@ module OffersHelper
   end
 
   def badge_for(key, colour_method, checked = true, options = {})
-    colour = checked == true ? send(colour_method, key.to_s) : "gray"
+    colour = checked == true ? send(colour_method, key) : "gray"
 
-    content_tag(:span, key.to_s.humanize.titleize, class: "badge px-2 py-1 badge-pill bg-#{colour}-lt text-#{colour} border-#{colour} #{options}")
+    content_tag(:span, key.humanize.titleize, class: "badge px-2 py-1 badge-pill bg-#{colour}-lt text-#{colour} border border-#{colour} #{options}")
   end
 end

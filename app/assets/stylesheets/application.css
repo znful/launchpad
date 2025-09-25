@@ -9,7 +9,6 @@
  * Consider organizing styles into separate files for maintainability.
  */
 
-/* Hide both icons by default */
 .checkbox-icons .unchecked-icon,
 .checkbox-icons .checked-icon {
   display: none;
@@ -20,6 +19,10 @@
   display: block;
 }
 
+.custom-text {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
 /* When the checkbox is checked, show the 'checked' icon and hide the 'unchecked' one */
 .form-check-input:checked + .checkbox-icons .checked-icon {
   display: block;
@@ -27,25 +30,4 @@
 
 .form-check-input:checked + .checkbox-icons .unchecked-icon {
   display: none;
-}
-
-.filter-checkbox {
-  display: none;
-}
-.filter-pill {
-  cursor: pointer;
-  user-select: none;
-}
-
-.filter-pill .badge {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  min-width: 80px;
-  transition: background-color 0.2s, color 0.2s;
-}
-
-
-.filter-pill .action-symbol {
-  font-weight: bold
 }

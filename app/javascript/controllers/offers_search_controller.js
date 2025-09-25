@@ -43,7 +43,7 @@ export default class extends Controller {
 
   }
 
-  submitForm() {
+  submitForm(event) {
     const form = this.element.closest("form")
     if (form) form.requestSubmit()
   }

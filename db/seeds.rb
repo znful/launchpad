@@ -13,7 +13,7 @@ User.find_or_create_by!(email_address: "dev@launchpad.com") do |user|
 end
 
 
-20.times do
+100.times do
   Offer.find_or_create_by!(
     title: Faker::Job.title,
     company_name: Faker::Company.name,

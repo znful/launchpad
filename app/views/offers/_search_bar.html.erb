@@ -13,7 +13,7 @@
 
       <div>
         <label class="form-label mb-3">With in (km):</label>
-        <%= number_field_tag "q[distance]", params.dig(:q, :distance) || 10, min: 1, step: 1, class: "form-control", data: { action: "change->offers-search#sumbitForm" } %>
+        <%= number_field_tag "q[distance]", params.dig(:q, :distance) || 10, min: 1, step: 1, class: "form-control", data: { action: "change->offers-search#submitForm" } %>
       </div>
 
       <div>

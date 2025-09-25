@@ -18,8 +18,8 @@
     <%= render "search_bar" %>
   </div>
 
-  <div id="offers">
-    <%= turbo_frame_tag "offers_list" do %>
+  <%= turbo_frame_tag "offers_list" do %>
+    <div id="offers">
       <% if @offers.any? %>
         <% @offers.each do |offer| %>
           <%= render offer %>
@@ -43,8 +43,20 @@
           </p>
         </div>
       <% end %>
+      <div id="infinite-scroll-spinner" class="text-center py-3 d-none">
+        <div class="spinner-border text-primary" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      </div>
+    </div>
+
+    <% if @pagy.next %>
+      <div
+        id="infinite-scroll-sentinel"
+        data-controller="infinite-scroll"
+        data-infinite-scroll-next-url-value="<%= pagy_url_for(@pagy, @pagy.next) %>"
+        data-infinite-scroll-target="sentinel">
+      </div>
     <% end %>
-
-  </div>
-
+  <% end %>
 </div>

@@ -28,8 +28,17 @@
       <div class="col-sm-6 col-lg-4">
         <div class="card">
           <div class="card-body">
-            <h3 class="card-title">Total views</h3>
-            <h1 class="display-4"><%= @view_count %></h1>
+            <div class="subheader">Total views</div>
+
+            <div class="h1 mb-2 align-middle"><%= @view_count %></div>
+
+            <div class="text-secondary">
+              views increased by x since last month
+            </div>
+
+            <div class="ratio ratio-21x9 placeholder mt-3">
+              <div class="placeholder-image"></div>
+            </div>
           </div>
         </div>
       </div>
@@ -37,8 +46,17 @@
       <div class="col-sm-6 col-lg-4">
         <div class="card">
           <div class="card-body">
-            <h3 class="card-title">Total interactions</h3>
-            <h1 class="display-4"><%= @interaction_count %></h1>
+            <div class="subheader">Total interactions</div>
+
+            <h1 class="h1 mb-2"><%= @interaction_count %></h1>
+
+            <div class="text-secondary">
+              interactions increased by x since last month
+            </div>
+
+            <div class="ratio ratio-21x9 placeholder mt-3">
+              <div class="placeholder-image"></div>
+            </div>
           </div>
         </div>
       </div>
@@ -46,8 +64,17 @@
       <div class="col-sm-6 col-lg-4">
         <div class="card">
           <div class="card-body">
-            <h3 class="card-title">Total applications</h3>
-            <h1 class="display-4"><%= @application_count %></h1>
+            <div class="subheader">Total applications</div>
+
+            <h1 class="h1 mb-2"><%= @application_count %></h1>
+
+            <div class="text-secondary">
+              applications increased by x since last month
+            </div>
+
+            <div class="ratio ratio-21x9 placeholder mt-3">
+              <div class="placeholder-image"></div>
+            </div>
           </div>
         </div>
       </div>
@@ -75,4 +102,5 @@
       <% end %>
       <% end %>
     </div>
+<%== pagy_nav(@pagy) if @pagy.pages > 1 %>
 </section>

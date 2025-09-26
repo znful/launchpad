@@ -2,7 +2,7 @@
   <div class="accordion-item">
     <div class="accordion-header" id="heading-<%= offer.id %>">
       <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-<%= offer.id %>" aria-expanded="false" aria-controls="collapse-<%= offer.id %>">
-        <h2><%= offer.title %> - <%= offer.company_name %></h2> <%= contract_type_badge(offer.contract_type) %> <%= job_type_badge(offer.job_type) %>
+        <h2><%= offer.title %> - <%= offer.company_name %></h2> <%= badge_for(offer.contract_type, :contract_type_colour) %> <%= badge_for(offer.job_type, :job_type_colour) %>
       </button>
     </div>
     <div id="collapse-<%= offer.id %>" class="accordion-collapse collapse" aria-labelledby="heading-<%= offer.id %>">

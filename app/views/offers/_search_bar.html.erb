@@ -24,48 +24,32 @@
     </div>
     <div class="collapse mt-2" id="advancedSearchCollapse">
       <div class="p-3">
-        <div class="dropdown mb-3 d-flex flex-row" data-controller="offers-search">
-          <a href="#" class="btn dropdown-toggle" data-bs-toggle="dropdown">Contract Type</a>
-          <div class="dropdown-menu">
-            <%= f.collection_check_boxes :contract_type_in, Offer.contract_types, :last, :first do |b| %>
-              <%= b.label class: "form-check-label d-flex justify-content-center m-2" do %>
-                <%= b.check_box class: "form-check-input hidden",
-                  data: { action: "offers-search#update", offers_search_target: "checkbox" } %>
-                <div class="checkbox-icons" data-offers-search-target="badgeContainer">
-                  <i class="ti unchecked-icon dropdown-item"><%= badge_for(b.text, :contract_type_colour, false) %></i>
-                  <i class="ti checked-icon dropdown-item"><%= badge_for(b.text, :contract_type_colour, true) %></i>
-                </div>
-              <% end %>
-            <% end %>
-          </div>
-          <div data-offers-search-target="output" class="p-2"></div>
-        </div>
 
-        <div class="dropdown mb-3 d-flex flex-row" data-controller="offers-search">
-          <a href="#" class="btn dropdown-toggle" data-bs-toggle="dropdown">Job Type</a>
-          <div class="dropdown-menu">
-            <%= f.collection_check_boxes :job_type_in, Offer.job_types, :last, :first do |b| %>
-              <%= b.label class: "form-check-label d-flex justify-content-center m-2" do %>
-                <%= b.check_box class: "form-check-input hidden",
-                  data: { action: "offers-search#update", offers_search_target: "checkbox" } %>
-                <div class="checkbox-icons" data-offers-search-target="badgeContainer">
-                  <i class="ti unchecked-icon dropdown-item"><%= badge_for(b.text, :job_type_colour, false) %></i>
-                  <i class="ti checked-icon dropdown-item"><%= badge_for(b.text, :job_type_colour, true) %></i>
-                </div>
-              <% end %>
-            <% end %>
-          </div>
-          <div data-offers-search-target="output" class="p-2"></div>
-        </div>
+        <%= render "shared/filter_dropdown",
+        form: f,
+        field_name: :contract_type_in,
+        options: Offer.contract_types,
+        label: "Contract Type",
+        badge_colour: :contract_type_colour
+      %>
 
-        <div class="mb-3">
-          <label class="form-check form-switch">
-            <%= f.check_box :verification_status_eq,
+      <%= render "shared/filter_dropdown",
+        form: f,
+        field_name: :job_type_in,
+        options: Offer.job_types,
+        label: "Job Type",
+        badge_colour: :job_type_colour
+      %>
+
+
+      <div class="mb-3">
+        <label class="form-check form-switch">
+          <%= f.check_box :verification_status_eq,
               { checked: params[:q] && params[:q][:verification_status_eq] == '2', class: "form-check-input", data: { action: "change->offers-search#submitForm" } },
               2, nil %>
-            <%= f.label :verification_status_eq, 'Verified Offers Only' %>
-          </label>
-        </div>
+              <%= f.label :verification_status_eq, 'Verified Offers Only' %>
+        </label>
+      </div>
       </div>
     </div>
     <div>

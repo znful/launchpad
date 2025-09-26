@@ -1,42 +1,106 @@
 <%= content_for :header_buttons do %>
   <%= link_to new_offer_path, class: 'btn btn-primary' do %>
-    <i class="ti ti-plus me-2"></i> 
+    <i class="ti ti-plus me-2"></i>
     <span>New Offer</span>
   <% end %>
 <% end %>
 
 <section class="mt-4" id="offers-section">
+  <% if @offers.empty? %>
+    <div class="col-12">
+      <div class="align-items-center text-center">
+        <h2>No offers available</h2>
 
-  <div class="row row-cards ">
+        <p class="text-muted">
+          Click the button below to create your first offer.
+        </p>
 
-    <% if @offers.empty? %>
-      <div class="col-12">
-        <div class="align-items-center text-center">
-          <h2>No offers available</h2>
-          <p class="text-muted">Click the button below to create your first offer.</p>
-          <%= link_to new_offer_path, class: 'btn btn-primary' do %>
-            <i class="ti ti-plus me-2"></i> 
-            <span>Create your first offer</span>
-          <% end %>
-        </div>
+        <%= link_to new_offer_path, class: 'btn btn-primary' do %>
+          <i class="ti ti-plus me-2"></i>
+          <span>Create your first offer</span>
+        <% end %>
       </div>
-    <% end %>
+    </div>
+  <% end %>
 
-    <% @offers.each do |offer| %>
+  <% if @offers.any? %>
+    <div class="row row-cards">
       <div class="col-sm-6 col-lg-4">
         <div class="card">
           <div class="card-body">
-            <h3 class="card-title"><%= offer.title %></h3>
-            <p class="card-text"><%= truncate(offer.description, length: 100) %></p>
-            <p class="card-text"><strong>Price:</strong> $<%= offer.price %></p>
-            <div class="d-flex justify-content-between">
-              <%= link_to 'View', offer_path(offer), class: 'btn btn-sm btn-outline-primary' %>
-              <%= link_to 'Edit', edit_offer_path(offer), class: 'btn btn-sm btn-outline-secondary' %>
-              <%= link_to 'Delete', offer_path(offer), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-sm btn-outline-danger' %>
+            <div class="subheader">Total views</div>
+
+            <div class="h1 mb-2 align-middle"><%= @view_count %></div>
+
+            <div class="text-secondary">
+              views increased by x since last month
+            </div>
+
+            <div class="ratio ratio-21x9 placeholder mt-3">
+              <div class="placeholder-image"></div>
             </div>
           </div>
         </div>
       </div>
-    <% end %>
-  </div>
+
+      <div class="col-sm-6 col-lg-4">
+        <div class="card">
+          <div class="card-body">
+            <div class="subheader">Total interactions</div>
+
+            <h1 class="h1 mb-2"><%= @interaction_count %></h1>
+
+            <div class="text-secondary">
+              interactions increased by x since last month
+            </div>
+
+            <div class="ratio ratio-21x9 placeholder mt-3">
+              <div class="placeholder-image"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-6 col-lg-4">
+        <div class="card">
+          <div class="card-body">
+            <div class="subheader">Total applications</div>
+
+            <h1 class="h1 mb-2"><%= @application_count %></h1>
+
+            <div class="text-secondary">
+              applications increased by x since last month
+            </div>
+
+            <div class="ratio ratio-21x9 placeholder mt-3">
+              <div class="placeholder-image"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <hr>
+    <div class="row row-cards">
+      <% @offers.each do |offer| %>
+        <div class="col-sm-6 col-lg-4">
+          <div class="card">
+            <div class="card-body">
+              <h3 class="card-title"><%= offer.title %></h3>
+
+              <p class="card-text">
+                <%= truncate(offer.description.to_plain_text, length: 100) %>
+              </p>
+
+              <div class="d-flex justify-content-between">
+                <%= link_to 'View', offer_path(offer), class: 'btn btn-sm btn-outline-primary' %>
+                <%= link_to 'Edit', edit_offer_path(offer), class: 'btn btn-sm btn-outline-secondary' %>
+                <%= link_to 'Delete', offer_path(offer), method: :delete, data: { turbo_confirm: 'Are you sure?' }, class: 'btn btn-sm btn-outline-danger' %>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+      <% end %>
+    </div>
+<%== pagy_nav(@pagy) if @pagy.pages > 1 %>
 </section>

@@ -5,8 +5,20 @@ class OffersController < ApplicationController
   # GET /offers or /offers.json
   def index
     @q = Offer.ransack(params[:q])
-    @offers = @q.result(distinct: true).order(created_at: :desc)
+    @pagy, @offers = pagy(@q.result(distinct: true).order(created_at: :desc), limit: 10)
     @offer = Offer.new
+
+    if params.dig(:q, :location).present? && params.dig(:q, :distance).present?
+      location = params[:q][:location]
+      distance = params[:q][:distance].to_f
+
+      @offers = @offers.near(location, distance, units: :km)
+    end
+
+    respond_to do |format|
+      format.html
+      format.turbo_stream
+    end
   end
 
   # GET /offers/1 or /offers/1.json

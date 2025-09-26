@@ -7,13 +7,9 @@ module OffersHelper
     { "on_site" => "green", "remote" => "blue", "hybrid" => "purple" }[job_type] || "gray"
   end
 
-  def contract_type_badge(key)
-    colour = contract_type_colour(key.to_s)
-    content_tag(:span, key.to_s.humanize.titleize, class: "badge px-2 py-1 badge-pill bg-#{colour}-lt text-#{colour}")
-  end
+  def badge_for(key, colour_method, checked = true, options = {})
+    colour = checked == true ? send(colour_method, key) : "gray"
 
-  def job_type_badge(key)
-    colour = job_type_colour(key.to_s)
-    content_tag(:span, key.to_s.humanize.titleize, class: "badge px-2 py-1 badge-pill bg-#{colour}-lt text-#{colour}")
+    content_tag(:span, key.humanize.titleize, class: "badge px-2 py-1 badge-pill bg-#{colour}-lt text-#{colour} border border-#{colour} #{options}")
   end
 end

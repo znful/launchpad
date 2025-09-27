@@ -1,0 +1,135 @@
+<section id="hero" class="hero-section">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="text-center">
+        <h1 class="display-4 mb-0">Skip the <strong>noise.</strong></h1>
+
+        <p class="lead">
+          <strong>Launchpad</strong>
+          is the only job board dedicated to early career roles. We eliminate
+          the noise of traditional job boards by curating entry-level
+          opportunities from top companies.
+        </p>
+      </div>
+      <div class="row justify-content-center">
+        <!-- TODO: search form using ransack -->
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="goals" class="bg-body-tertiary py-5">
+  <div class="container">
+    <div class="row text-center mb-4">
+      <div class="col">
+        <h2 class="h1">The perfect place to start</h2>
+
+        <p class="lead">
+          We cut through the clutter so you can focus on what matters.
+        </p>
+
+        <div class="row row-cards mt-4">
+          <div class="col-sm-6 col-lg-4 mb-4">
+            <div class="card h-100">
+              <div class="card-body">
+                <div class="avatar placeholder mb-4"></div>
+
+                <h5 class="h2">Focused Opportunities</h5>
+
+                <p>
+                  No more sifting through senior roles. Every single listing is
+                  for junior positions, internships, or apprenticeships.
+                  Guarenteed.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-sm-6 col-lg-4 mb-4">
+            <div class="card h-100">
+              <div class="card-body">
+                <div class="avatar placeholder mb-4"></div>
+
+                <h5 class="h2">Vetted Companies</h5>
+
+                <p>
+                  We partner with companies that are actively looking to hire
+                  and mentor the next generation of talent. No fake listings,
+                  ever.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-sm-6 col-lg-4 mb-4">
+            <div class="card h-100">
+              <div class="card-body">
+                <div class="avatar placeholder mb-4"></div>
+
+                <h5 class="h2">Lorem Ipsum</h5>
+
+                <p>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                  Pellentesque euismod, nisi vel consectetur interdum, nisl nisi
+                  consectetur nisi.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="latest-opportunities" class="py-5">
+  <div class="container">
+    <div class="row mb-4">
+      <div class="col">
+        <div class="text-center mb-4">
+          <h2 class="h1">Latest openings</h2>
+
+          <p class="lead">
+            Here's a glimpse of the opportunities waiting for you.
+          </p>
+        </div>
+
+        <% if @offers.any? %>
+          <div class="row row-cards mt-4">
+            <% @offers.each do |offer| %>
+              <div class="col-sm-6 col-lg-4 mb-4">
+                <div class="card h-100">
+                  <div class="card-body p-0">
+                    <div class="row mb-2">
+                      <div class="col-auto">
+                        <span class="avatar placeholder"></span>
+                      </div>
+
+                      <div class="col ps-0">
+                        <div class="h4 mb-0"><%= offer.company_name %></div>
+
+                        <p class="subheader">
+                          <%= truncate offer.address, limit: 20 %> &bull; <%= offer.job_type %>
+                        </p>
+                      </div>
+                    </div>
+
+                    <div class="h3"><%= offer.title %></div>
+
+                    <p class="mb-4">
+                      <%= truncate(offer.description.to_plain_text, length: 100) %>
+                    </p>
+
+                    <%= link_to "View details", offer_path(offer), class: "btn btn-primary bottom-0" %>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        <% else %>
+          <p class="text-muted">No job offers available at the moment.</p>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</section>

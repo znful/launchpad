@@ -1,42 +1,55 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  static values = { nextUrl: String }
   static targets = ["sentinel"]
+  static values = { nextUrl: String }
 
   connect() {
-    this.observer = new IntersectionObserver((entries) => {
-      if (entries[0].isIntersecting && this.hasNextUrlValue) {
-        this.loadMore()
-      }
-    })
-
-    this.observeSentinel()
+    if (!this.hasSentinelTarget) return
+    this.observe()
   }
 
-  observeSentinel() {
-    if (this.hasSentinelTarget) {
-      this.observer.observe(this.sentinelTarget)
+  observe() {
+    this.observer = new IntersectionObserver(entries => {
+      if (entries[0].isIntersecting) {
+        this.loadMore()
+      }
+    }, {
+      root: null,
+      rootMargin: "200px"
+    })
+
+    this.observer.observe(this.sentinelTarget)
+  }
+
+  async loadMore() {
+    if (!this.nextUrlValue) return
+
+    this.showSpinner()
+
+    try {
+      const response = await fetch(this.nextUrlValue, {
+        headers: { "Accept": "text/vnd.turbo-stream.html" }
+      })
+
+      if (response.ok) {
+        const html = await response.text()
+        Turbo.renderStreamMessage(html)
+      } else {
+        console.error("Failed to load:", response.statusText)
+      }
+    } catch (e) {
+      console.error("Error loading more:", e)
+    } finally {
+      this.hideSpinner()
     }
   }
 
-  loadMore() {
-    // Prevent double fetching
-    const url = this.nextUrlValue
-    if (!url) return
+  showSpinner() {
+    document.getElementById("infinite-scroll-spinner")?.classList.remove("d-none")
+  }
 
-    const spinner = document.getElementById("infinite-scroll-spinner")
-    spinner.classList.remove("d-none")
-
-    fetch(url, {
-      headers: { Accept: "text/vnd.turbo-stream.html" }
-    })
-      .then(response => response.text())
-      .then(html => {
-        Turbo.renderStreamMessage(html)
-        spinner.classList.add("d-none")
-        setTimeout(() => this.observeSentinel(), 100)
-      })
-      .catch(() => spinner.classList.add("d-none"))
+  hideSpinner() {
+    document.getElementById("infinite-scroll-spinner")?.classList.add("d-none")
   }
 }

@@ -1,8 +1,14 @@
 <%= content_for :header_buttons do %>
-  <%= link_to new_offer_path, class: 'btn btn-primary' do %>
-    <i class="ti ti-plus me-2"></i>
-    <span>New Offer</span>
-  <% end %>
+  <button
+    type="button"
+    class="btn btn-primary mb-3"
+    data-bs-toggle="modal"
+    data-bs-target="#new-offer-modal"
+  >
+    New Offer
+  </button>
+
+  <%= render "shared/form", offer: @offer %>
 <% end %>
 
 <section class="mt-4" id="offers-section">
@@ -102,5 +108,5 @@
       <% end %>
       <% end %>
     </div>
-<%== pagy_nav(@pagy) if @pagy.pages > 1 %>
+    <%== pagy_nav(@pagy) if @pagy.pages > 1 %>
 </section>

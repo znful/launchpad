@@ -3,6 +3,7 @@ class DashboardController < ApplicationController
 
   def index
     @q = Current.user.offers.ransack(params[:q])
+    @offer = Offer.new
 
     if @status.present?
       @pagy, @offers = pagy(@q.result.near(@location, @range).where(status: @status).order(@sort), limit: @limit) if @location.present? && @range.present?

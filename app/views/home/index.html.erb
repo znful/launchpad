@@ -12,7 +12,25 @@
         </p>
       </div>
       <div class="row justify-content-center">
-        <!-- TODO: search form using ransack -->
+        <%= search_form_for @q, url: offers_path, method: :get, class: "form-fieldset border-0" do |f| %>
+          <div class="d-flex justify-content-between gap-2 align-items-end pb-2">
+            <div class="flex-grow-1">
+              <%= f.text_field :title_or_company_name_cont, class: "form-control form-control-lg", placeholder: "Junior Rails Developer" %>
+            </div>
+
+            <div class="flex-grow-1">
+              <%= text_field_tag "q[location]", params.dig(:q, :location), class: "form-control form-control-lg", placeholder: "Paris, France" %>
+            </div>
+
+            <div>
+              <%= number_field_tag "q[distance]", params.dig(:q, :distance) || 10, min: 1, step: 1, class: "form-control form-control-lg" %>
+            </div>
+
+            <div class="flex-shrink-0">
+              <%= f.submit "Search", class: "btn btn-primary w-100" %>
+            </div>
+          </div>
+        <% end %>
       </div>
     </div>
   </div>

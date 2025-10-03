@@ -15,6 +15,10 @@ class OffersController < ApplicationController
       @offers = @offers.near(location, distance, units: :km)
     end
 
+    if params[:bookmarked] == "true"
+      @offers = @offers.where(id: User.first.bookmarked_offer_ids)
+    end
+
     respond_to do |format|
       format.html
       format.turbo_stream

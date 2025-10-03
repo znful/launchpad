@@ -9,6 +9,7 @@
       <div class="accordion-body">
         <p><strong>Location:</strong> <%= offer.address %></p>
         <p><strong>Description:</strong> <%= offer.description %></p>
+        <div id="bookmark-<%= offer.id %>"><%= render 'bookmarks/bookmark_button', offer: offer %></div>
         <a href="<%= offer.application_link %>" class="btn btn-primary" target="_blank">Apply Now</a>
       </div>
     </div>

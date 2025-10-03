@@ -50,6 +50,12 @@
               <%= f.label :verification_status_eq, 'Verified Offers Only' %>
         </label>
       </div>
+      <div class="mb-3">
+        <label class="form-check form-switch">
+          Bookmarked Only
+          <%= checkbox_tag "bookmarked", true, class: "form-check-input", data: { action: "change->offers-search#submitForm" } %>
+        </label>
+      </div>
       </div>
     </div>
     <div>

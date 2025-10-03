@@ -1,16 +1,37 @@
 <div id="<%= dom_id offer %>" class="accordion mb-3">
   <div class="accordion-item">
     <div class="accordion-header" id="heading-<%= offer.id %>">
-      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-<%= offer.id %>" aria-expanded="false" aria-controls="collapse-<%= offer.id %>">
-        <h2><%= offer.title %> - <%= offer.company_name %></h2> <%= badge_for(offer.contract_type, :contract_type_colour) %> <%= badge_for(offer.job_type, :job_type_colour) %>
+      <button
+        class="accordion-button collapsed"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#collapse-<%= offer.id %>"
+        aria-expanded="false"
+        aria-controls="collapse-<%= offer.id %>"
+      >
+        <h2><%= offer.title %> - <%= offer.company_name %></h2>
+        <%= badge_for(offer.contract_type, :contract_type_colour) %>
+        <%= badge_for(offer.job_type, :job_type_colour) %>
       </button>
+      <%= render 'bookmarks/bookmark_button', offer: offer %>
     </div>
-    <div id="collapse-<%= offer.id %>" class="accordion-collapse collapse" aria-labelledby="heading-<%= offer.id %>">
+    <div
+      id="collapse-<%= offer.id %>"
+      class="accordion-collapse collapse"
+      aria-labelledby="heading-<%= offer.id %>"
+    >
       <div class="accordion-body">
-        <p><strong>Location:</strong> <%= offer.address %></p>
-        <p><strong>Description:</strong> <%= offer.description %></p>
-        <div id="bookmark-<%= offer.id %>"><%= render 'bookmarks/bookmark_button', offer: offer %></div>
-        <a href="<%= offer.application_link %>" class="btn btn-primary" target="_blank">Apply Now</a>
+        <p><strong>Location:</strong><%= offer.address %></p>
+
+        <p><strong>Description:</strong><%= offer.description %></p>
+
+        <a
+          href="<%= offer.application_link %>"
+          class="btn btn-primary"
+          target="_blank"
+        >
+          Apply Now
+        </a>
       </div>
     </div>
   </div>

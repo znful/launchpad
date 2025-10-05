@@ -91,7 +91,32 @@
         </div>
       </div>
     </div>
-    <hr>
+    <hr class="mb-2">
+    <div id="offers-filters" class="row">
+      <%= search_form_for @q, url: dashboard_path, method: :get, class: "form-fieldset border-0" do |f| %>
+        <div class="d-flex justify-content-between gap-2 align-items-end p-0">
+          <div class="flex-grow-1">
+            <%= f.label :title_or_company_name_cont, "Job Title or Company :", class: "form-label d-block" %>
+            <%= f.text_field :title_or_company_name_cont, class: "form-control" %>
+          </div>
+
+          <div class="flex-grow-1">
+            <label class="form-label">Location:</label>
+            <%= text_field_tag "q[location]", params.dig(:q, :location), class: "form-control" %>
+          </div>
+
+          <div>
+            <label class="form-label">Distance (km):</label>
+            <%= number_field_tag "q[distance]", params.dig(:q, :distance) || 10, min: 1, step: 1, class: "form-control" %>
+          </div>
+
+          <div id="form-buttons">
+            <%= f.submit "Search", class: "btn btn-primary" %>
+            <%= link_to "Clear", dashboard_path, class: "btn" %>
+          </div>
+        </div>
+      <% end %>
+    </div>
     <div class="row row-cards">
       <% @offers.each do |offer| %>
         <div class="col-sm-6 col-lg-4">
@@ -224,6 +249,7 @@
           </div>
         </div>
       <% end %>
+
       <% end %>
     </div>
     <div class="d-flex justify-content-center py-4">

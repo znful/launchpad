@@ -92,28 +92,36 @@
       </div>
     </div>
     <hr class="mb-2">
-    <div id="offers-filters" class="row">
-      <%= search_form_for @q, url: dashboard_path, method: :get, class: "form-fieldset border-0" do |f| %>
+    <div id="offers-filters" class="row" data-controller="dashboard">
+      <%= search_form_for @q, url: dashboard_path, method: :get, class: "form-fieldset border-0", data: { "dashboard-target": "form" } do |f| %>
         <div class="d-flex justify-content-between gap-2 align-items-end p-0">
           <div class="flex-grow-1">
             <%= f.label :title_or_company_name_cont, "Job Title or Company :", class: "form-label d-block" %>
-            <%= f.text_field :title_or_company_name_cont, class: "form-control" %>
+            <%= f.text_field :title_or_company_name_cont, class: "form-control", data: { action: "blur->dashboard#submitForm" } %>
           </div>
 
           <div class="flex-grow-1">
             <label class="form-label">Location:</label>
-            <%= text_field_tag "q[location]", params.dig(:q, :location), class: "form-control" %>
+            <%= text_field_tag "q[location]", params.dig(:q, :location), class: "form-control", data: { action: "blur->dashboard#submitForm" } %>
           </div>
 
           <div>
             <label class="form-label">Distance (km):</label>
-            <%= number_field_tag "q[distance]", params.dig(:q, :distance) || 10, min: 1, step: 1, class: "form-control" %>
+            <%= number_field_tag "q[distance]", params.dig(:q, :distance) || 10, min: 1, step: 1, class: "form-control", data: { action: "blur->dashboard#submitForm" } %>
           </div>
 
           <div id="form-buttons">
             <%= f.submit "Search", class: "btn btn-primary" %>
             <%= link_to "Clear", dashboard_path, class: "btn" %>
           </div>
+        </div>
+        <div class="mt-2">
+          <label class="form-check form-switch">
+            <%= f.check_box :verification_status_eq,
+              { checked: params[:q] && params[:q][:verification_status_eq] == '2', class: "form-check-input", data: { action: "change->dashboard#submitForm" } },
+              2, nil %>
+            <%= f.label :verification_status_eq, 'Verified Offers Only' %>
+          </label>
         </div>
       <% end %>
     </div>
@@ -124,8 +132,12 @@
             <div class="card-body">
               <div class="d-flex align-items-center mb-3 border-bottom pb-3">
                 <div>
-                  <h3 class="card-title mb-0"><%= offer.title %></h3>
+                  <h3 class="card-title mb-0">
+                    <%= truncate(offer.title, length: 30) %>
+                  </h3>
+
                   <p class="text-muted m-0"><%= offer.company_name %></p>
+                  <span class="badge badge-sm bg-yellow-lt ms-auto"><%= offer.verification_status %></span>
                 </div>
                 <span class="badge bg-yellow-lt ms-auto"><%= offer.status %></span>
               </div>

@@ -1,5 +1,6 @@
 class OffersController < ApplicationController
   allow_unauthenticated_access only: %i[ index show ]
+  before_action :resume_session, only: %i[ index ]
   before_action :set_offer, only: %i[ show edit update destroy ]
 
   # GET /offers or /offers.json

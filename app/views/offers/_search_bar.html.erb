@@ -17,47 +17,53 @@
       </div>
 
       <div>
-        <button class="btn btn-primary collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#advancedSearchCollapse" aria-expanded="false" aria-controls="advancedSearchCollapse">
+        <button
+          class="btn btn-primary collapsed"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#advancedSearchCollapse"
+          aria-expanded="false"
+          aria-controls="advancedSearchCollapse"
+        >
           Advanced Filters
         </button>
       </div>
     </div>
+
     <div class="collapse mt-2" id="advancedSearchCollapse">
       <div class="p-3">
-
         <%= render "shared/filter_dropdown",
         form: f,
         field_name: :contract_type_in,
         options: Offer.contract_types,
         label: "Contract Type",
-        badge_colour: :contract_type_colour
-      %>
+        badge_colour: :contract_type_colour %>
 
-      <%= render "shared/filter_dropdown",
+        <%= render "shared/filter_dropdown",
         form: f,
         field_name: :job_type_in,
         options: Offer.job_types,
         label: "Job Type",
-        badge_colour: :job_type_colour
-      %>
+        badge_colour: :job_type_colour %>
 
-
-      <div class="mb-3">
-        <label class="form-check form-switch">
-          <%= f.check_box :verification_status_eq,
+        <div class="mb-3">
+          <label class="form-check form-switch">
+            <%= f.check_box :verification_status_eq,
               { checked: params[:q] && params[:q][:verification_status_eq] == '2', class: "form-check-input", data: { action: "change->offers-search#submitForm" } },
               2, nil %>
-              <%= f.label :verification_status_eq, 'Verified Offers Only' %>
-        </label>
-      </div>
-      <div class="mb-3">
-        <label class="form-check form-switch">
-          Bookmarked Only
-          <%= checkbox_tag "bookmarked", true, class: "form-check-input", data: { action: "change->offers-search#submitForm" } %>
-        </label>
-      </div>
+            <%= f.label :verification_status_eq, 'Verified Offers Only' %>
+          </label>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-check form-switch">
+            Bookmarked Only
+            <%= checkbox_tag "bookmarked", true, class: "form-check-input", data: { action: "change->offers-search#submitForm" } %>
+          </label>
+        </div>
       </div>
     </div>
+
     <div>
       <%= f.submit "Search", class: "btn btn-primary" %>
       <%= link_to "Clear", offers_path, class: "btn" %>

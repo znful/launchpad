@@ -56,16 +56,12 @@
 
       <div id="form-buttons">
         <%= f.submit "Search", class: "btn btn-primary" %>
-        <%= link_to "Clear", dashboard_path, class: "btn" %>
+        <%= link_to "Clear", dashboard_path, class: "btn btn-outline-danger" %>
       </div>
     </div>
-    <div class="mt-2">
-      <label class="form-check form-switch">
-        <%= f.check_box :verification_status_eq,
-              { checked: params[:q] && params[:q][:verification_status_eq] == '2', class: "form-check-input", data: { action: "change->dashboard#submitForm" } },
-              2, nil %>
-        <%= f.label :verification_status_eq, 'Verified Offers Only' %>
-      </label>
-    </div>
+    <div
+      class="mt-2 d-flex flex-row flex-wrap gap-2"
+      data-dashboard-target="badgesContainer"
+    ></div>
   <% end %>
 </div>

@@ -1,9 +1,7 @@
 <div id="bookmark-<%= offer.id %>" class="mx-3">
-  <% if Current.user %>
-    <% if Current.user.bookmarked?(offer) %>
-      <%= button_to "Remove Bookmark", offer_bookmark_path(offer, Current.user.bookmarks.find_by(offer: offer)), method: :delete, class: "btn btn-warning" %>
-    <% else %>
-      <%= button_to "Bookmark", offer_bookmarks_path(offer), method: :post, class: "btn btn-primary" %>
-    <% end %>
+  <% if user_signed_in? && current_user.bookmarked?(offer) %>
+    <%= button_to "Remove Bookmark", offer_bookmark_path(offer, current_user.bookmarks.find_by(offer: offer)), method: :delete, class: "btn btn-warning" %>
+  <% else %>
+    <%= button_to "Bookmark", offer_bookmarks_path(offer), method: :post, class: "btn btn-primary" %>
   <% end %>
 </div>

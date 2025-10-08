@@ -2,7 +2,7 @@ class BookmarksController < ApplicationController
   before_action :set_offer, only: [ :create, :destroy ]
 
   def create
-    Current.user.bookmarks.create!(offer: @offer)
+    current_user.bookmarks.create!(offer: @offer)
     respond_to do |format|
       format.html
       format.turbo_stream
@@ -10,7 +10,7 @@ class BookmarksController < ApplicationController
   end
 
   def destroy
-    bookmark = Current.user.bookmarks.find(params[:id])
+    bookmark = current_user.bookmarks.find(params[:id])
     bookmark.destroy
     respond_to do |format|
       format.html

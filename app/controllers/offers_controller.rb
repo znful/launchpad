@@ -17,7 +17,7 @@ class OffersController < ApplicationController
     end
 
     if params[:bookmarked] == "true"
-      @offers = @offers.where(id: User.first.bookmarked_offer_ids)
+      @offers = @offers.where(id: Current.user.bookmarked_offer_ids)
     end
 
     respond_to do |format|

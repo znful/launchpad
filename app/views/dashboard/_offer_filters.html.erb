@@ -16,34 +16,42 @@
         <%= number_field_tag "q[distance]", params.dig(:q, :distance) || 10, min: 1, step: 1, class: "form-control", data: { action: "blur->dashboard#submitForm" } %>
       </div>
 
-      <%# TODO: Replace with custom multi-select dropdown component %>
-
-      <div>
-        <%= f.label :status_in, "Statuses", class: "form-label" %>
-
-        <%= f.select :status_in, 
-          Offer.statuses.map { |name, value| [name.humanize, value] },
-          { 
-            include_blank: 'Select one or more' 
-          }, 
-          { 
-            multiple: true,
-            class: 'form-control' 
-          } %>
+      <div class="dropdown" data-dashboard-target="dropdown">
+        <a
+          href="#"
+          class="btn dropdown-toggle"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+        >
+          Verification Status
+        </a>
+        <div class="dropdown-menu">
+          <%= f.collection_check_boxes :verification_status_in, Offer.verification_statuses, :last, :first do |b| %>
+            <%= b.label class: "dropdown-item" do %>
+              <%= b.check_box class: "form-check-input" %>
+              <%= b.text.titleize %>
+            <% end %>
+          <% end %>
+        </div>
       </div>
 
-      <div>
-        <%= f.label :verification_status_in, "Verification Statuses", class: "form-label" %>
-
-        <%= f.select :verification_status_in, 
-          Offer.verification_statuses.map { |name, value| [name.humanize, value] },
-          { 
-            include_blank: 'Select one or more' 
-          }, 
-          { 
-            multiple: true,
-            class: 'form-control' 
-          } %>
+      <div class="dropdown" data-dashboard-target="dropdown">
+        <a
+          href="#"
+          class="btn dropdown-toggle"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+        >
+          Status
+        </a>
+        <div class="dropdown-menu">
+          <%= f.collection_check_boxes :status_in, Offer.statuses, :last, :first do |b| %>
+            <%= b.label class: "dropdown-item" do %>
+              <%= b.check_box class: "form-check-input" %>
+              <%= b.text.titleize %>
+            <% end %>
+          <% end %>
+        </div>
       </div>
 
       <div id="form-buttons">

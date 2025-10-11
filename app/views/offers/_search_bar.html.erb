@@ -17,43 +17,95 @@
       </div>
 
       <div>
-        <button class="btn btn-primary collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#advancedSearchCollapse" aria-expanded="false" aria-controls="advancedSearchCollapse">
+        <button
+          class="btn btn-primary collapsed"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#advancedSearchCollapse"
+          aria-expanded="false"
+          aria-controls="advancedSearchCollapse"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="
+              icon icon-tabler icons-tabler-outline
+              icon-tabler-filter-search
+            "
+          >
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path
+              d="M11.36 20.213l-2.36 .787v-8.5l-4.48 -4.928a2 2 0 0 1 -.52 -1.345v-2.227h16v2.172a2 2 0 0 1 -.586 1.414l-4.414 4.414"
+            />
+            <path d="M18 18m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" />
+            <path d="M20.2 20.2l1.8 1.8" />
+          </svg>
           Advanced Filters
         </button>
       </div>
     </div>
+
     <div class="collapse mt-2" id="advancedSearchCollapse">
       <div class="p-3">
-
         <%= render "shared/filter_dropdown",
         form: f,
         field_name: :contract_type_in,
         options: Offer.contract_types,
         label: "Contract Type",
-        badge_colour: :contract_type_colour
-      %>
+        badge_colour: :contract_type_colour %>
 
-      <%= render "shared/filter_dropdown",
+        <%= render "shared/filter_dropdown",
         form: f,
         field_name: :job_type_in,
         options: Offer.job_types,
         label: "Job Type",
-        badge_colour: :job_type_colour
-      %>
+        badge_colour: :job_type_colour %>
 
-
-      <div class="mb-3">
-        <label class="form-check form-switch">
-          <%= f.check_box :verification_status_eq,
+        <div class="mb-3">
+          <label class="form-check form-switch">
+            <%= f.check_box :verification_status_eq,
               { checked: params[:q] && params[:q][:verification_status_eq] == '2', class: "form-check-input", data: { action: "change->offers-search#submitForm" } },
               2, nil %>
-              <%= f.label :verification_status_eq, 'Verified Offers Only' %>
-        </label>
-      </div>
+            <%= f.label :verification_status_eq, 'Verified Offers Only' %>
+          </label>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-check form-switch">
+            Bookmarked Only
+            <%= checkbox_tag "bookmarked", true, class: "form-check-input", data: { action: "change->offers-search#submitForm" } %>
+          </label>
+        </div>
       </div>
     </div>
+
     <div>
-      <%= f.submit "Search", class: "btn btn-primary" %>
+      <button type="submit" class="btn btn-primary">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="icon icon-tabler icons-tabler-outline icon-tabler-search"
+        >
+          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+          <path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" />
+          <path d="M21 21l-6 -6" />
+        </svg>
+        Submit
+      </button>
       <%= link_to "Clear", offers_path, class: "btn" %>
     </div>
   <% end %>

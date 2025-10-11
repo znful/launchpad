@@ -2,6 +2,9 @@ class Offer < ApplicationRecord
   belongs_to :user
   has_many :statistics, dependent: :destroy
 
+  has_many :bookmarks, dependent: :destroy
+  has_many :bookmarked_by_users, through: :bookmarks, source: :user
+
   enum :contract_type, { full_time: 0, part_time: 1, contract: 2, internship: 3, freelance: 4 }
   enum :job_type, { on_site: 0, remote: 1, hybrid: 2 }
 
@@ -17,6 +20,11 @@ class Offer < ApplicationRecord
   scope :views, -> { joins(:statistics).where(statistics: { stat_type: "view" }) }
   scope :applications, -> { joins(:statistics).where(statistics: { stat_type: "application" }) }
   scope :interactions, -> { joins(:statistics).where(statistics: { stat_type: "interaction" }) }
+
+
+  def verified?
+    verification_status == "verified"
+  end
 
   private
 

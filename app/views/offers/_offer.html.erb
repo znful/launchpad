@@ -1,15 +1,91 @@
 <div id="<%= dom_id offer %>" class="accordion mb-3">
   <div class="accordion-item">
     <div class="accordion-header" id="heading-<%= offer.id %>">
-      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-<%= offer.id %>" aria-expanded="false" aria-controls="collapse-<%= offer.id %>">
-        <h2><%= offer.title %> - <%= offer.company_name %></h2> <%= badge_for(offer.contract_type, :contract_type_colour) %> <%= badge_for(offer.job_type, :job_type_colour) %>
+      <% if offer.verified? %>
+        <button
+          data-controller="verification"
+          data-action="click->verification#toggle"
+          class="ribbon bg-orange"
+        >
+          <span data-verification-target="text" class="d-none">Verified</span>
+
+          <span data-verification-target="icon">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="icon icon-1"
+            >
+              <path
+                d="M12 17.75l-6.172 3.245l1.179 -6.873l-5 -4.867l6.9 -1l3.086 -6.253l3.086 6.253l6.9 1l-5 4.867l1.179 6.873z"
+              />
+            </svg>
+          </span>
+        </button>
+      <% end %>
+
+      <button
+        class="accordion-button collapsed"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#collapse-<%= offer.id %>"
+        aria-expanded="false"
+        aria-controls="collapse-<%= offer.id %>"
+      >
+        <h2><%= offer.title %> - <%= offer.company_name %></h2>
+        <%= badge_for(offer.contract_type, :contract_type_colour) %>
+        <%= badge_for(offer.job_type, :job_type_colour) %>
       </button>
+
+      <div class="me-6">
+        <%= render 'bookmarks/bookmark_button', offer: offer %>
+      </div>
     </div>
-    <div id="collapse-<%= offer.id %>" class="accordion-collapse collapse" aria-labelledby="heading-<%= offer.id %>">
+    <div
+      id="collapse-<%= offer.id %>"
+      class="accordion-collapse collapse"
+      aria-labelledby="heading-<%= offer.id %>"
+    >
       <div class="accordion-body">
-        <p><strong>Location:</strong> <%= offer.address %></p>
-        <p><strong>Description:</strong> <%= offer.description %></p>
-        <a href="<%= offer.application_link %>" class="btn btn-primary" target="_blank">Apply Now</a>
+        <p><strong>Location:</strong><%= offer.address %></p>
+
+        <p><strong>Description:</strong><%= offer.description %></p>
+
+        <a
+          href="<%= offer.application_link %>"
+          class="btn btn-primary"
+          target="_blank"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="
+              icon icon-tabler icons-tabler-outline
+              icon-tabler-external-link
+            "
+          >
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path
+              d="M12 6h-6a2 2 0 0 0 -2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-6"
+            />
+            <path d="M11 13l9 -9" />
+            <path d="M15 4h5v5" />
+          </svg>
+          Apply Now
+        </a>
       </div>
     </div>
   </div>

@@ -73,38 +73,76 @@
 <hr class="mb-2">
 
 <section id="offers-section">
-  <% if @offers.empty? %>
-    <div class="col-12">
-      <div class="align-items-center text-center">
-        <h2>No offers available</h2>
+  <%= render "offer_filters" %>
 
-        <p class="text-muted">
-          Click the button below to create your first offer.
+  <% if @offers.empty? %>
+    <div class="empty">
+      <div class="empty">
+        <div class="empty-icon">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="icon"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            stroke-width="2"
+            stroke="currentColor"
+            fill="none"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+
+            <circle cx="12" cy="12" r="9"></circle>
+
+            <line
+              x1="9"
+              y1="10"
+              x2="9.01"
+              y2="10"
+            ></line>
+
+            <line
+              x1="15"
+              y1="10"
+              x2="15.01"
+              y2="10"
+            ></line>
+
+            <path d="M9.5 15.25a3.5 3.5 0 0 1 5 0"></path>
+          </svg>
+        </div>
+
+        <p class="empty-title">No results found</p>
+
+        <p class="empty-subtitle text-secondary">
+          Try adjusting your search or filter to find what you're looking for.
         </p>
 
-        <button
-          type="button"
-          class="btn btn-primary mb-3"
-          data-bs-toggle="modal"
-          data-bs-target="#new-offer-modal"
-        >
-          <i class="ti ti-plus me-2"></i>
-          New Offer
-        </button>
+        <div class="empty-action">
+          <button
+            type="button"
+            class="btn btn-primary mb-3"
+            data-bs-toggle="modal"
+            data-bs-target="#new-offer-modal"
+          >
+            <i class="ti ti-plus me-2"></i>
+            New Offer
+          </button>
+        </div>
       </div>
     </div>
   <% end %>
 
   <% if @offers.any? %>
-    <%= render "offer_filters" %>
     <div class="row row-cards">
       <% @offers.each do |offer| %>
         <%= render partial: "offer_card", locals: { offer: offer } %>
       <% end %>
+    </div>
+  <% end %>
 
-      <% end %>
-    </div>
-    <div class="d-flex justify-content-center py-4">
-      <%== pagy_nav(@pagy) if @pagy.pages > 1 %>
-    </div>
+  <div class="d-flex justify-content-center py-4">
+    <%== pagy_nav(@pagy) if @pagy.pages > 1 %>
+  </div>
 </section>

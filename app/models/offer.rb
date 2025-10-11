@@ -21,6 +21,11 @@ class Offer < ApplicationRecord
   scope :applications, -> { joins(:statistics).where(statistics: { stat_type: "application" }) }
   scope :interactions, -> { joins(:statistics).where(statistics: { stat_type: "interaction" }) }
 
+
+  def verified?
+    verification_status == "verified"
+  end
+
   private
 
   def self.ransackable_attributes(auth_object = nil)

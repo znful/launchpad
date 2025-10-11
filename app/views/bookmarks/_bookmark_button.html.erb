@@ -1,4 +1,4 @@
-<div id="bookmark-<%= offer.id %>" class="mx-3">
+<div id="bookmark-<%= offer.id %>" class="me-6">
   <% if user_signed_in? && current_user.bookmarked?(offer) %>
     <%= button_to offer_bookmark_path(offer, current_user.bookmarks.find_by(offer: offer)), method: :delete, title: "Remove Bookmark" do %>
       <svg

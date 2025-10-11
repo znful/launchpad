@@ -1,6 +1,35 @@
 <div id="<%= dom_id offer %>" class="accordion mb-3">
   <div class="accordion-item">
     <div class="accordion-header" id="heading-<%= offer.id %>">
+      <% if offer.verified? %>
+        <button
+          data-controller="verification"
+          data-action="click->verification#toggle"
+          class="ribbon bg-orange"
+        >
+          <span data-verification-target="text" class="d-none">Verified</span>
+
+          <span data-verification-target="icon">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="icon icon-1"
+            >
+              <path
+                d="M12 17.75l-6.172 3.245l1.179 -6.873l-5 -4.867l6.9 -1l3.086 -6.253l3.086 6.253l6.9 1l-5 4.867l1.179 6.873z"
+              />
+            </svg>
+          </span>
+        </button>
+      <% end %>
+
       <button
         class="accordion-button collapsed"
         type="button"
@@ -13,7 +42,10 @@
         <%= badge_for(offer.contract_type, :contract_type_colour) %>
         <%= badge_for(offer.job_type, :job_type_colour) %>
       </button>
-      <%= render 'bookmarks/bookmark_button', offer: offer %>
+
+      <div class="me-6">
+        <%= render 'bookmarks/bookmark_button', offer: offer %>
+      </div>
     </div>
     <div
       id="collapse-<%= offer.id %>"

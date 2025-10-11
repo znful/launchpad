@@ -5,108 +5,120 @@
     data-bs-toggle="modal"
     data-bs-target="#new-offer-modal"
   >
+    <i class="ti ti-plus me-2"></i>
     New Offer
   </button>
 
   <%= render "shared/form", offer: @offer %>
 <% end %>
 
-<section class="mt-4" id="offers-section">
-  <% if @offers.empty? %>
-    <div class="col-12">
-      <div class="align-items-center text-center">
-        <h2>No offers available</h2>
+<section class="mt-4" id="statistics-section">
+  <div class="row row-cards">
+    <div class="col-sm-6 col-lg-4">
+      <div class="card">
+        <div class="card-body">
+          <div class="subheader">Total views</div>
 
-        <p class="text-muted">
-          Click the button below to create your first offer.
+          <div class="h1 mb-2 align-middle"><%= @view_count %></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-sm-6 col-lg-4">
+      <div class="card">
+        <div class="card-body">
+          <div class="subheader">Total interactions</div>
+
+          <h1 class="h1 mb-2"><%= @interaction_count %></h1>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-sm-6 col-lg-4">
+      <div class="card">
+        <div class="card-body">
+          <div class="subheader">Total applications</div>
+
+          <h1 class="h1 mb-2"><%= @application_count %></h1>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="mb-2">
+
+<section id="offers-section">
+  <%= render "offer_filters" %>
+
+  <% if @offers.empty? %>
+    <div class="empty">
+      <div class="empty">
+        <div class="empty-icon">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="icon"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            stroke-width="2"
+            stroke="currentColor"
+            fill="none"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+
+            <circle cx="12" cy="12" r="9"></circle>
+
+            <line
+              x1="9"
+              y1="10"
+              x2="9.01"
+              y2="10"
+            ></line>
+
+            <line
+              x1="15"
+              y1="10"
+              x2="15.01"
+              y2="10"
+            ></line>
+
+            <path d="M9.5 15.25a3.5 3.5 0 0 1 5 0"></path>
+          </svg>
+        </div>
+
+        <p class="empty-title">No results found</p>
+
+        <p class="empty-subtitle text-secondary">
+          Try adjusting your search or filter to find what you're looking for.
         </p>
 
-        <%= link_to new_offer_path, class: 'btn btn-primary' do %>
-          <i class="ti ti-plus me-2"></i>
-          <span>Create your first offer</span>
-        <% end %>
+        <div class="empty-action">
+          <button
+            type="button"
+            class="btn btn-primary mb-3"
+            data-bs-toggle="modal"
+            data-bs-target="#new-offer-modal"
+          >
+            <i class="ti ti-plus me-2"></i>
+            New Offer
+          </button>
+        </div>
       </div>
     </div>
   <% end %>
 
   <% if @offers.any? %>
     <div class="row row-cards">
-      <div class="col-sm-6 col-lg-4">
-        <div class="card">
-          <div class="card-body">
-            <div class="subheader">Total views</div>
-
-            <div class="h1 mb-2 align-middle"><%= @view_count %></div>
-
-            <div class="text-secondary">
-              views increased by x since last month
-            </div>
-
-            <div class="ratio ratio-21x9 placeholder mt-3">
-              <div class="placeholder-image"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-sm-6 col-lg-4">
-        <div class="card">
-          <div class="card-body">
-            <div class="subheader">Total interactions</div>
-
-            <h1 class="h1 mb-2"><%= @interaction_count %></h1>
-
-            <div class="text-secondary">
-              interactions increased by x since last month
-            </div>
-
-            <div class="ratio ratio-21x9 placeholder mt-3">
-              <div class="placeholder-image"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-sm-6 col-lg-4">
-        <div class="card">
-          <div class="card-body">
-            <div class="subheader">Total applications</div>
-
-            <h1 class="h1 mb-2"><%= @application_count %></h1>
-
-            <div class="text-secondary">
-              applications increased by x since last month
-            </div>
-
-            <div class="ratio ratio-21x9 placeholder mt-3">
-              <div class="placeholder-image"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <hr>
-    <div class="row row-cards">
       <% @offers.each do |offer| %>
-        <div class="col-sm-6 col-lg-4">
-          <div class="card">
-            <div class="card-body">
-              <h3 class="card-title"><%= offer.title %></h3>
-
-              <p class="card-text">
-                <%= truncate(offer.description.to_plain_text, length: 100) %>
-              </p>
-
-              <div class="d-flex justify-content-between">
-                <%= link_to 'View', offer_path(offer), class: 'btn btn-sm btn-outline-primary' %>
-                <%= link_to 'Edit', edit_offer_path(offer), class: 'btn btn-sm btn-outline-secondary' %>
-                <%= link_to 'Delete', offer_path(offer), method: :delete, data: { turbo_confirm: 'Are you sure?' }, class: 'btn btn-sm btn-outline-danger' %>
-              </div>
-            </div>
-          </div>
-        </div>
-      <% end %>
+        <%= render partial: "offer_card", locals: { offer: offer } %>
       <% end %>
     </div>
+  <% end %>
+
+  <div class="d-flex justify-content-center py-4">
     <%== pagy_nav(@pagy) if @pagy.pages > 1 %>
+  </div>
 </section>

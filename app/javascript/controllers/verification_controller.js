@@ -3,8 +3,13 @@ import { Controller } from "@hotwired/stimulus"
 export default class extends Controller {
   static targets = ["text", "icon"];
 
-  toggle() {
-    this.textTarget.classList.toggle("d-none");
-    this.iconTarget.classList.toggle("d-none");
+  showText() {
+    this.textTarget.classList.remove("d-none");
+    this.iconTarget.classList.add("d-none");
+  }
+
+  showIcon() {
+    this.iconTarget.classList.remove("d-none");
+    this.textTarget.classList.add("d-none");
   }
 }

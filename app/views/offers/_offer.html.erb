@@ -4,7 +4,10 @@
       <% if offer.verified? %>
         <button
           data-controller="verification"
-          data-action="click->verification#toggle"
+          data-action="
+          mouseenter->verification#showText
+          mouseleave->verification#showIcon
+          "
           class="ribbon bg-orange"
         >
           <span data-verification-target="text" class="d-none">Verified</span>

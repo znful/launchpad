@@ -26,6 +26,18 @@ class Offer < ApplicationRecord
     verification_status == "verified"
   end
 
+  def view_count
+    statistics.where(stat_type: "view").count
+  end
+
+  def interaction_count
+    statistics.where(stat_type: "interaction").count
+  end
+
+  def application_count
+    statistics.where(stat_type: "application").count
+  end
+
   private
 
   def self.ransackable_attributes(auth_object = nil)

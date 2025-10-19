@@ -28,6 +28,8 @@ class OffersController < ApplicationController
 
   # GET /offers/1 or /offers/1.json
   def show
+    @is_owner = Current.user && @offer.user_id == Current.user.id
+    render layout: "dashboard"
   end
 
   # GET /offers/new

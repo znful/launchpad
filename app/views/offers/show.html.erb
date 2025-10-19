@@ -1,6 +1,95 @@
-<div>
-  <%= link_to "Edit this offer", edit_offer_path(@offer) %>
-  |
-  <%= link_to "Back to offers", offers_path %>
-  <%= button_to "Destroy this offer", @offer, method: :delete %>
-</div>
+<%= content_for :pre_title, "Offer" %>
+
+<%= content_for :page_title, @offer.title %>
+
+<% if @is_owner %>
+  <%= content_for :header_buttons do %>
+    <%= link_to "Edit this offer", edit_offer_path(@offer), class: "btn btn-primary" %>
+    <%= button_to "Destroy this offer", @offer, data: { turbo_method: :delete, turbo_confirm: "Are you sure ?" }, class: "btn btn-danger" %>
+  <% end %>
+  <section class="mt-4" id="offer-stats">
+    <div class="row row-cards">
+      <div class="col-sm-6 col-lg-4">
+        <div class="card">
+          <div class="card-body">
+            <div class="subheader">Views</div>
+
+            <div class="h1 mb-2 align-middle"><%= @offer.view_count %></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-6 col-lg-4">
+        <div class="card">
+          <div class="card-body">
+            <div class="subheader">Interactions</div>
+
+            <h1 class="h1 mb-2"><%= @offer.interaction_count %></h1>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-6 col-lg-4">
+        <div class="card">
+          <div class="card-body">
+            <div class="subheader">Applications</div>
+
+            <h1 class="h1 mb-2"><%= @offer.application_count %></h1>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+<% end %>
+
+<section class="mt-4" id="offer-details">
+  <div class="card">
+    <div class="card-header pt-0">
+      <div class="col">
+        <h3 class="card-title"><%= @offer.title %></h3>
+
+        <p class="text-muted mb-1"><%= @offer.company_name %></p>
+
+        <%= verification_status_badge(@offer.verification_status) %>
+        <%= status_badge(@offer.status) %>
+      </div>
+      <div class="ms-auto">
+        <%= link_to @offer.application_link, target: :_blank, class: "btn btn-primary" do %>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="
+              icon icon-tabler icons-tabler-outline
+              icon-tabler-external-link
+            "
+          >
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path
+              d="M12 6h-6a2 2 0 0 0 -2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-6"
+            />
+            <path d="M11 13l9 -9" />
+            <path d="M15 4h5v5" />
+          </svg>
+          Apply Now
+        <% end %>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="mb-4 d-flex flex-column text-muted">
+        <p class="mb-0">
+          <%= @offer.address %> | <%= @offer.job_type.humanize %>
+        </p>
+        <p><%= @offer.created_at.strftime("%B %d, %Y") %></p>
+      </div>
+
+      <p><%= @offer.description %></p>
+    </div>
+  </div>
+</section>

@@ -59,14 +59,14 @@
         field_name: :contract_type_in,
         options: Offer.contract_types,
         label: "Contract Type",
-        badge_colour: :contract_type_colour %>
+        badge_colour: :contract_type %>
 
         <%= render "shared/filter_dropdown",
         form: f,
         field_name: :job_type_in,
         options: Offer.job_types,
         label: "Job Type",
-        badge_colour: :job_type_colour %>
+        badge_colour: :job_type %>
 
         <div class="mb-3">
           <label class="form-check form-switch">

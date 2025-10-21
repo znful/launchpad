@@ -39,8 +39,8 @@
         aria-controls="collapse-<%= offer.id %>"
       >
         <h2><%= offer.title %> - <%= offer.company_name %></h2>
-        <%= badge_for(offer.contract_type, :contract_type_colour) %>
-        <%= badge_for(offer.job_type, :job_type_colour) %>
+        <%= badge_for(offer.contract_type, :contract_type) %>
+        <%= badge_for(offer.job_type, :job_type) %>
       </button>
 
       <div class="me-6">

@@ -50,8 +50,8 @@
 
         <p class="text-muted mb-1"><%= @offer.company_name %></p>
 
-        <%= verification_status_badge(@offer.verification_status) %>
-        <%= status_badge(@offer.status) %>
+        <%= badge_for(@offer.verification_status, :verification_status) %>
+        <%= badge_for(@offer.status, :status) %>
       </div>
       <div class="ms-auto">
         <%= link_to @offer.application_link, target: :_blank, class: "btn btn-primary" do %>

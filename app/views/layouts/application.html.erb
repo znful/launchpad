@@ -43,5 +43,9 @@
     >
   </head>
 
-  <body data-bs-theme="light"><%= render "shared/navbar" %><%= yield %></body>
+  <body data-bs-theme="light">
+    <%= render "shared/navbar" %>
+    <%= yield %>
+    <%= render "shared/confirm_dialog" %>
+  </body>
 </html>

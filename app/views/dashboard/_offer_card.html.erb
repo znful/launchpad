@@ -9,8 +9,8 @@
 
           <p class="text-muted mb-1"><%= offer.company_name %></p>
 
-          <%= badge_for(offer.verification_status, :verification_status) %>
-          <%= badge_for(offer.status, :status) %>
+          <%= badge_for(:verification_status, offer.verification_status) %>
+          <%= badge_for(:status, offer.status) %>
         </div>
       </div>
 

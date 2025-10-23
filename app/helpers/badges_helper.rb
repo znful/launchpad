@@ -1,6 +1,6 @@
 module BadgesHelper
-  def badge_for(key, colour_method, checked = true, options = {})
-    colour = checked == true ? send(colour_method, key) : "gray"
+  def badge_for(badge_type, key, checked = true, options = {})
+    colour = checked == true ? send(badge_type, key) : "gray"
 
     content_tag(:span, key.humanize.titleize, class: "badge badge-sm px-2 py-1 bg-#{colour}-lt text-#{colour} border border-#{colour} #{options}")
   end

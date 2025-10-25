@@ -1,16 +1,11 @@
 <%= content_for :header_buttons do %>
-  <button
-    type="button"
-    class="btn btn-primary mb-3"
-    data-bs-toggle="modal"
-    data-bs-target="#new-offer-modal"
-  >
+  <%= link_to new_offer_path, class: "btn btn-primary", data: { turbo_frame: "new_offer", bs_toggle: "modal", bs_target: "#new-offer-modal" } do %>
     <i class="ti ti-plus me-2"></i>
     New Offer
-  </button>
-
-  <%= render "shared/form", offer: @offer %>
+  <% end %>
 <% end %>
+
+<%= turbo_frame_tag "new_offer", src: new_offer_path %>
 
 <section class="mt-4" id="statistics-section">
   <div class="row row-cards">

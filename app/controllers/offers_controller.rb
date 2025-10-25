@@ -35,6 +35,8 @@ class OffersController < ApplicationController
   # GET /offers/new
   def new
     @offer = Offer.new
+    @job_types = Offer.job_types.keys.map { |jt| [ jt.humanize, jt ] }
+    @contract_types = Offer.contract_types.keys.map { |ct| [ ct.humanize, ct ] }
   end
 
   # GET /offers/1/edit
@@ -48,7 +50,7 @@ class OffersController < ApplicationController
 
     respond_to do |format|
       if @offer.save
-        format.html { redirect_to offers_path, notice: "Offer was successfully created." }
+        format.html { redirect_to dashboard_path, notice: "Offer was successfully created." }
         format.json { render :show, status: :created, location: @offer }
       else
         format.html { render :new, status: :unprocessable_content }
@@ -75,7 +77,7 @@ class OffersController < ApplicationController
     @offer.destroy!
 
     respond_to do |format|
-      format.html { redirect_to offers_path, notice: "Offer was successfully destroyed.", status: :see_other }
+      format.html { redirect_to dashboard_path, notice: "Offer was successfully destroyed.", status: :see_other }
       format.json { head :no_content }
     end
   end

@@ -4,6 +4,8 @@ class DashboardController < ApplicationController
   def index
     @q = Current.user.offers.ransack(params[:q])
     @offer = Offer.new
+    @job_types = Offer.job_types.keys.map { |jt| [ jt.humanize, jt ] }
+    @contract_types = Offer.contract_types.keys.map { |ct| [ ct.humanize, ct ] }
 
     if @status.present?
       @pagy, @offers = pagy(@q.result.near(@location, @range).where(status: @status).order(@sort), limit: @limit) if @location.present? && @range.present?

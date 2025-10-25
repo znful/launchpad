@@ -46,9 +46,11 @@
         <%= badge_for(offer.job_type, :job_type_colour) %>
       </button>
 
-      <div class="me-6">
-        <%= render 'bookmarks/bookmark_button', offer: offer %>
-      </div>
+      <% if current_user %>
+        <div class="me-6">
+          <%= render 'bookmarks/bookmark_button', offer: offer %>
+        </div>
+      <% end %>
     </div>
     <div
       id="collapse-<%= offer.id %>"

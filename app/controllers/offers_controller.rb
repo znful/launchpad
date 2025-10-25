@@ -41,6 +41,8 @@ class OffersController < ApplicationController
 
   # GET /offers/1/edit
   def edit
+    @job_types = Offer.job_types.keys.map { |jt| [ jt.humanize, jt ] }
+    @contract_types = Offer.contract_types.keys.map { |ct| [ ct.humanize, ct ] }
   end
 
   # POST /offers or /offers.json

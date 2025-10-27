@@ -6,8 +6,8 @@
       <%= b.label class: "form-check-label d-flex justify-content-center m-2" do %>
         <%= b.check_box class: "form-check-input hidden", data: { action: "offers-search#update", offers_search_target: "checkbox" } %>
         <div class="checkbox-icons" data-offers-search-target="badgeContainer">
-          <i class="ti unchecked-icon dropdown-item"><%= badge_for(b.text, badge_colour, false, "custom-text") %></i>
-          <i class="ti checked-icon dropdown-item"><%= badge_for(b.text, badge_colour, true, "custom-text") %></i>
+          <i class="ti unchecked-icon dropdown-item"><%= badge_for(badge_colour, b.text, false, "custom-text") %></i>
+          <i class="ti checked-icon dropdown-item"><%= badge_for(badge_colour, b.text, true, "custom-text") %></i>
         </div>
       <% end %>
     <% end %>

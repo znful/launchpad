@@ -1,6 +1,6 @@
 class OffersController < ApplicationController
   allow_unauthenticated_access only: %i[ index show ]
-  before_action :resume_session, only: %i[ index ]
+  before_action :resume_session, only: %i[ index show ]
   before_action :set_offer, only: %i[ show edit update destroy ]
 
   # GET /offers or /offers.json
@@ -28,15 +28,24 @@ class OffersController < ApplicationController
 
   # GET /offers/1 or /offers/1.json
   def show
+    @is_owner = Current.user && @offer.user_id == Current.user.id
+    @safe_application_link = helpers.safe_url(@offer.application_link)
+    render layout: "dashboard"
   end
 
   # GET /offers/new
   def new
     @offer = Offer.new
+    @job_types = Offer.job_types.keys.map { |jt| [ jt.humanize, jt ] }
+    @contract_types = Offer.contract_types.keys.map { |ct| [ ct.humanize, ct ] }
   end
 
   # GET /offers/1/edit
   def edit
+    @job_types = Offer.job_types.keys.map { |jt| [ jt.humanize, jt ] }
+    @contract_types = Offer.contract_types.keys.map { |ct| [ ct.humanize, ct ] }
+
+    render layout: "dashboard"
   end
 
   # POST /offers or /offers.json
@@ -46,7 +55,7 @@ class OffersController < ApplicationController
 
     respond_to do |format|
       if @offer.save
-        format.html { redirect_to offers_path, notice: "Offer was successfully created." }
+        format.html { redirect_to dashboard_path, notice: "Offer was successfully created." }
         format.json { render :show, status: :created, location: @offer }
       else
         format.html { render :new, status: :unprocessable_content }
@@ -73,7 +82,7 @@ class OffersController < ApplicationController
     @offer.destroy!
 
     respond_to do |format|
-      format.html { redirect_to offers_path, notice: "Offer was successfully destroyed.", status: :see_other }
+      format.html { redirect_to dashboard_path, notice: "Offer was successfully destroyed.", status: :see_other }
       format.json { head :no_content }
     end
   end

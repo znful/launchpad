@@ -29,3 +29,7 @@
 .form-check-input:checked + .checkbox-icons .unchecked-icon {
   display: none;
 }
+
+.blur-bg::backdrop {
+  backdrop-filter: blur(4px);
+}

@@ -1,12 +1,16 @@
 <% content_for :title, "Editing offer" %>
 
-<h1>Editing offer</h1>
+<%= content_for :pre_title, "Editing Offer" %>
 
-<%= render "form", offer: @offer %>
+<%= content_for :page_title, @offer.title %>
+
+<%= content_for :header_buttons do %>
+  <%= link_to "Show this offer", @offer, class: "btn btn-primary" %>
+  <%= button_to "Destroy this offer", @offer, data: { turbo_method: :delete, turbo_confirm: "Are you sure ?" }, class: "btn btn-danger" %>
+<% end %>
+
+<div class="mt-6">
+  <%= render "form", offer: @offer, submit_label: "Save" %>
+</div>
 
 <br>
-
-<div>
-  <%= link_to "Show this offer", @offer %> |
-  <%= link_to "Back to offers", offers_path %>
-</div>

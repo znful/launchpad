@@ -6,19 +6,12 @@ import "trix";
 import "@rails/actiontext";
 
 Turbo.config.forms.confirm = (message, _) => {
-  let dialog = document.getElementById("turbo-confirm");
-  let messageContainer = dialog.querySelector("#confirm-message");
-  const closeButton = dialog.querySelector(".btn-close");
-
-  closeButton.addEventListener(
-    "click",
-    () => {
-      dialog.close("false");
-    },
-    { once: true },
-  );
+  const dialog = document.getElementById("turbo-confirm");
+  const messageContainer = dialog.querySelector("#confirm-message");
+  const confirmButton = dialog.querySelector("#confirm-button");
 
   messageContainer.textContent = message;
+
   dialog.classList.remove("d-none");
   dialog.showModal();
 

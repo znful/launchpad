@@ -14,7 +14,7 @@
 
   <div class="hr-text mt-0">Basic Information</div>
 
-  <div class="d-flex flex-column gap-5 mb-5">
+  <div class="d-flex flex-column gap-5 mb-6">
     <div class="d-flex flex-row gap-2">
       <%= form.label :company_name, class: "form-label col-sm-2 align-self-center required" %>
       <%= form.text_field :company_name, class: "form-control col", required: true %>
@@ -38,7 +38,7 @@
 
   <div class="hr-text">Tags</div>
 
-  <div class="mb-3 d-flex gap-2 mb-5">
+  <div class="mb-3 d-flex gap-2 mb-6">
     <div class="col">
       <%= form.label :contract_type, class: "form-label" %>
       <%= form.select :contract_type, @contract_types, {}, class: "form-select" %>
@@ -52,9 +52,11 @@
 
   <div class="hr-text">Job Description</div>
 
-  <div><%= form.rich_textarea :description, class: "form-control" %></div>
+  <div>
+    <%= form.rich_textarea :description, class: "form-control", style: "min-height: 20rem;" %>
+  </div>
 
   <hr>
 
-  <div><%= form.submit "Create Offer", class: "btn btn-primary" %></div>
+  <div><%= form.submit submit_label, class: "btn btn-primary" %></div>
 <% end %>

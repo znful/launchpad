@@ -2,18 +2,14 @@
   id="turbo-confirm"
   class="card blur-bg mx-auto align-self-center d-none"
   closedby="any"
+  style="min-width: 400px;"
 >
   <div class="modal-status bg-danger"></div>
   <form method="dialog">
     <div id="confirm-modal" tabindex="-1">
       <div class="modal-dialog modal-sm" role="document">
         <div class="modal-content">
-          <button
-            type="button"
-            class="btn-close"
-            data-bs-dismiss="modal"
-            aria-label="Close"
-          ></button>
+          <button class="btn-close" value="false"></button>
 
           <div class="modal-body text-center py-4">
             <svg
@@ -37,10 +33,7 @@
 
             <h3>Are you sure?</h3>
 
-            <div class="text-secondary" id="confirm-message">
-              Do you really want to remove 84 files? What you've done cannot be
-              undone.
-            </div>
+            <div class="text-secondary" id="confirm-message"></div>
           </div>
 
           <div class="modal-footer">
@@ -52,7 +45,11 @@
                   </button>
                 </div>
                 <div class="col">
-                  <button value="true" class="btn btn-danger w-100">
+                  <button
+                    value="true"
+                    class="btn btn-danger w-100"
+                    id="confirm-button"
+                  >
                     Confirm
                   </button>
                 </div>

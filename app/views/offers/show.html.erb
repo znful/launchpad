@@ -54,7 +54,7 @@
         <%= badge_for(:status, @offer.status) %>
       </div>
       <div class="ms-auto">
-        <%= link_to @offer.application_link, target: :_blank, class: "btn btn-primary" do %>
+        <%= link_to @safe_application_link, target: :_blank, class: "btn btn-primary" do %>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="24"

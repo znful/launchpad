@@ -29,6 +29,7 @@ class OffersController < ApplicationController
   # GET /offers/1 or /offers/1.json
   def show
     @is_owner = Current.user && @offer.user_id == Current.user.id
+    @safe_application_link = helpers.safe_url(@offer.application_link)
     render layout: "dashboard"
   end
 

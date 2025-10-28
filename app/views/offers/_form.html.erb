@@ -1,10 +1,10 @@
-<%= form_with(model: offer, local: true) do |form| %>
+<%= form_with(model: offer) do |form| %>
   <% if offer.errors.any? %>
-    <div class="mb-6 rounded-lg border border-red-300 bg-red-50 p-4 text-red-700">
-      <h2 class="font-semibold mb-2">
+    <div class="alert alert-danger">
+      <h4 class="alert-title">
         <%= pluralize(offer.errors.count, "error") %> prohibited this offer from being saved:
-      </h2>
-      <ul class="list-disc ml-6 text-sm space-y-1">
+      </h4>
+      <ul>
         <% offer.errors.each do |error| %>
           <li><%= error.full_message %></li>
         <% end %>
@@ -12,41 +12,51 @@
     </div>
   <% end %>
 
-  <div class="mx-auto max-w-2xl bg-white p-6 rounded-xl shadow-md">
-    <div class="space-y-6">
-      <% [:company_name, :title, :description, :city, :country, :apply_link].each do |field| %>
-        <div>
-          <%= form.label field, class: "block text-sm font-semibold text-gray-700" %>
-          <%= form.text_field field, class: [
-            "mt-2 block w-full rounded-md border px-3 py-2 shadow-sm focus:ring-2 focus:ring-blue-500 sm:text-sm",
-            offer.errors[field].any? ? "border-red-400 focus:ring-red-500" : "border-gray-300 focus:border-blue-500"
-          ] %>
-          <% if offer.errors[field].any? %>
-            <p class="mt-1 text-sm text-red-600"><%= offer.errors[field].first %></p>
-          <% end %>
-        </div>
-      <% end %>
+  <div class="hr-text mt-0">Basic Information</div>
 
-      <div>
-        <%= form.label :contract_type, class: "block text-sm font-semibold text-gray-700" %>
-        <%= form.select :contract_type, Offer.contract_types.keys, {}, class: [
-          "mt-2 block w-full rounded-md border px-3 py-2 shadow-sm focus:ring-2 focus:ring-blue-500 sm:text-sm",
-          offer.errors[:contract_type].any? ? "border-red-400 focus:ring-red-500" : "border-gray-300 focus:border-blue-500"
-        ] %>
-      </div>
+  <div class="d-flex flex-column gap-5 mb-6">
+    <div class="d-flex flex-row gap-2">
+      <%= form.label :company_name, class: "form-label col-sm-2 align-self-center required" %>
+      <%= form.text_field :company_name, class: "form-control col", required: true %>
+    </div>
 
-      <div>
-        <%= form.label :job_type, class: "block text-sm font-semibold text-gray-700" %>
-        <%= form.select :job_type, Offer.job_types.keys, {}, class: [
-          "mt-2 block w-full rounded-md border px-3 py-2 shadow-sm focus:ring-2 focus:ring-blue-500 sm:text-sm",
-          offer.errors[:job_type].any? ? "border-red-400 focus:ring-red-500" : "border-gray-300 focus:border-blue-500"
-        ] %>
-      </div>
+    <div class="d-flex flex-row gap-2">
+      <%= form.label :title, class: "form-label col-sm-2 align-self-center required" %>
+      <%= form.text_field :title, class: "form-control col", required: true %>
+    </div>
 
-      <div>
-        <%= form.submit "Save Offer", class: "w-full sm:w-auto rounded-md bg-blue-600 px-4 py-2.5 text-white font-medium shadow hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-1 transition" %>
-      </div>
+    <div class="d-flex flex-row gap-2">
+      <%= form.label :address, class: "form-label col-sm-2 align-self-center required" %>
+      <%= form.text_field :address, class: "form-control col", required: true %>
+    </div>
+
+    <div class="d-flex flex-row gap-2">
+      <%= form.label :application_link, class: "form-label col-sm-2 align-self-center required" %>
+      <%= form.text_field :application_link, class: "form-control col", required: true %>
     </div>
   </div>
-<% end %>
 
+  <div class="hr-text">Tags</div>
+
+  <div class="mb-3 d-flex gap-2 mb-6">
+    <div class="col">
+      <%= form.label :contract_type, class: "form-label" %>
+      <%= form.select :contract_type, @contract_types, {}, class: "form-select" %>
+    </div>
+
+    <div class="col">
+      <%= form.label :job_type, class: "form-label" %>
+      <%= form.select :job_type, @job_types, {}, class: "form-select" %>
+    </div>
+  </div>
+
+  <div class="hr-text">Job Description</div>
+
+  <div>
+    <%= form.rich_textarea :description, class: "form-control", style: "min-height: 20rem;" %>
+  </div>
+
+  <hr>
+
+  <div><%= form.submit submit_label, class: "btn btn-primary" %></div>
+<% end %>

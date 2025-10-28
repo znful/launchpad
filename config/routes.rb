@@ -1,12 +1,9 @@
 Rails.application.routes.draw do
   get "dashboard" => "dashboard#index", as: :dashboard
-
+  resource :statistic, only: [ :create ]
   resources :offers do
-    collection do
-      get :manage
-    end
+    resources :bookmarks, only: [ :create, :destroy ]
   end
-
   resource :session
   resources :passwords, param: :token
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

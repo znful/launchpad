@@ -4,24 +4,22 @@ one:
   company_name: MyString
   title: MyString
   description: MyText
-  city: MyString
-  country: MyString
-  apply_link: MyString
+  address: MyString
+  application_link: MyString
   contract_type: 1
   job_type: 1
-  latitude: 1.5
-  longitude: 1.5
+  verification_status: 1
+  status: 1
   user: one
 
 two:
   company_name: MyString
   title: MyString
   description: MyText
-  city: MyString
-  country: MyString
-  apply_link: MyString
+  address: MyString
+  application_link: MyString
   contract_type: 1
   job_type: 1
-  latitude: 1.5
-  longitude: 1.5
+  verification_status: 1
+  status: 1
   user: two

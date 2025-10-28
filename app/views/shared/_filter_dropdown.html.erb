@@ -1,0 +1,17 @@
+<div class="dropdown mb-3 d-flex flex-row" data-controller="offers-search">
+  <a href="#" class="btn dropdown-toggle" data-bs-toggle="dropdown"><%= label %></a>
+
+  <div class="dropdown-menu">
+    <%= form.collection_check_boxes field_name, options, :last, :first do |b| %>
+      <%= b.label class: "form-check-label d-flex justify-content-center m-2" do %>
+        <%= b.check_box class: "form-check-input hidden", data: { action: "offers-search#update", offers_search_target: "checkbox" } %>
+        <div class="checkbox-icons" data-offers-search-target="badgeContainer">
+          <i class="ti unchecked-icon dropdown-item"><%= badge_for(badge_colour, b.text, false, "custom-text") %></i>
+          <i class="ti checked-icon dropdown-item"><%= badge_for(badge_colour, b.text, true, "custom-text") %></i>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div data-offers-search-target="output" class="p-2"></div>
+</div>

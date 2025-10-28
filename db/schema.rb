@@ -10,10 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_08_26_210330) do
+ActiveRecord::Schema[8.0].define(version: 2025_10_02_150613) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
-  enable_extension "pgcrypto"
 
   create_table "action_text_rich_texts", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name", null: false
@@ -53,20 +52,30 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_26_210330) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
+  create_table "bookmarks", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "user_id", null: false
+    t.uuid "offer_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["offer_id"], name: "index_bookmarks_on_offer_id"
+    t.index ["user_id"], name: "index_bookmarks_on_user_id"
+  end
+
   create_table "offers", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "company_name"
     t.string "title"
     t.text "description"
-    t.string "city"
-    t.string "country"
-    t.string "apply_link"
+    t.string "address"
+    t.string "application_link"
     t.integer "contract_type"
     t.integer "job_type"
-    t.float "latitude"
-    t.float "longitude"
-    t.uuid "user_id", null: false
+    t.integer "verification_status"
+    t.integer "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.uuid "user_id", null: false
+    t.float "longitude"
+    t.float "latitude"
     t.index ["user_id"], name: "index_offers_on_user_id"
   end
 
@@ -79,6 +88,15 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_26_210330) do
     t.index ["user_id"], name: "index_sessions_on_user_id"
   end
 
+  create_table "statistics", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "location"
+    t.integer "stat_type"
+    t.uuid "offer_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["offer_id"], name: "index_statistics_on_offer_id"
+  end
+
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "email_address", null: false
     t.string "password_digest", null: false
@@ -89,6 +107,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_26_210330) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "bookmarks", "offers"
+  add_foreign_key "bookmarks", "users"
   add_foreign_key "offers", "users"
   add_foreign_key "sessions", "users"
+  add_foreign_key "statistics", "offers"
 end

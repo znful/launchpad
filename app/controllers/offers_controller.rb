@@ -1,26 +1,51 @@
 class OffersController < ApplicationController
-  before_action :set_offer, only: %i[ show edit update destroy ]
-  before_action :set_filters, only: %i[ index manage ]
   allow_unauthenticated_access only: %i[ index show ]
+  before_action :resume_session, only: %i[ index show ]
+  before_action :set_offer, only: %i[ show edit update destroy ]
 
   # GET /offers or /offers.json
   def index
     @q = Offer.ransack(params[:q])
-    @pagy, @offers = pagy(@q.result, limit: @limit, overflow: :last_page)
-    # @pagy, @offers = pagy(@q.result.near(@location, @range, units: @unit).order(@sort), limit: @limit)
+    @pagy, @offers = pagy(@q.result(distinct: true).order(created_at: :desc), limit: 10)
+    @offer = Offer.new
+
+    if params.dig(:q, :location).present? && params.dig(:q, :distance).present?
+      location = params[:q][:location]
+      distance = params[:q][:distance].to_f
+
+      @offers = @offers.near(location, distance, units: :km)
+    end
+
+    if params[:bookmarked] == "true"
+      @offers = @offers.where(id: Current.user.bookmarked_offer_ids)
+    end
+
+    respond_to do |format|
+      format.html
+      format.turbo_stream
+    end
   end
 
   # GET /offers/1 or /offers/1.json
   def show
+    @is_owner = Current.user && @offer.user_id == Current.user.id
+    @safe_application_link = helpers.safe_url(@offer.application_link)
+    render layout: "dashboard"
   end
 
   # GET /offers/new
   def new
     @offer = Offer.new
+    @job_types = Offer.job_types.keys.map { |jt| [ jt.humanize, jt ] }
+    @contract_types = Offer.contract_types.keys.map { |ct| [ ct.humanize, ct ] }
   end
 
   # GET /offers/1/edit
   def edit
+    @job_types = Offer.job_types.keys.map { |jt| [ jt.humanize, jt ] }
+    @contract_types = Offer.contract_types.keys.map { |ct| [ ct.humanize, ct ] }
+
+    render layout: "dashboard"
   end
 
   # POST /offers or /offers.json
@@ -30,11 +55,11 @@ class OffersController < ApplicationController
 
     respond_to do |format|
       if @offer.save
-        format.html { redirect_to @offer, notice: "Offer was successfully created." }
+        format.html { redirect_to dashboard_path, notice: "Offer was successfully created." }
         format.json { render :show, status: :created, location: @offer }
       else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @offer.errors, status: :unprocessable_entity }
+        format.html { render :new, status: :unprocessable_content }
+        format.json { render json: @offer.errors, status: :unprocessable_content }
       end
     end
   end
@@ -57,14 +82,9 @@ class OffersController < ApplicationController
     @offer.destroy!
 
     respond_to do |format|
-      format.html { redirect_to offers_path, notice: "Offer was successfully destroyed.", status: :see_other }
+      format.html { redirect_to dashboard_path, notice: "Offer was successfully destroyed.", status: :see_other }
       format.json { head :no_content }
     end
-  end
-
-  def manage
-    @q = Offer.ransack(params[:q]).result.where(user: Current.user).order(@sort)
-    @pagy, @offers = pagy(@q, limit: @limit)
   end
 
   private
@@ -75,22 +95,6 @@ class OffersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def offer_params
-      params.expect(offer: [ :company_name, :title, :description, :contract_type, :job_type, :city, :country, :apply_link ])
-    end
-
-    def set_filters
-      @limit = params[:limit] || 10
-      @sort = params[:sort] || "created_at desc"
-      @location = params[:location]
-      @range = params[:range] || 100
-      @unit = params[:unit] || "km"
-
-      if @location.blank?
-        if request.location.city.present? && !request.location.city.blank?
-          @location = request.location.city + ", " + request.location.country
-        else
-          @location = "Paris, France"
-        end
-      end
+      params.expect(offer: [ :company_name, :title, :description, :address, :application_link, :contract_type, :job_type, :verification_status, :status, :user_id ])
     end
 end

@@ -8,3 +8,28 @@
  *
  * Consider organizing styles into separate files for maintainability.
  */
+
+.checkbox-icons .unchecked-icon,
+.checkbox-icons .checked-icon {
+  display: none;
+}
+
+.checkbox-icons .unchecked-icon {
+  display: block;
+}
+
+.custom-text {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.form-check-input:checked + .checkbox-icons .checked-icon {
+  display: block;
+}
+
+.form-check-input:checked + .checkbox-icons .unchecked-icon {
+  display: none;
+}
+
+.blur-bg::backdrop {
+  backdrop-filter: blur(4px);
+}

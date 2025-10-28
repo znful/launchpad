@@ -1,7 +1,8 @@
 class HomeController < ApplicationController
-  allow_unauthenticated_access only: [ :index ]
+  allow_unauthenticated_access
 
   def index
     @q = Offer.ransack(params[:q])
+    @offers = Offer.all.limit(3).order(created_at: :desc)
   end
 end

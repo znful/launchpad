@@ -1,0 +1,32 @@
+<%= form_with(model: statistic) do |form| %>
+  <% if statistic.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(statistic.errors.count, "error") %> prohibited this statistic from being saved:</h2>
+
+      <ul>
+        <% statistic.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :location, style: "display: block" %>
+    <%= form.text_field :location %>
+  </div>
+
+  <div>
+    <%= form.label :stat_type, style: "display: block" %>
+    <%= form.number_field :stat_type %>
+  </div>
+
+  <div>
+    <%= form.label :offer_id, style: "display: block" %>
+    <%= form.text_field :offer_id %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

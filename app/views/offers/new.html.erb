@@ -1,17 +1,22 @@
-<% content_for :title, "New offer" %>
+<%= turbo_frame_tag "new_offer" do %>
+  <div class="modal modal-blur fade" id="new-offer-modal" tabindex="-1">
+    <div class="modal-dialog modal-xl" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">New offer</h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            data-turbo-frame="new_offer"
+            aria-label="Close"
+          ></button>
+        </div>
 
-<div class="max-w-3xl mx-auto w-full px-4 sm:px-6 lg:px-8">
-  <div class="mb-8 text-center">
-    <h1 class="font-bold text-4xl text-gray-800">New Offer</h1>
-    <p class="mt-2 text-gray-600">Fill out the details below to create a new job offer.</p>
+        <div class="modal-body">
+          <%= render partial: "offers/form", locals: { offer: Offer.new, submit_label: "Create"} %>
+        </div>
+      </div>
+    </div>
   </div>
-
-  <div class="bg-white rounded-xl shadow-md p-6 md:p-8">
-    <%= render "form", offer: @offer %>
-  </div>
-
-  <div class="mt-6 flex flex-col sm:flex-row justify-center gap-3">
-    <%= link_to "Back to offers", offers_path,
-          class: "w-full sm:w-auto text-center rounded-md px-4 py-2.5 bg-gray-100 hover:bg-gray-200 font-medium text-gray-700 transition" %>
-  </div>
-</div>
+<% end %>

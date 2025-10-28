@@ -1,0 +1,18 @@
+<%= turbo_stream.append "offers" do %>
+  <% @offers.each do |offer| %>
+    <%= render offer %>
+  <% end %>
+<% end %>
+
+<% if @pagy.next %>
+  <%= turbo_stream.replace "infinite-scroll-sentinel" do %>
+    <div
+      id="infinite-scroll-sentinel"
+      data-controller="infinite-scroll"
+      data-infinite-scroll-next-url-value="<%= pagy_url_for(@pagy, @pagy.next) %>"
+      data-infinite-scroll-target="sentinel">
+    </div>
+  <% end %>
+<% else %>
+  <%= turbo_stream.remove "infinite-scroll-sentinel" %>
+<% end %>

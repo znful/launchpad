@@ -35,7 +35,7 @@ class OffersControllerTest < ActionDispatch::IntegrationTest
       }
     end
 
-    assert_redirected_to offer_url(Offer.order(created_at: :desc).limit(1).first)
+    assert_redirected_to dashboard_url
   end
 
   test "should show offer" do
@@ -61,6 +61,6 @@ class OffersControllerTest < ActionDispatch::IntegrationTest
       delete offer_url(@offer)
     end
 
-    assert_redirected_to offers_url
+    assert_redirected_to dashboard_url
   end
 end

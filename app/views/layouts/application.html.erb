@@ -45,6 +45,8 @@
 
   <body data-bs-theme="light">
     <%= render "shared/navbar" %>
+
+    <div class="container"><%= render "shared/flash_messages" %></div>
     <%= yield %>
     <%= render "shared/confirm_dialog" %>
   </body>

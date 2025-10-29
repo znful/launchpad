@@ -1,0 +1,36 @@
+<% if flash.any? %>
+  <div class="mt-4">
+    <div class="flash-messages">
+      <% flash.each do |type, message| %>
+        <% alert_class = case type.to_sym
+         when :notice then "alert-success"
+         when :alert then "alert-danger"
+         when :warning then "alert-warning"
+         when :info then "alert-info"
+         else "alert-secondary"
+         end %>
+        <% alert_icon = case type.to_sym
+         when :notice then "ti ti-check"
+         when :alert then "ti ti-alert-circle"
+         when :warning then "ti ti-alert-triangle"
+         when :info then "ti ti-info-circle"
+         else "ti ti-bell"
+         end %>
+        <div
+          class="alert <%= alert_class %> alert-dismissible fade show"
+          role="alert"
+        >
+          <div class="alert-icon"><i class="<%= alert_icon %>"></i></div>
+
+          <%= message %>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="alert"
+            aria-label="Close"
+          ></button>
+        </div>
+      <% end %>
+    </div>
+  </div>
+<% end %>

@@ -33,3 +33,7 @@
 .blur-bg::backdrop {
   backdrop-filter: blur(4px);
 }
+
+[data-bs-theme="dark"] .offer-dark-bg {
+  background-color: var(--tblr-gray-800);
+}

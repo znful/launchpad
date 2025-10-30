@@ -67,9 +67,15 @@
       aria-labelledby="heading-<%= offer.id %>"
     >
       <div class="accordion-body">
-        <p><strong class="me-1">Location:</strong><%= offer.address %></p>
+        <p class="offer-dark-text">
+          <strong class="me-1">Location:</strong>
+          <%= offer.address %>
+        </p>
 
-        <p><strong>Description:</strong><%= offer.description %></p>
+        <p class="offer-dark-text">
+          <strong>Description:</strong>
+          <%= strip_tags(offer.description) %>
+        </p>
 
         <a
           href="<%= offer.application_link %>"

@@ -37,3 +37,7 @@
 [data-bs-theme="dark"] .offer-dark-bg {
   background-color: var(--tblr-gray-800);
 }
+
+[data-bs-theme="dark"] .offer-dark-text {
+  color: var(--tblr-gray-300);
+}

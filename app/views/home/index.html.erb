@@ -117,7 +117,7 @@
             <% @offers.each do |offer| %>
               <div class="col-sm-6 col-lg-4 mb-4">
                 <div class="card h-100">
-                  <div class="card-body p-0">
+                  <div class="card-body">
                     <div class="row mb-2">
                       <div class="col-auto">
                         <span class="avatar placeholder"></span>
@@ -132,11 +132,7 @@
                       </div>
                     </div>
 
-                    <div class="h3"><%= offer.title %></div>
-
-                    <p class="mb-4">
-                      <%= truncate(offer.description.to_plain_text, length: 100) %>
-                    </p>
+                    <div class="h3 mb-4"><%= offer.title %></div>
 
                     <%= link_to "View details", offer_path(offer), class: "btn btn-primary bottom-0" %>
                   </div>

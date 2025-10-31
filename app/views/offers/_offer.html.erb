@@ -77,11 +77,7 @@
           <div class="offer-dark-text"><%= offer.description %></div>
         </p>
 
-        <a
-          href="<%= offer.application_link %>"
-          class="btn btn-primary"
-          target="_blank"
-        >
+        <%= link_to safe_url(offer.application_link), class: "btn btn-primary" do %>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="24"
@@ -105,7 +101,7 @@
             <path d="M15 4h5v5" />
           </svg>
           Apply Now
-        </a>
+        <% end %>
       </div>
     </div>
   </div>

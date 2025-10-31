@@ -112,37 +112,89 @@
     <div class="navbar-nav flex-row order-md-last ms-auto">
       <li>
         <div data-controller="dark-mode">
-          <button data-action="click->dark-mode#toggle" class="btn">
+          <button data-action="click->dark-mode#toggle" class="nav-link">
             <span data-dark-mode-target="icon"></span>
           </button>
         </div>
       </li>
-      <div class="nav-item dropdown">
-        <a
-          href="#"
-          class="nav-link d-flex lh-1 text-reset"
-          data-bs-toggle="dropdown"
-          aria-label="Open user menu"
-        >
-          <span
-            class="avatar avatar-sm"
-            style="background-image: url(/static/avatars/044m.jpg)"
-          ></span>
-          <div class="d-none d-xl-block ps-2">
-            <div>Paweł Kuna</div>
-            <div class="mt-1 small text-secondary">UI Designer</div>
+      <li>
+        <% if user_signed_in? %>
+          <div class="nav-link">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="icon icon-tabler icons-tabler-outline icon-tabler-user"
+            >
+              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+              <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" />
+              <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+            </svg>
+            <span class="nav-link-title"><%= current_user.display_name %></span>
           </div>
-        </a>
-        <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-          <a href="#" class="dropdown-item">Status</a>
-          <a href="./profile.html" class="dropdown-item">Profile</a>
-          <a href="#" class="dropdown-item">Feedback</a>
-
-          <div class="dropdown-divider"></div>
-          <a href="./settings.html" class="dropdown-item">Settings</a>
-          <a href="./sign-in.html" class="dropdown-item">Logout</a>
+        <% end %>
+      </li>
+      <li>
+        <div class="nav-item">
+          <% if user_signed_in? %>
+            <%= link_to session_path, data: { turbo_method: :delete }, class: "nav-link" do %>
+              <span class="nav-link-icon">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="icon icon-tabler icons-tabler-logout"
+                >
+                  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                  <path
+                    d="M14 8v-2a2 2 0 0 0 -2 -2h-7a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2 -2v-2"
+                  />
+                  <path d="M7 12h14" />
+                  <path d="M18 15l3 -3l-3 -3" />
+                </svg>
+              </span>
+              <span class="nav-link-title">Logout</span>
+            <% end %>
+          <% else %>
+            <%= link_to new_session_path, class: "nav-link" do %>
+              <span class="nav-link-icon">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="icon icon-tabler icons-tabler-login"
+                >
+                  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                  <path
+                    d="M14 8v-2a2 2 0 0 0 -2 -2h-7a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2 -2v-2"
+                  />
+                  <path d="M20 12h-13" />
+                  <path d="M18 10l2 2l-2 2" />
+                </svg>
+              </span>
+              <span class="nav-link-title">Login</span>
+            <% end %>
+          <% end %>
         </div>
-      </div>
+      </li>
     </div>
   </div>
 </header>

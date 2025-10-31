@@ -1,5 +1,5 @@
 <div id="<%= dom_id offer %>" class="accordion mb-3">
-  <div class="accordion-item">
+  <div class="accordion-item offer-dark-bg">
     <div class="accordion-header" id="heading-<%= offer.id %>">
       <% if offer.verified? %>
         <button
@@ -8,7 +8,7 @@
           mouseenter->verification#showText
           mouseleave->verification#showIcon
           "
-          class="ribbon bg-orange"
+          class="ribbon bg-orange border-0 mt-2"
         >
           <span data-verification-target="text" class="d-none">Verified</span>
 
@@ -43,7 +43,10 @@
       >
         <div class="col">
           <div class="row">
-            <h2 class="mb-0"><%= offer.title %> - <%= offer.company_name %></h2>
+            <h2 class="mb-0">
+              <%= offer.title %>
+              <span class="text-muted ms-1"><%= offer.company_name %></span>
+            </h2>
           </div>
           <div class="d-flex mt-1 gap-2">
             <%= badge_for(:contract_type, offer.contract_type) %>
@@ -64,9 +67,15 @@
       aria-labelledby="heading-<%= offer.id %>"
     >
       <div class="accordion-body">
-        <p><strong>Location:</strong><%= offer.address %></p>
+        <p class="offer-dark-text">
+          <strong class="me-1">Location:</strong>
+          <%= offer.address %>
+        </p>
 
-        <p><strong>Description:</strong><%= offer.description %></p>
+        <p class="offer-dark-text">
+          <strong>Description:</strong>
+          <div class="offer-dark-text"><%= offer.description %></div>
+        </p>
 
         <a
           href="<%= offer.application_link %>"

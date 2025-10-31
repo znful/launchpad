@@ -1,6 +1,6 @@
 <div id="bookmark-<%= offer.id %>" class="me-6">
   <% if user_signed_in? && current_user.bookmarked?(offer) %>
-    <%= button_to offer_bookmark_path(offer, current_user.bookmarks.find_by(offer: offer)), method: :delete, title: "Remove Bookmark" do %>
+    <%= button_to offer_bookmark_path(offer, current_user.bookmarks.find_by(offer: offer)), method: :delete, title: "Remove Bookmark", class: "btn btn-icon btn-ghost-secondary" do %>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="24"
@@ -16,7 +16,7 @@
       </svg>
     <% end %>
   <% else %>
-    <%= button_to offer_bookmarks_path(offer), method: :post, title: "Bookmark" do %>
+    <%= button_to offer_bookmarks_path(offer), method: :post, title: "Bookmark", class: "btn btn-icon btn-ghost-secondary" do %>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="24"

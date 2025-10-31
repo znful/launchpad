@@ -1,5 +1,6 @@
 class HomeController < ApplicationController
   allow_unauthenticated_access
+  before_action :resume_session, only: [ :index ]
 
   def index
     @q = Offer.ransack(params[:q])

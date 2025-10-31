@@ -18,5 +18,10 @@ class User < ApplicationRecord
     bookmarked_offers.include?(offer)
   end
 
+
   normalizes :email_address, with: ->(e) { e.strip.downcase }
+
+  def display_name
+    email_address.split("@").first.titleize
+  end
 end

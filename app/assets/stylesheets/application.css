@@ -38,6 +38,10 @@
   background-color: var(--tblr-gray-800);
 }
 
-[data-bs-theme="dark"] .offer-dark-text {
-  color: var(--tblr-gray-300);
+[data-bs-theme="dark"] .offer-text {
+  color: var(--tblr-gray-200);
+}
+
+[data-bs-theme="light"] .offer-text {
+  color: var(--tblr-gray-800);
 }

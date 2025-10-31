@@ -9,8 +9,14 @@ Turbo.config.forms.confirm = (message, _) => {
   const dialog = document.getElementById("turbo-confirm");
   const messageContainer = dialog.querySelector("#confirm-message");
   const confirmButton = dialog.querySelector("#confirm-button");
+  const body = document.querySelector("body");
+  const backdrop = document.createElement("div");
+  body.style.overflow = "hidden";
+  backdrop.className = "modal-backdrop fade show";
 
   messageContainer.textContent = message;
+  body.classList.add("modal-open");
+  body.appendChild(backdrop);
 
   dialog.classList.remove("d-none");
   dialog.showModal();
@@ -20,6 +26,8 @@ Turbo.config.forms.confirm = (message, _) => {
       "close",
       () => {
         dialog.classList.add("d-none");
+        body.classList.remove("modal-open");
+        body.removeChild(backdrop);
         resolve(dialog.returnValue === "true");
       },
       { once: true },

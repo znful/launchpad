@@ -8,4 +8,8 @@ module ApplicationHelper
   def user_signed_in?
     Current.user.present?
   end
+
+  def current_user_name
+    Current.user.email_address.split("@").first.titleize if Current.user
+  end
 end

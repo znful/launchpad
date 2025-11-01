@@ -55,30 +55,34 @@
       </li>
       <li class="nav-item">
         <% if user_signed_in? %>
-          <div class="nav-link">
-            <i class="ti ti-user me-1 fs-2"></i>
-            <span class="nav-link-title"><%= current_user.display_name %></span>
+          <div class="dropdown">
+            <a
+              href="#"
+              class="nav-link dropdown-toggle"
+              data-bs-toggle="dropdown"
+            >
+              <i class="ti ti-user me-1 fs-2"></i>
+              <span class="nav-link-title"><%= current_user.display_name %></span>
+            </a>
+            <div class="dropdown-menu">
+              <div class="dropdown-item">
+                <%= link_to session_path, data: { turbo_method: :delete }, class: "nav-link" do %>
+                  <span class="nav-link-icon">
+                    <i class="ti ti-login me-1 fs-2"></i>
+                  </span>
+                  <span class="nav-link-title">Logout</span>
+                <% end %>
+              </div>
+            </div>
           </div>
-        <% end %>
-      </li>
-      <li class="nav-item">
-        <div class="nav-item">
-          <% if user_signed_in? %>
-            <%= link_to session_path, data: { turbo_method: :delete }, class: "nav-link" do %>
-              <span class="nav-link-icon">
-                <i class="ti ti-login me-1 fs-2"></i>
-              </span>
-              <span class="nav-link-title">Logout</span>
-            <% end %>
-          <% else %>
-            <%= link_to new_session_path, class: "nav-link" do %>
-              <span class="nav-link-icon">
-                <i class="ti ti-login-2 me-1 fs-2"></i>
-              </span>
-              <span class="nav-link-title">Login</span>
-            <% end %>
+        <% else %>
+          <%= link_to new_session_path, class: "nav-link" do %>
+            <span class="nav-link-icon">
+              <i class="ti ti-login-2 me-1 fs-2"></i>
+            </span>
+            <span class="nav-link-title">Login</span>
           <% end %>
-        </div>
+        <% end %>
       </li>
     </div>
   </div>

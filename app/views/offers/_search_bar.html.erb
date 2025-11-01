@@ -1,5 +1,5 @@
 <div class="sticky-top py-2">
-  <%= search_form_for @q, url: offers_path, method: :get, class: "form-fieldset offer-dark-bg", data: { turbo_frame: "offers_list", controller: "offers-search" } do |f| %>
+  <%= search_form_for @q, url: offers_path, method: :get, class: "form-fieldset offer-bg", data: { turbo_frame: "offers_list", controller: "offers-search" } do |f| %>
     <div class="d-flex justify-content-between gap-2 align-items-end pb-2">
       <div class="flex-grow-1">
         <%= f.label :title_or_company_name_cont, "Search for Job Title or Company name:", class: "form-label d-block" %>
@@ -7,12 +7,12 @@
       </div>
 
       <div class="flex-grow-1">
-        <label class="form-label mb-3">Location:</label>
+        <label class="form-label">Location:</label>
         <%= text_field_tag "q[location]", params.dig(:q, :location), class: "form-control" %>
       </div>
 
       <div>
-        <label class="form-label mb-3">Distance (km):</label>
+        <label class="form-label">Distance (km):</label>
         <%= number_field_tag "q[distance]", params.dig(:q, :distance) || 10, min: 1, step: 1, class: "form-control", data: { action: "change->offers-search#submitForm" } %>
       </div>
 
@@ -25,28 +25,7 @@
           aria-expanded="false"
           aria-controls="advancedSearchCollapse"
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            class="
-              icon icon-tabler icons-tabler-outline
-              icon-tabler-filter-search
-            "
-          >
-            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-            <path
-              d="M11.36 20.213l-2.36 .787v-8.5l-4.48 -4.928a2 2 0 0 1 -.52 -1.345v-2.227h16v2.172a2 2 0 0 1 -.586 1.414l-4.414 4.414"
-            />
-            <path d="M18 18m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" />
-            <path d="M20.2 20.2l1.8 1.8" />
-          </svg>
+          <i class="ti ti-filter me-1 fs-2"></i>
           Advanced Filters
         </button>
       </div>
@@ -88,22 +67,7 @@
 
     <div>
       <button type="submit" class="btn btn-primary">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          class="icon icon-tabler icons-tabler-outline icon-tabler-search"
-        >
-          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-          <path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" />
-          <path d="M21 21l-6 -6" />
-        </svg>
+        <i class="ti ti-search me-1 fs-2"></i>
         Submit
       </button>
       <%= link_to "Clear", offers_path, class: "btn" %>

@@ -1,37 +1,11 @@
 <div id="bookmark-<%= offer.id %>" class="me-6">
   <% if user_signed_in? && current_user.bookmarked?(offer) %>
     <%= button_to offer_bookmark_path(offer, current_user.bookmarks.find_by(offer: offer)), method: :delete, title: "Remove Bookmark", class: "btn btn-icon btn-ghost-secondary" do %>
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
-        fill="currentColor"
-        class="icon icon-tabler icons-tabler-filled icon-tabler-bookmark"
-      >
-        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-        <path
-          d="M14 2a5 5 0 0 1 5 5v14a1 1 0 0 1 -1.555 .832l-5.445 -3.63l-5.444 3.63a1 1 0 0 1 -1.55 -.72l-.006 -.112v-14a5 5 0 0 1 5 -5h4z"
-        />
-      </svg>
+      <i class="ti ti-bookmark-filled fs-2"></i>
     <% end %>
   <% else %>
     <%= button_to offer_bookmarks_path(offer), method: :post, title: "Bookmark", class: "btn btn-icon btn-ghost-secondary" do %>
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        class="icon icon-tabler icons-tabler-outline icon-tabler-bookmark"
-      >
-        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-        <path d="M18 7v14l-6 -4l-6 4v-14a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4z" />
-      </svg>
+      <i class="ti ti-bookmark fs-2"></i>
     <% end %>
   <% end %>
 </div>

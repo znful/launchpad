@@ -29,11 +29,16 @@ export default class extends Controller {
   }
 
   updateIcon() {
+    if (!this.hasIconTarget) return;
     const currentTheme = document.body.getAttribute('data-bs-theme');
+    const icon = this.iconTarget;
+
+    icon.classList.remove("ti-sun", "ti-moon");
+
     if (currentTheme == 'dark') {
-      this.iconTarget.textContent = "🌙";
+      icon.classList.add("ti-sun");
     } else {
-      this.iconTarget.textContent = "☀️";
+      icon.classList.add("ti-moon");
     }
   }
 }

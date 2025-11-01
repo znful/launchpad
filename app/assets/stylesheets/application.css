@@ -34,8 +34,12 @@
   backdrop-filter: blur(4px);
 }
 
-[data-bs-theme="dark"] .offer-dark-bg {
+[data-bs-theme="dark"] .offer-bg {
   background-color: var(--tblr-gray-800);
+}
+
+[data-bs-theme="light"] .offer-bg {
+  background-color: var(--tblr-white);
 }
 
 [data-bs-theme="dark"] .offer-text {

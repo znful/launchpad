@@ -22,23 +22,7 @@
       <li class="nav-item">
         <%= link_to root_path, class: "nav-link" do %>
           <span class="nav-link-icon">
-            <!-- Download SVG icon from http://tabler.io/icons/icon/home -->
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              class="icon icon-1"
-            >
-              <path d="M5 12l-2 0l9 -9l9 9l-2 0" />
-              <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
-              <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
-            </svg>
+            <i class="ti ti-home me-1 fs-2"></i>
           </span>
           <span class="nav-link-title">Home</span>
         <% end %>
@@ -46,37 +30,7 @@
       <li class="nav-item">
         <%= link_to offers_path, class: "nav-link" do %>
           <span class="nav-link-icon">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              class="
-                icon icon-tabler icons-tabler-outline
-                icon-tabler-calendar-user
-              "
-            >
-              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-
-              <path
-                d="M12 21h-6a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4.5"
-              />
-
-              <path d="M16 3v4" />
-
-              <path d="M8 3v4" />
-
-              <path d="M4 11h16" />
-
-              <path d="M19 17m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
-
-              <path d="M22 22a2 2 0 0 0 -2 -2h-2a2 2 0 0 0 -2 2" />
-            </svg>
+            <i class="ti ti-calendar-search me-1 fs-2"></i>
           </span>
           <span class="nav-link-title">Offers</span>
         <% end %>
@@ -84,25 +38,7 @@
       <li class="nav-item">
         <%= link_to dashboard_path, class: "nav-link" do %>
           <span class="nav-link-icon">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              class="icon icon-tabler icons-tabler-outline icon-tabler-user-edit"
-            >
-              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-              <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" />
-              <path d="M6 21v-2a4 4 0 0 1 4 -4h3.5" />
-              <path
-                d="M18.42 15.61a2.1 2.1 0 0 1 2.97 2.97l-3.39 3.42h-3v-3l3.42 -3.39z"
-              />
-            </svg>
+            <i class="ti ti-user-edit me-1 fs-2"></i>
           </span>
           <span class="nav-link-title">Dashboard</span>
         <% end %>
@@ -111,89 +47,42 @@
 
     <div class="navbar-nav flex-row order-md-last ms-auto">
       <li class="nav-item">
-        <div data-controller="dark-mode">
-          <button data-action="click->dark-mode#toggle" class="nav-link">
-            <span data-dark-mode-target="icon"></span>
+        <div data-controller="theme">
+          <button data-action="click->theme#toggle" class="nav-link">
+            <i data-theme-target="icon" class="ti ti-sun"></i>
           </button>
         </div>
       </li>
       <li class="nav-item">
         <% if user_signed_in? %>
-          <div class="nav-link">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              class="icon icon-tabler icons-tabler-outline icon-tabler-user"
+          <div class="dropdown">
+            <a
+              href="#"
+              class="nav-link dropdown-toggle"
+              data-bs-toggle="dropdown"
             >
-              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-              <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" />
-              <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
-            </svg>
-            <span class="nav-link-title"><%= current_user.display_name %></span>
+              <i class="ti ti-user me-1 fs-2"></i>
+              <span class="nav-link-title"><%= current_user.display_name %></span>
+            </a>
+            <div class="dropdown-menu">
+              <div class="dropdown-item">
+                <%= link_to session_path, data: { turbo_method: :delete }, class: "nav-link" do %>
+                  <span class="nav-link-icon">
+                    <i class="ti ti-login me-1 fs-2"></i>
+                  </span>
+                  <span class="nav-link-title">Logout</span>
+                <% end %>
+              </div>
+            </div>
           </div>
-        <% end %>
-      </li>
-      <li class="nav-item">
-        <div class="nav-item">
-          <% if user_signed_in? %>
-            <%= link_to session_path, data: { turbo_method: :delete }, class: "nav-link" do %>
-              <span class="nav-link-icon">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  class="icon icon-tabler icons-tabler-logout"
-                >
-                  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                  <path
-                    d="M14 8v-2a2 2 0 0 0 -2 -2h-7a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2 -2v-2"
-                  />
-                  <path d="M7 12h14" />
-                  <path d="M18 15l3 -3l-3 -3" />
-                </svg>
-              </span>
-              <span class="nav-link-title">Logout</span>
-            <% end %>
-          <% else %>
-            <%= link_to new_session_path, class: "nav-link" do %>
-              <span class="nav-link-icon">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  class="icon icon-tabler icons-tabler-login"
-                >
-                  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                  <path
-                    d="M14 8v-2a2 2 0 0 0 -2 -2h-7a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2 -2v-2"
-                  />
-                  <path d="M20 12h-13" />
-                  <path d="M18 10l2 2l-2 2" />
-                </svg>
-              </span>
-              <span class="nav-link-title">Login</span>
-            <% end %>
+        <% else %>
+          <%= link_to new_session_path, class: "nav-link" do %>
+            <span class="nav-link-icon">
+              <i class="ti ti-login-2 me-1 fs-2"></i>
+            </span>
+            <span class="nav-link-title">Login</span>
           <% end %>
-        </div>
+        <% end %>
       </li>
     </div>
   </div>

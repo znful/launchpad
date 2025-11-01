@@ -1,5 +1,5 @@
 <div id="<%= dom_id offer %>" class="accordion mb-3">
-  <div class="accordion-item offer-dark-bg">
+  <div class="accordion-item offer-bg">
     <div class="accordion-header" id="heading-<%= offer.id %>">
       <% if offer.verified? %>
         <button
@@ -10,25 +10,10 @@
           "
           class="ribbon bg-orange border-0 mt-2"
         >
-          <span data-verification-target="text" class="d-none">Verified</span>
+          <span data-verification-target="text" class="d-none fs-5">Verified</span>
 
           <span data-verification-target="icon">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              class="icon icon-1"
-            >
-              <path
-                d="M12 17.75l-6.172 3.245l1.179 -6.873l-5 -4.867l6.9 -1l3.086 -6.253l3.086 6.253l6.9 1l-5 4.867l1.179 6.873z"
-              />
-            </svg>
+            <i class="ti ti-star fs-2"></i>
           </span>
         </button>
       <% end %>
@@ -43,8 +28,8 @@
       >
         <div class="col">
           <div class="d-flex align-items-center gap-2">
-            <span class="fs-2 fw-semibold mb-0"><%= offer.title %></span>
-            <span class="text-muted fs-2 fw-semibold ms-1"><%= offer.company_name %></span>
+            <span class="fs-2 fw-semibold mb-0"><%= truncate(offer.title, length: 40 ) %></span>
+            <span class="text-muted fs-2 fw-semibold ms-1"><%= truncate(offer.company_name, length: 40) %></span>
           </div>
           <div class="d-flex mt-1 gap-2">
             <%= badge_for(:contract_type, offer.contract_type) %>
@@ -67,7 +52,7 @@
       <div class="accordion-body">
         <div class="mb-3">
           <span class="offer-text fs-3 fw-bold me-1">Location:</span>
-          <span class="offer-text fs-3"><%= offer.address %></span>
+          <span class="offer-text fs-3"><%= truncate(offer.address, length: 50) %></span>
         </div>
 
         <div class="offer-text fs-3 fw-bold mb-2">
@@ -77,28 +62,7 @@
         <div class="offer-text fs-3 mb-3"><%= offer.description %></div>
 
         <%= link_to safe_url(offer.application_link), class: "btn btn-primary" do %>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            class="
-              icon icon-tabler icons-tabler-outline
-              icon-tabler-external-link
-            "
-          >
-            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-            <path
-              d="M12 6h-6a2 2 0 0 0 -2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-6"
-            />
-            <path d="M11 13l9 -9" />
-            <path d="M15 4h5v5" />
-          </svg>
+          <i class="ti ti-external-link me-1 fs-2"></i>
           Apply Now
         <% end %>
       </div>

@@ -1,5 +1,5 @@
 <div class="sticky-top py-2">
-  <%= search_form_for @q, url: offers_path, method: :get, class: "form-fieldset offer-dark-bg", data: { turbo_frame: "offers_list", controller: "offers-search" } do |f| %>
+  <%= search_form_for @q, url: offers_path, method: :get, class: "form-fieldset offer-bg", data: { turbo_frame: "offers_list", controller: "offers-search" } do |f| %>
     <div class="d-flex justify-content-between gap-2 align-items-end pb-2">
       <div class="flex-grow-1">
         <%= f.label :title_or_company_name_cont, "Search for Job Title or Company name:", class: "form-label d-block" %>

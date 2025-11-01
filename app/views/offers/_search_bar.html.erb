@@ -7,12 +7,12 @@
       </div>
 
       <div class="flex-grow-1">
-        <label class="form-label mb-3">Location:</label>
+        <label class="form-label">Location:</label>
         <%= text_field_tag "q[location]", params.dig(:q, :location), class: "form-control" %>
       </div>
 
       <div>
-        <label class="form-label mb-3">Distance (km):</label>
+        <label class="form-label">Distance (km):</label>
         <%= number_field_tag "q[distance]", params.dig(:q, :distance) || 10, min: 1, step: 1, class: "form-control", data: { action: "change->offers-search#submitForm" } %>
       </div>
 

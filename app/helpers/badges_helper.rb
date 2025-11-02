@@ -21,7 +21,7 @@ module BadgesHelper
   end
 
   def job_type(job_type)
-    colours = { "on_site" => "green", "remote" => "blue", "hybrid" => "purple" }
+    colours = { "on_site" => "yellow", "remote" => "red", "hybrid" => "cyan" }
     colours[job_type] || "gray"
   end
 end

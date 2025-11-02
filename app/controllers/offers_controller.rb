@@ -7,7 +7,6 @@ class OffersController < ApplicationController
   def index
     @q = Offer.ransack(params[:q])
     @pagy, @offers = pagy(@q.result(distinct: true).order(created_at: :desc), limit: 10)
-    @offer = Offer.new
 
     if params.dig(:q, :location).present? && params.dig(:q, :distance).present?
       location = params[:q][:location]

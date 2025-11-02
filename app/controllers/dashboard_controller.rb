@@ -3,19 +3,20 @@ class DashboardController < ApplicationController
 
   def index
     @q = Offer.ransack(params[:q])
-    @pagy, @offers = pagy(@q.result(distinct: true).order(created_at: :desc), limit: @limit)
     @offer = Offer.new
 
     if @location.present? && @distance.present?
       location = params[:q][:location]
       distance = params[:q][:distance].to_f
-
       @pagy, @offers = pagy(@offers.near(location, distance, units: :km), limit: @limit)
+    else
+      @pagy, @offers = pagy(@q.result(distinct: true).order(created_at: :desc), limit: @limit)
     end
 
     @view_count = Current.user.offers.views.count
     @interaction_count = Current.user.offers.interactions.count
     @application_count = Current.user.offers.applications.count
+
     render :index, layout: "dashboard"
   end
 

@@ -2,7 +2,7 @@ class DashboardController < ApplicationController
   before_action :set_filters, only: [ :index ]
 
   def index
-    @q = Offer.ransack(params[:q])
+    @q = Current.user.offers.ransack(params[:q])
     @offer = Offer.new
 
     if @location.present? && @distance.present?

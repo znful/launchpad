@@ -4,7 +4,7 @@
   closedby="any"
   style="min-width: 400px;"
 >
-  <div class="modal-status bg-danger"></div>
+  <div class="modal-status" id="modal-status"></div>
   <form method="dialog">
     <div id="confirm-modal" tabindex="-1">
       <div class="modal-dialog modal-sm" role="document">
@@ -31,7 +31,7 @@
               />
             </svg>
 
-            <h3>Are you sure?</h3>
+            <h3 id="confirm-title">Are you sure?</h3>
 
             <div class="text-secondary" id="confirm-message"></div>
           </div>
@@ -45,11 +45,7 @@
                   </button>
                 </div>
                 <div class="col">
-                  <button
-                    value="true"
-                    class="btn btn-danger w-100"
-                    id="confirm-button"
-                  >
+                  <button value="true" class="btn w-100" id="confirm-button">
                     Confirm
                   </button>
                 </div>

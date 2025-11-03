@@ -2,7 +2,7 @@
   <%= search_form_for @q, url: dashboard_path, method: :get, class: "form-fieldset border-0", data: { "dashboard-target": "form" } do |f| %>
     <div class="d-flex justify-content-between gap-2 align-items-end p-0">
       <div class="flex-grow-1">
-        <%= f.label :title_or_company_name_cont, "Job Title or Company :", class: "form-label d-block" %>
+        <%= f.label :title_or_company_name_cont, "Job Title or Company:", class: "form-label d-block" %>
         <%= f.text_field :title_or_company_name_cont, class: "form-control", data: { action: "blur->dashboard#submitForm" } %>
       </div>
 
@@ -18,7 +18,7 @@
 
       <div>
         <label class="form-label">Limit:</label>
-        <%= number_field_tag "limit", params.dig(:q, :distance) || 10, min: 1, step: 1, class: "form-control", data: { action: "blur->dashboard#submitForm" } %>
+        <%= number_field_tag "limit", params.dig(:q, :limit) || 9, min: 1, step: 1, class: "form-control", data: { action: "blur->dashboard#submitForm" } %>
       </div>
 
       <div class="dropdown" data-dashboard-target="dropdown">
@@ -59,7 +59,10 @@
         </div>
       </div>
 
-      <div id="form-buttons">
+      <div
+        id="form-buttons"
+        class="d-flex justify-content-between gap-2 align-items-end p-0"
+      >
         <%= f.submit "Search", class: "btn btn-primary" %>
         <%= link_to "Clear", dashboard_path, class: "btn btn-outline-danger" %>
       </div>

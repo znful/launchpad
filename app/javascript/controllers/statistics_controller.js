@@ -4,9 +4,13 @@ import { Controller } from "@hotwired/stimulus";
 export default class extends Controller {
   static targets = ["offer"];
 
-  viewedOffers = new Set();
-  CSRF_TOKEN = "";
-  timeoutId = null;
+  initialize() {
+    this.viewedOffers = new Set();
+    this.interactedOffers = new Set();
+    this.appliedOffers = new Set();
+    this.CSRF_TOKEN = "";
+    this.timeoutId = null;
+  }
 
   connect() {
     this.CSRF_TOKEN = this._getCsrfToken();
@@ -26,14 +30,25 @@ export default class extends Controller {
       const offerId = offer.dataset.offerId;
       if (!this.viewedOffers.has(offerId) && this._isElementInViewport(offer)) {
         this.viewedOffers.add(offerId);
-        this._sendViewIncrement(offerId);
+        this._sendStatisticIncrement(offerId, "view");
       }
     });
   }
 
   incrementInteractionCount({ params: { offerId } }) {
-    console.log(`Incrementing interaction for offer ID: ${offerId}`);
-    this._sendInteractionIncrement(offerId);
+    if (this.interactedOffers.has(offerId)) {
+      return;
+    }
+    this._sendStatisticIncrement(offerId, "interaction");
+    this.interactedOffers.add(offerId);
+  }
+
+  incrementApplicationCount({ params: { offerId } }) {
+    if (this.appliedOffers.has(offerId)) {
+      return;
+    }
+    this._sendStatisticIncrement(offerId, "application");
+    this.appliedOffers.add(offerId);
   }
 
   _isElementInViewport(el) {
@@ -47,25 +62,14 @@ export default class extends Controller {
     );
   }
 
-  _sendViewIncrement(offerId) {
+  _sendStatisticIncrement(offerId, statType) {
     fetch(`/statistic`, {
       method: "POST",
       headers: {
         "X-CSRF-Token": this.CSRF_TOKEN,
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ offer_id: offerId, stat_type: "view" }),
-    });
-  }
-
-  _sendInteractionIncrement(offerId) {
-    fetch(`/statistic`, {
-      method: "POST",
-      headers: {
-        "X-CSRF-Token": this.CSRF_TOKEN,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ offer_id: offerId, stat_type: "interaction" }),
+      body: JSON.stringify({ offer_id: offerId, stat_type: statType }),
     });
   }
 

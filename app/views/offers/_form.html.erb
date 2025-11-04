@@ -58,5 +58,8 @@
 
   <hr>
 
-  <div><%= form.submit submit_label, class: "btn btn-primary" %></div>
+  <div>
+    <%= form.submit submit_label, class: "btn btn-primary" %>
+    <%= form.submit "Create & Publish", class: "btn btn-primary", name: "publish_offer" %>
+  </div>
 <% end %>

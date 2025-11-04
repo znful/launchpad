@@ -52,6 +52,10 @@ class OffersController < ApplicationController
     @offer = Offer.new(offer_params)
     @offer.user_id = Current.user.id
 
+    if params[:publish_offer].present?
+      @offer.status = "published"
+    end
+
     respond_to do |format|
       if @offer.save
         format.html { redirect_to dashboard_path, notice: "Offer was successfully created." }

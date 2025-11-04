@@ -31,6 +31,11 @@ export default class extends Controller {
     });
   }
 
+  incrementInteractionCount({ params: { offerId } }) {
+    console.log(`Incrementing interaction for offer ID: ${offerId}`);
+    this._sendInteractionIncrement(offerId);
+  }
+
   _isElementInViewport(el) {
     const rect = el.getBoundingClientRect();
     return (
@@ -50,6 +55,17 @@ export default class extends Controller {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ offer_id: offerId, stat_type: "view" }),
+    });
+  }
+
+  _sendInteractionIncrement(offerId) {
+    fetch(`/statistic`, {
+      method: "POST",
+      headers: {
+        "X-CSRF-Token": this.CSRF_TOKEN,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ offer_id: offerId, stat_type: "interaction" }),
     });
   }
 

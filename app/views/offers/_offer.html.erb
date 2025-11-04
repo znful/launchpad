@@ -1,4 +1,9 @@
-<div id="<%= dom_id offer %>" class="accordion mb-3">
+<div
+  id="<%= dom_id offer %>"
+  class="accordion mb-3"
+  data-statistics-target="offer"
+  data-offer-id="<%= offer.id %>"
+>
   <div class="accordion-item offer-bg">
     <div class="accordion-header" id="heading-<%= offer.id %>">
       <% if offer.verified? %>
@@ -25,6 +30,8 @@
         data-bs-target="#collapse-<%= offer.id %>"
         aria-expanded="false"
         aria-controls="collapse-<%= offer.id %>"
+        data-action="click->statistics#incrementInteractionCount"
+        data-statistics-offer-id-param="<%= offer.id %>"
       >
         <div class="col">
           <div class="d-flex align-items-center gap-2">
@@ -61,7 +68,7 @@
 
         <div class="offer-text fs-3 mb-3"><%= offer.description %></div>
 
-        <%= link_to safe_url(offer.application_link), class: "btn btn-primary" do %>
+        <%= link_to safe_url(offer.application_link), class: "btn btn-primary", data: { action: "click->statistics#incrementApplicationCount", statistics_offer_id_param: offer.id }, target: :_blank do %>
           <i class="ti ti-external-link me-1 fs-2"></i>
           Apply Now
         <% end %>

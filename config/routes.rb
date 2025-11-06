@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  namespace :admin do
+    get "dashboard/index"
+  end
   get "dashboard" => "dashboard#index", as: :dashboard
   resource :statistic, only: [ :create ]
   resources :offers do

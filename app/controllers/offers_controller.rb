@@ -37,12 +37,14 @@ class OffersController < ApplicationController
     @offer = Offer.new
     @job_types = Offer.job_types.keys.map { |jt| [ jt.humanize, jt ] }
     @contract_types = Offer.contract_types.keys.map { |ct| [ ct.humanize, ct ] }
+    @statuses = Offer.statuses.keys.map { |s| [ s.humanize, s ] }
   end
 
   # GET /offers/1/edit
   def edit
     @job_types = Offer.job_types.keys.map { |jt| [ jt.humanize, jt ] }
     @contract_types = Offer.contract_types.keys.map { |ct| [ ct.humanize, ct ] }
+    @statuses = Offer.statuses.keys.map { |s| [ s.humanize, s ] }
 
     render layout: "dashboard"
   end
@@ -51,6 +53,10 @@ class OffersController < ApplicationController
   def create
     @offer = Offer.new(offer_params)
     @offer.user_id = Current.user.id
+
+    if params[:publish_offer].present?
+      @offer.status = "published"
+    end
 
     respond_to do |format|
       if @offer.save

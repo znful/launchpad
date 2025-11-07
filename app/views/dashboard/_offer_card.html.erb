@@ -26,18 +26,22 @@
           <div class="dropdown-menu">
             <p class="dropdown-header">Change Status</p>
 
-            <% status_options.each do |status| %>
-              <%= button_to status[0],
-                offer_path(offer, offer: {status: status[1]}),
+            <% status_options.each do |label, status| %>
+              <% if status == offer.status %>
+                <p class="dropdown-item active"><%= label %></p>
+              <% else %>
+                <%= button_to label,
+                offer_path(offer, offer: {status: status}),
                 method: :patch,
                 class: "dropdown-item" %>
+              <% end %>
             <% end %>
 
             <div class="dropdown-divider"></div>
 
             <p class="dropdown-header">Verification</p>
 
-            <%= button_to "Request Verification", offer_path(offer, offer: {verification_status: "pending" }), method: :patch, class: "dropdown-item" %>
+            <%= request_verification_button offer %>
           </div>
         </div>
       </div>

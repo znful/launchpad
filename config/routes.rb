@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   namespace :admin do
-    get "dashboard/index"
+    get "" => "dashboard#index", as: :dashboard
   end
   get "dashboard" => "dashboard#index", as: :dashboard
   resource :statistic, only: [ :create ]

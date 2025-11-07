@@ -35,17 +35,10 @@ class OffersController < ApplicationController
   # GET /offers/new
   def new
     @offer = Offer.new
-    @job_types = Offer.job_types.keys.map { |jt| [ jt.humanize, jt ] }
-    @contract_types = Offer.contract_types.keys.map { |ct| [ ct.humanize, ct ] }
-    @statuses = Offer.statuses.keys.map { |s| [ s.humanize, s ] }
   end
 
   # GET /offers/1/edit
   def edit
-    @job_types = Offer.job_types.keys.map { |jt| [ jt.humanize, jt ] }
-    @contract_types = Offer.contract_types.keys.map { |ct| [ ct.humanize, ct ] }
-    @statuses = Offer.statuses.keys.map { |s| [ s.humanize, s ] }
-
     render layout: "dashboard"
   end
 

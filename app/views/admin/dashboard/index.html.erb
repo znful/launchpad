@@ -1,3 +1,9 @@
-<h1>Admin::Dashboard#index</h1>
+<%= content_for :title, "Admin - Launchpad" %>
 
-<p>Find me in app/views/admin/dashboard/index.html.erb</p>
+<%= content_for :pre_title, "Administration" %>
+
+<%= content_for :page_title, "Dashboard" %>
+
+<section id="stat-cards" class="mt-4">
+  <%= render partial: "admin/dashboard/stat_cards" %>
+</section>

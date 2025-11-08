@@ -14,6 +14,36 @@
           <%= badge_for(:verification_status, offer.verification_status) %>
           <%= badge_for(:status, offer.status) %>
         </div>
+
+        <div class="dropdown ms-auto" data-controller="dashboard">
+          <a
+            href="#"
+            class="btn btn-icon btn-ghost-secondary"
+            data-bs-toggle="dropdown"
+          >
+            <i class="ti ti-dots-vertical"></i>
+          </a>
+          <div class="dropdown-menu">
+            <p class="dropdown-header">Change Status</p>
+
+            <% status_options.each do |label, status| %>
+              <% if status == offer.status %>
+                <p class="dropdown-item active"><%= label %></p>
+              <% else %>
+                <%= button_to label,
+                offer_path(offer, offer: {status: status}, redirect_to: request.fullpath),
+                method: :patch,
+                class: "dropdown-item" %>
+              <% end %>
+            <% end %>
+
+            <div class="dropdown-divider"></div>
+
+            <p class="dropdown-header">Verification</p>
+
+            <%= request_verification_button offer %>
+          </div>
+        </div>
       </div>
 
       <div class="col">

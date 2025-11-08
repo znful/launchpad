@@ -41,12 +41,12 @@
   <div class="d-flex gap-2 mb-6">
     <div class="col">
       <%= form.label :contract_type, class: "form-label" %>
-      <%= form.select :contract_type, @contract_types, {}, class: "form-select" %>
+      <%= form.select :contract_type, contract_type_options, {}, class: "form-select" %>
     </div>
 
     <div class="col">
       <%= form.label :job_type, class: "form-label" %>
-      <%= form.select :job_type, @job_types, {}, class: "form-select" %>
+      <%= form.select :job_type, job_type_options, {}, class: "form-select" %>
     </div>
   </div>
 
@@ -54,7 +54,7 @@
     <div class="hr-text">Status</div>
     <div>
       <%= form.label :status, class: "form-label" %>
-      <%= form.select :status, @statuses, {}, class: "form-select" %>
+      <%= form.select :status, status_options, {}, class: "form-select" %>
     </div>
   <% end %>
 

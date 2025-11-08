@@ -65,7 +65,7 @@
               <span class="nav-link-title"><%= current_user.display_name %></span>
             </a>
             <div class="dropdown-menu">
-              <div class="dropdown-item">
+              <div>
                 <%= link_to session_path, data: { turbo_method: :delete }, class: "nav-link" do %>
                   <span class="nav-link-icon">
                     <i class="ti ti-login me-1 fs-2"></i>

@@ -22,10 +22,6 @@ class Offer < ApplicationRecord
   scope :interactions, -> { joins(:statistics).where(statistics: { stat_type: "interaction" }) }
 
 
-  def verified?
-    verification_status == "verified"
-  end
-
   def view_count
     statistics.where(stat_type: "view").count
   end

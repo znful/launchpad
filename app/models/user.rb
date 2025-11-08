@@ -2,7 +2,7 @@ class User < ApplicationRecord
   has_secure_password
   has_many :sessions, dependent: :destroy
   has_many :offers, dependent: :destroy
-  has_many :notifications, dependent: destroy
+  has_many :notifications, dependent: :destroy
 
   has_many :bookmarks, dependent: :destroy
   has_many :bookmarked_offers, through: :bookmarks, source: :offer

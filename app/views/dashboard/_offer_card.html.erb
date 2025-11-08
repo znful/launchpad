@@ -31,7 +31,7 @@
                 <p class="dropdown-item active"><%= label %></p>
               <% else %>
                 <%= button_to label,
-                offer_path(offer, offer: {status: status}, redirect_to: "dashboard"),
+                offer_path(offer, offer: {status: status}, redirect_to: request.fullpath),
                 method: :patch,
                 class: "dropdown-item" %>
               <% end %>

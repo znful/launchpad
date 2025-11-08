@@ -5,7 +5,7 @@ module DashboardHelper
     elsif offer.rejected?
       content_tag(:p, "Rejected", class: "dropdown-item disabled")
     else
-      button_to "Request Verification", offer_path(offer, offer: { verification_status: "pending" }, redirect_to: "dashboard"), method: :patch, class: "dropdown-item"
+      button_to "Request Verification", offer_path(offer, offer: { verification_status: "pending" }, redirect_to: request.fullpath), method: :patch, class: "dropdown-item"
     end
   end
 end

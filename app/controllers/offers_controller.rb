@@ -64,7 +64,7 @@ class OffersController < ApplicationController
 
   # PATCH/PUT /offers/1 or /offers/1.json
   def update
-    redirect_path = params[:redirect_to] ? dashboard_path : @offer
+    redirect_path = params[:redirect_to] || @offer
 
     respond_to do |format|
       if @offer.update(offer_params)

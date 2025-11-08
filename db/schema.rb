@@ -10,39 +10,39 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_10_02_150613) do
+ActiveRecord::Schema[8.1].define(version: 2025_11_06_233648) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
   create_table "action_text_rich_texts", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.string "name", null: false
     t.text "body"
-    t.string "record_type", null: false
-    t.uuid "record_id", null: false
     t.datetime "created_at", null: false
+    t.string "name", null: false
+    t.uuid "record_id", null: false
+    t.string "record_type", null: false
     t.datetime "updated_at", null: false
     t.index ["record_type", "record_id", "name"], name: "index_action_text_rich_texts_uniqueness", unique: true
   end
 
   create_table "active_storage_attachments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.string "name", null: false
-    t.string "record_type", null: false
-    t.uuid "record_id", null: false
     t.uuid "blob_id", null: false
     t.datetime "created_at", null: false
+    t.string "name", null: false
+    t.uuid "record_id", null: false
+    t.string "record_type", null: false
     t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
     t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
   end
 
   create_table "active_storage_blobs", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.string "key", null: false
-    t.string "filename", null: false
-    t.string "content_type"
-    t.text "metadata"
-    t.string "service_name", null: false
     t.bigint "byte_size", null: false
     t.string "checksum"
+    t.string "content_type"
     t.datetime "created_at", null: false
+    t.string "filename", null: false
+    t.string "key", null: false
+    t.text "metadata"
+    t.string "service_name", null: false
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
@@ -53,54 +53,55 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_02_150613) do
   end
 
   create_table "bookmarks", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.uuid "user_id", null: false
-    t.uuid "offer_id", null: false
     t.datetime "created_at", null: false
+    t.uuid "offer_id", null: false
     t.datetime "updated_at", null: false
+    t.uuid "user_id", null: false
     t.index ["offer_id"], name: "index_bookmarks_on_offer_id"
     t.index ["user_id"], name: "index_bookmarks_on_user_id"
   end
 
   create_table "offers", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.string "company_name"
-    t.string "title"
-    t.text "description"
     t.string "address"
     t.string "application_link"
+    t.string "company_name"
     t.integer "contract_type"
-    t.integer "job_type"
-    t.integer "verification_status"
-    t.integer "status"
     t.datetime "created_at", null: false
+    t.text "description"
+    t.integer "job_type"
+    t.float "latitude"
+    t.float "longitude"
+    t.integer "status"
+    t.string "title"
     t.datetime "updated_at", null: false
     t.uuid "user_id", null: false
-    t.float "longitude"
-    t.float "latitude"
+    t.integer "verification_status"
     t.index ["user_id"], name: "index_offers_on_user_id"
   end
 
   create_table "sessions", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.uuid "user_id", null: false
-    t.string "ip_address"
-    t.string "user_agent"
     t.datetime "created_at", null: false
+    t.string "ip_address"
     t.datetime "updated_at", null: false
+    t.string "user_agent"
+    t.uuid "user_id", null: false
     t.index ["user_id"], name: "index_sessions_on_user_id"
   end
 
   create_table "statistics", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.string "location"
-    t.integer "stat_type"
-    t.uuid "offer_id", null: false
     t.datetime "created_at", null: false
+    t.string "location"
+    t.uuid "offer_id", null: false
+    t.integer "stat_type"
     t.datetime "updated_at", null: false
     t.index ["offer_id"], name: "index_statistics_on_offer_id"
   end
 
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.boolean "admin", default: false, null: false
+    t.datetime "created_at", null: false
     t.string "email_address", null: false
     t.string "password_digest", null: false
-    t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["email_address"], name: "index_users_on_email_address", unique: true
   end

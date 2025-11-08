@@ -1,0 +1,39 @@
+<%= content_for :title, "Admin - Launchpad" %>
+
+<%= content_for :pre_title, "Administration" %>
+
+<%= content_for :page_title, "Dashboard" %>
+
+<% if @pending_offers_count.positive? %>
+  <div
+    class="alert alert-warning d-flex align-items-center mt-4 fade show"
+    role="alert"
+  >
+    <i class="ti ti-exclamation-triangle-fill me-2"></i>
+
+    <div>
+      There
+      <%= @pending_offers_count == 1 ? "is" : "are" %>
+      <strong><%= pluralize(@pending_offers_count, "offer") %></strong>
+      pending verification.
+      <%= link_to "Review now", "#", class: "alert-link ms-2" %>
+    </div>
+
+    <div class="ms-auto">
+      <button
+        type="button"
+        class="btn-close"
+        data-bs-dismiss="alert"
+        aria-label="Close"
+      ></button>
+    </div>
+  </div>
+<% end %>
+
+<section id="stat-cards" class="mt-4">
+  <%= render partial: "admin/dashboard/stat_cards" %>
+</section>
+
+<section id="latest-offers" class="mt-5">
+  <%= render partial: "admin/dashboard/latest_offers" %>
+</section>

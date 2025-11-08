@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_11_06_233648) do
+ActiveRecord::Schema[8.1].define(version: 2025_11_08_220111) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -61,18 +61,26 @@ ActiveRecord::Schema[8.1].define(version: 2025_11_06_233648) do
     t.index ["user_id"], name: "index_bookmarks_on_user_id"
   end
 
+  create_table "notifications", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.text "content", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.uuid "user_id", null: false
+    t.index ["user_id"], name: "index_notifications_on_user_id"
+  end
+
   create_table "offers", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.string "address"
-    t.string "application_link"
-    t.string "company_name"
-    t.integer "contract_type"
+    t.string "address", null: false
+    t.string "application_link", null: false
+    t.string "company_name", null: false
+    t.integer "contract_type", null: false
     t.datetime "created_at", null: false
     t.text "description"
-    t.integer "job_type"
+    t.integer "job_type", null: false
     t.float "latitude"
     t.float "longitude"
     t.integer "status"
-    t.string "title"
+    t.string "title", null: false
     t.datetime "updated_at", null: false
     t.uuid "user_id", null: false
     t.integer "verification_status"
@@ -110,6 +118,7 @@ ActiveRecord::Schema[8.1].define(version: 2025_11_06_233648) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "bookmarks", "offers"
   add_foreign_key "bookmarks", "users"
+  add_foreign_key "notifications", "users"
   add_foreign_key "offers", "users"
   add_foreign_key "sessions", "users"
   add_foreign_key "statistics", "offers"

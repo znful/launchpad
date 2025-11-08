@@ -3,12 +3,11 @@ class Admin::DashboardController < ApplicationController
 
   def index
     @user_count = User.count
-    @published_offers_count = Offer.where(status: :published).count
     @all_offers_count = Offer.count
-    @applications_count = Statistic.where(stat_type: :application).count
-    @recent_users = User.order(created_at: :desc).limit(5)
     @recent_offers = Offer.order(created_at: :desc).limit(10)
-    @pending_offers = Offer.where(status: "pending").count
+    @published_offers_count = Offer.where(status: :published).count
+    @applications_count = Statistic.where(stat_type: :application).count
+    @pending_offers_count = Offer.where(verification_status: :pending).count
     render layout: "dashboard"
   end
 
